@@ -1,0 +1,378 @@
+[
+  {
+    "id": "P3-01",
+    "scenario": "SC3",
+    "desc": "limit=0 (biên dưới)",
+    "request": "GET /companies?limit=0",
+    "expect": null,
+    "status": 200,
+    "verdict": "OBSERVE",
+    "seconds": 0.472,
+    "response_head": "{\"data\": {\"companies\": []}, \"totalCount\": 36, \"pageInfo\": {\"startCursor\": null, \"endCursor\": null, \"hasNextPage\": true, \"hasPreviousPage\": false}}"
+  },
+  {
+    "id": "P3-02",
+    "scenario": "SC3",
+    "desc": "limit=1",
+    "request": "GET /companies?limit=1",
+    "expect": [
+      200
+    ],
+    "status": 200,
+    "verdict": "MATCH",
+    "seconds": 0.06,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-03",
+    "scenario": "SC3",
+    "desc": "limit=60 (mặc định)",
+    "request": "GET /companies?limit=60",
+    "expect": [
+      200
+    ],
+    "status": 200,
+    "verdict": "MATCH",
+    "seconds": 0.062,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-04",
+    "scenario": "SC3",
+    "desc": "limit=200 (QUERY_MAX_RECORDS)",
+    "request": "GET /companies?limit=200",
+    "expect": [
+      200
+    ],
+    "status": 200,
+    "verdict": "MATCH",
+    "seconds": 0.052,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-05",
+    "scenario": "SC3",
+    "desc": "limit=201: mã nguồn cắt về 200 âm thầm (H1) -> quan sát",
+    "request": "GET /companies?limit=201",
+    "expect": null,
+    "status": 200,
+    "verdict": "OBSERVE",
+    "seconds": 0.059,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-06",
+    "scenario": "SC3",
+    "desc": "limit rất lớn",
+    "request": "GET /companies?limit=100000",
+    "expect": null,
+    "status": 200,
+    "verdict": "OBSERVE",
+    "seconds": 0.057,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-07",
+    "scenario": "SC3",
+    "desc": "limit âm",
+    "request": "GET /companies?limit=-1",
+    "expect": [
+      400
+    ],
+    "status": 400,
+    "verdict": "MATCH",
+    "seconds": 0.033,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"limit '-1' is invalid. Should be an integer\"]}"
+  },
+  {
+    "id": "P3-08",
+    "scenario": "SC3",
+    "desc": "limit không phải số",
+    "request": "GET /companies?limit=abc",
+    "expect": [
+      400
+    ],
+    "status": 400,
+    "verdict": "MATCH",
+    "seconds": 0.022,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"limit 'abc' is invalid. Should be an integer\"]}"
+  },
+  {
+    "id": "P3-09",
+    "scenario": "SC3",
+    "desc": "limit thập phân",
+    "request": "GET /companies?limit=1.5",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.048,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"invalid input syntax for type bigint: \\\"2.5\\\"\"]}"
+  },
+  {
+    "id": "P3-10",
+    "scenario": "SC3",
+    "desc": "limit rỗng",
+    "request": "GET /companies?limit=",
+    "expect": null,
+    "status": 200,
+    "verdict": "OBSERVE",
+    "seconds": 0.05,
+    "response_head": "{\"data\": {\"companies\": [{\"id\": \"04929d99-233d-4854-88a4-bb5683f88f7d\", \"createdAt\": \"2026-10-16T14:30:39.979Z\", \"updatedAt\": \"2026-10-16T14:30:39.979Z\", \"delete"
+  },
+  {
+    "id": "P3-11",
+    "scenario": "SC3",
+    "desc": "starting_after rác",
+    "request": "GET /companies?starting_after=khong-phai-cursor",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.029,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"Invalid cursor: khong-phai-cursor\"]}"
+  },
+  {
+    "id": "P3-12",
+    "scenario": "SC3",
+    "desc": "ending_before rác",
+    "request": "GET /companies?ending_before=%00",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.032,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"Invalid cursor: \\u0000\"]}"
+  },
+  {
+    "id": "P3-13",
+    "scenario": "SC3",
+    "desc": "order_by trường không tồn tại",
+    "request": "GET /companies?order_by=khongtontai",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.028,
+    "response_head": "{\"statusCode\": 400, \"error\": \"Error\", \"messages\": [\"Field \\\"khongtontai\\\" does not exist or is not sortable\"], \"code\": \"FIELD_NOT_FOUND\"}"
+  },
+  {
+    "id": "P3-14",
+    "scenario": "SC3",
+    "desc": "filter sai cú pháp",
+    "request": "GET /companies?filter=name[eq",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.025,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"'filter' invalid for 'name[eq'. eg: price[gte]:10\"]}"
+  },
+  {
+    "id": "P3-15",
+    "scenario": "SC3",
+    "desc": "depth ngoài khoảng",
+    "request": "GET /companies?depth=99",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.02,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"'depth=99' parameter invalid. Allowed values are 0, 1\"]}"
+  },
+  {
+    "id": "P3-16",
+    "scenario": "SC3",
+    "desc": "id không phải UUID",
+    "request": "GET /companies/not-a-uuid",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.031,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"'not-a-uuid' is not a valid UUID\"]}"
+  },
+  {
+    "id": "P3-17",
+    "scenario": "SC3",
+    "desc": "id UUID hợp lệ nhưng không tồn tại",
+    "request": "GET /companies/20202020-0000-4000-8000-000000000001",
+    "expect": [
+      404
+    ],
+    "status": 404,
+    "verdict": "MATCH",
+    "seconds": 0.033,
+    "response_head": "{\"statusCode\": 404, \"error\": \"NotFoundException\", \"messages\": [\"Record not found\"]}"
+  },
+  {
+    "id": "P4-01",
+    "scenario": "SC4",
+    "desc": "batch rỗng []",
+    "request": "POST /batch/companies",
+    "expect": null,
+    "status": 201,
+    "verdict": "OBSERVE",
+    "seconds": 0.047,
+    "response_head": "{\"data\": {\"createCompanies\": []}}"
+  },
+  {
+    "id": "P4-02",
+    "scenario": "SC4",
+    "desc": "batch 1 bản ghi",
+    "request": "POST /batch/companies",
+    "expect": [
+      200,
+      201
+    ],
+    "status": 201,
+    "verdict": "MATCH",
+    "seconds": 0.065,
+    "response_head": "{\"data\": {\"createCompanies\": [{\"id\": \"dca42b51-0cbf-4397-8fbd-9cdb15faab8d\", \"createdAt\": \"2026-10-16T14:30:44.365Z\", \"updatedAt\": \"2026-10-16T14:30:44.365Z\", \""
+  },
+  {
+    "id": "P4-03",
+    "scenario": "SC4",
+    "desc": "batch 200 bản ghi (biên trên)",
+    "request": "POST /batch/companies",
+    "expect": [
+      200,
+      201
+    ],
+    "status": 201,
+    "verdict": "MATCH",
+    "seconds": 0.361,
+    "response_head": "{\"data\": {\"createCompanies\": [{\"id\": \"27e360be-2ef6-4f3e-80dd-29be7b51c97f\", \"createdAt\": \"2026-10-16T14:30:44.483Z\", \"updatedAt\": \"2026-10-16T14:30:44.483Z\", \""
+  },
+  {
+    "id": "P4-04",
+    "scenario": "SC4",
+    "desc": "batch 201 bản ghi: mã nguồn báo 'Maximum number of records to upsert is 200'",
+    "request": "POST /batch/companies",
+    "expect": [
+      400,
+      413,
+      422
+    ],
+    "status": 400,
+    "verdict": "MATCH",
+    "seconds": 0.057,
+    "response_head": "{\"statusCode\": 400, \"error\": \"BadRequestException\", \"messages\": [\"Maximum number of records to upsert is 200.\"]}"
+  },
+  {
+    "id": "P4-05",
+    "scenario": "SC4",
+    "desc": "batch 61 bản ghi (giá trị 60 trong ghi chú nhóm: kiểm tra có bị chặn không)",
+    "request": "POST /batch/companies",
+    "expect": [
+      200,
+      201
+    ],
+    "status": 201,
+    "verdict": "MATCH",
+    "seconds": 0.144,
+    "response_head": "{\"data\": {\"createCompanies\": [{\"id\": \"b55b60da-2bcc-4630-af46-2c6e80bc53e8\", \"createdAt\": \"2026-10-16T14:30:44.867Z\", \"updatedAt\": \"2026-10-16T14:30:44.867Z\", \""
+  },
+  {
+    "id": "P4-06",
+    "scenario": "SC4",
+    "desc": "body là object thay vì mảng",
+    "request": "POST /batch/companies",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.048,
+    "response_head": "{\"statusCode\": 400, \"error\": \"TypeError\", \"messages\": [\"args.data.forEach is not a function\"]}"
+  },
+  {
+    "id": "P4-07",
+    "scenario": "SC4",
+    "desc": "mảng chứa phần tử không hợp lệ",
+    "request": "POST /batch/companies",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.024,
+    "response_head": "{\"statusCode\": 400, \"error\": \"TypeError\", \"messages\": [\"Cannot read properties of null (reading 'position')\"]}"
+  },
+  {
+    "id": "P4-08",
+    "scenario": "SC4",
+    "desc": "JSON hỏng",
+    "request": "POST /batch/companies",
+    "expect": null,
+    "status": 400,
+    "verdict": "OBSERVE",
+    "seconds": 0.012,
+    "response_head": "{\"message\": \"Expected property name or '}' in JSON at position 1 (line 1 column 2)\", \"error\": \"Bad Request\", \"statusCode\": 400}"
+  },
+  {
+    "id": "P5-01",
+    "scenario": "SC5",
+    "desc": "không gửi key",
+    "request": "GET /companies",
+    "expect": [
+      401
+    ],
+    "status": 403,
+    "verdict": "DIFF",
+    "seconds": 0.013,
+    "response_head": "{\"statusCode\": 403, \"messages\": [\"Missing authentication token\"], \"error\": \"FORBIDDEN_EXCEPTION\"}"
+  },
+  {
+    "id": "P5-02",
+    "scenario": "SC5",
+    "desc": "key sai",
+    "request": "GET /companies",
+    "expect": [
+      401
+    ],
+    "status": 401,
+    "verdict": "MATCH",
+    "seconds": 0.011,
+    "response_head": "{\"statusCode\": 401, \"messages\": [\"Token invalid.\"], \"error\": \"UNAUTHENTICATED\"}"
+  },
+  {
+    "id": "P5-03",
+    "scenario": "SC5",
+    "desc": "scheme sai (Basic)",
+    "request": "GET /companies",
+    "expect": [
+      401
+    ],
+    "status": 403,
+    "verdict": "DIFF",
+    "seconds": 0.018,
+    "response_head": "{\"statusCode\": 403, \"messages\": [\"Missing authentication token\"], \"error\": \"FORBIDDEN_EXCEPTION\"}"
+  },
+  {
+    "id": "P5-04",
+    "scenario": "SC5",
+    "desc": "Bearer rỗng",
+    "request": "GET /companies",
+    "expect": [
+      401
+    ],
+    "status": 403,
+    "verdict": "DIFF",
+    "seconds": 0.03,
+    "response_head": "{\"statusCode\": 403, \"messages\": [\"Missing authentication token\"], \"error\": \"FORBIDDEN_EXCEPTION\"}"
+  },
+  {
+    "id": "P5-05",
+    "scenario": "SC5",
+    "desc": "ghi không có key",
+    "request": "POST /companies",
+    "expect": [
+      401
+    ],
+    "status": 403,
+    "verdict": "DIFF",
+    "seconds": 0.01,
+    "response_head": "{\"statusCode\": 403, \"messages\": [\"Missing authentication token\"], \"error\": \"FORBIDDEN_EXCEPTION\"}"
+  },
+  {
+    "id": "P5-06",
+    "scenario": "SC5",
+    "desc": "/open-api/core không key (endpoint công khai, kỳ vọng khung schema)",
+    "request": "GET /open-api/core",
+    "expect": null,
+    "status": 200,
+    "verdict": "OBSERVE",
+    "seconds": 0.013,
+    "response_head": "{\"openapi\": \"3.1.1\", \"info\": {\"title\": \"Twenty Api\", \"description\": \"Use this page to explore and call the **REST API**.\\n\\n## Authentication\\n\\nSend a Bearer t"
+  }
+]

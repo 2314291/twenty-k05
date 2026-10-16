@@ -1,0 +1,17 @@
+# Bí mật: KHÔNG commit
+.env
+*.key
+secrets/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.hypothesis/
+
+# Dữ liệu chạy thô (có thể chứa bí mật). Chỉ commit bản đã redact trong reports/
+reports/**/*.raw
+
+# Cache của Schemathesis
+.schemathesis/

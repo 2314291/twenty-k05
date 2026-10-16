@@ -1,0 +1,9 @@
+Dự án      : R10 twentyhq/twenty + K05 (Schema-Based API / Fuzz, Schemathesis)
+Tag        : twenty/v2.45.6
+SHA        : 6007ad5a7f6cb676fd8a9ff0c2a86a2e3d4c260e
+Image      : twentycrm/twenty:v2.45.6
+Base URL   : http://localhost:3001   (REST: http://localhost:3001/rest)
+Node       : 24.16.0  (.nvmrc)    Yarn: 4.13.0
+Postgres   : 16 (image postgres:16)    Redis: image redis
+Schemathesis: 4.31.1
+Ghi chú    : SHA/tag phải trùng bản đã đăng ký với thầy ngày 18/9. Tiến xác nhận lại.

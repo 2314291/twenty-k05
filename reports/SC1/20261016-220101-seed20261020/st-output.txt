@@ -1,0 +1,1023 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from C:\kiem thu\twenty-k05\schema\core.openapi.json
+ (in 0.62s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       13 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Examples (in 1.79s)
+
+     ❌ 12 failed  ⏭   1 skipped
+
+ ❌  Coverage (in 125.34s)
+
+     ❌ 13 failed
+
+ ❌  Fuzzing (in 173.72s)
+
+     ❌ 13 failed
+
+=================================== FAILURES ===================================
+______________________________ DELETE /companies _______________________________
+1. Test Case ID: mJpJ3P
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Object company doesn't have any \"emails\" field."]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?soft_delete=false&filter=emails.primaryEmail%5Beq%5D%3Afoo99%40example.com'
+
+    st replay mJpJ3P
+
+2. Test Case ID: gPi6c7
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&soft_delete=true'
+
+    st replay gPi6c7
+
+____________________________ DELETE /companies/{id} ____________________________
+1. Test Case ID: f87heP
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?soft_delete=true'
+
+    st replay f87heP
+
+2. Test Case ID: rIuZU0
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?soft_delete=null&soft_delete=null'
+
+    st replay rIuZU0
+
+________________________________ GET /companies ________________________________
+1. Test Case ID: IqSyxl
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=60&depth=1&order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&filter=name%5Blike%5D%3A%22%25value%25%22&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay IqSyxl
+
+2. Test Case ID: 5VwRCR
+
+- Response violates schema (5 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"986bcf5e-8a29-4b7b-b9ee-68715c8d0a5b","createdAt":"2026-10-16T15:01:09.646Z","updatedAt":"2026-10-16T15:01:09.646Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amountMi // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?depth=0&ending_before='
+
+    st replay 5VwRCR
+
+3. Test Case ID: abiutd
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"986bcf5e-8a29-4b7b-b9ee-68715c8d0a5b","createdAt":"2026-10-16T15:01:09.646Z","updatedAt":"2026-10-16T15:01:09.646Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amountMi // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=201'
+
+    st replay abiutd
+
+4. Test Case ID: etnD5l
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"986bcf5e-8a29-4b7b-b9ee-68715c8d0a5b","createdAt":"2026-10-16T15:01:09.646Z","updatedAt":"2026-10-16T15:01:09.646Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amountMi // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay etnD5l
+
+____________________________ GET /companies/groupBy ____________________________
+1. Test Case ID: 22wrpe
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid order_by query parameter - should be a valid array of objects - ex: [{\"firstField\": \"AscNullsFirst\"}, {\"secondField\": {\"subField\": \"DescNullsLast\"}}, {\"aggregate\": {\"aggregateField\": \"DescNullsLast\"}}, {dateField: {\"orderBy\": \"AscNullsFirst\", \"granularity\": \"DAY\"}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?limit=60&include_records_sample=false&group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=name%5Blike%5D%3A%22%25value%25%22&order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&aggregate=%5B%22countNotEmptyId%22%2C+%22sumAmount%22%5D&order_by_for_records=createdAt'
+
+    st replay 22wrpe
+
+2. Test Case ID: TOwMFM
+
+- Response violates schema
+
+    [{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-16T15:01:09.646Z"],"records":[]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "companiesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "countNotEmptyId": "1",
+                "groupByDimensionValues": [
+                    "2026-10-16T15:01:09.646Z"
+                ],
+                "records": []
+            }
+        ]
+
+[200] OK:
+
+    `[{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-16T15:01:09.646Z"],"records":[]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&limit=60&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true'
+
+    st replay TOwMFM
+
+3. Test Case ID: UuEaaX
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt'
+
+    st replay UuEaaX
+
+_____________________________ GET /companies/{id} ______________________________
+1. Test Case ID: FN6FGm
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay FN6FGm
+
+2. Test Case ID: cMzX2N
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname'
+
+    st replay cMzX2N
+
+3. Test Case ID: durWYc
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=0&fields=id%2Cname'
+
+    st replay durWYc
+
+_______________________________ PATCH /companies _______________________________
+1. Test Case ID: pJOCDS
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies?depth=1&fields=id%2Cname%2Cemails%2Ccompany&filter=name%5Blike%5D%3A%22%25value%25%22'
+
+    st replay pJOCDS
+
+2. Test Case ID: SlLQvx
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&filter=createdAt%5Bgte%5D%3A%222023-01-01%22'
+
+    st replay SlLQvx
+
+3. Test Case ID: 5uce3Y
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - accountOwnerId: Incorrect type
+
+[200] OK:
+
+    `{"data":{"updateCompanies":[]}}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&filter=createdAt%5Bgte%5D%3A%222023-01-01%22'
+
+    st replay 5uce3Y
+
+____________________________ PATCH /companies/merge ____________________________
+1. Test Case ID: C801Tm
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay C801Tm
+
+2. Test Case ID: 134mcr
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=0&fields=id%2Cname'
+
+    st replay 134mcr
+
+___________________________ PATCH /companies/restore ___________________________
+1. Test Case ID: YLRd4u
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/restore?depth=1&filter=name%5Blike%5D%3A%22%25value%25%22&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay YLRd4u
+
+2. Test Case ID: ElCKru
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname'
+
+    st replay ElCKru
+
+____________________________ PATCH /companies/{id} _____________________________
+1. Test Case ID: o1z6ii
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay o1z6ii
+
+2. Test Case ID: 4fPIgR
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname'
+
+    st replay 4fPIgR
+
+3. Test Case ID: owZxzc
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=0&fields=id%2Cname'
+
+    st replay owZxzc
+
+________________________ PATCH /companies/{id}/restore _________________________
+1. Test Case ID: ks7KbV
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay ks7KbV
+
+2. Test Case ID: JlaoGI
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&fields=id%2Cname'
+
+    st replay JlaoGI
+
+3. Test Case ID: cuBZ4c
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=0&fields=id%2Cname'
+
+    st replay cuBZ4c
+
+____________________________ POST /batch/companies _____________________________
+1. Test Case ID: mMhRyZ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[]' 'http://localhost:3001/rest/batch/companies?depth=1&upsert=false&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay mMhRyZ
+
+2. Test Case ID: DtgOwe
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay DtgOwe
+
+_______________________________ POST /companies ________________________________
+1. Test Case ID: bX5G3u
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies?depth=1&upsert=false&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay bX5G3u
+
+2. Test Case ID: YVTUG2
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay YVTUG2
+
+3. Test Case ID: zggcyf
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - accountOwnerId: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createCompany":{"id":"986bcf5e-8a29-4b7b-b9ee-68715c8d0a5b","name":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay zggcyf
+
+__________________________ POST /companies/duplicates __________________________
+1. Test Case ID: 4k7j9m
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay 4k7j9m
+
+2. Test Case ID: tY9chD
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay tY9chD
+
+3. Test Case ID: QM3ZjL
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - ids -> Array with invalid items: Incorrect type
+
+[200] OK:
+
+    `{"data":[]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": [null]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay QM3ZjL
+
+_____________________________ PUT /companies/{id} ______________________________
+1. Test Case ID: 7Z5dUq
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"TypeError","messages":["Cannot read properties of undefined (reading 'position')"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=0&fields=id%2Cname'
+
+    st replay 7Z5dUq
+
+_________________________ PUT /companies/{id}/restore __________________________
+1. Test Case ID: oLgxBK
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Query path '/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore' invalid. Valid examples: /rest/companies/id or /rest/companies or /rest/batch/companies"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=0&fields=id%2Cname'
+
+    st replay oLgxBK
+
+____________________________ TRACE /batch/companies ____________________________
+1. Test Case ID: TL8Vwa
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/batch/companies?depth=0&fields=id%2Cname&upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay TL8Vwa
+
+_______________________________ TRACE /companies _______________________________
+1. Test Case ID: U2CMh7
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies?depth=0&fields=id%2Cname&upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay U2CMh7
+
+_________________________ TRACE /companies/duplicates __________________________
+1. Test Case ID: oT5b6A
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/duplicates?depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay oT5b6A
+
+___________________________ TRACE /companies/groupBy ___________________________
+1. Test Case ID: K24hkP
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt'
+
+    st replay K24hkP
+
+____________________________ TRACE /companies/merge ____________________________
+1. Test Case ID: kkQOqb
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/merge?depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=0&fields=id%2Cname'
+
+    st replay kkQOqb
+
+___________________________ TRACE /companies/restore ___________________________
+1. Test Case ID: ZmHL6K
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname'
+
+    st replay ZmHL6K
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 13/522
+  Tested: 13
+
+Test Phases:
+  ❌ Examples
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Response violates schema: 8
+  ❌ API accepted schema-violating request: 4
+  ❌ API rejected schema-compliant request: 12
+  ❌ Missing header not rejected: 12
+  ❌ Undocumented HTTP status code: 17
+  ❌ Unsupported methods: 8
+
+Test cases:
+  1257 generated, 43 found 61 unique failures, 16 skipped
+
+Reports:
+  - JUnit: C:\kiem thu\twenty-k05\reports\SC1\20261016-220101-seed20261020\junit-20261016T220102Z.xml
+  - NDJSON: C:\kiem thu\twenty-k05\reports\SC1\20261016-220101-seed20261020\ndjson-20261016T220102Z.ndjson
+  - JSON: C:\kiem thu\twenty-k05\reports\SC1\20261016-220101-seed20261020\json-20261016T220102Z.json
+  - HTML: C:\kiem thu\twenty-k05\reports\SC1\20261016-220101-seed20261020\html-20261016T220102Z\index.html
+
+Seed: not used in the deterministic mode
+
+============================ 61 failures in 301.04s ============================

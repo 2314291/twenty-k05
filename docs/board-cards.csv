@@ -1,0 +1,21 @@
+Cot,Tieu de,Nguoi nhan,Han,Mo ta
+To do,Tao board va giao the,Tien,2026-10-16,Tao Trello hoac Jira; nhap file nay; moi nguoi nhan the
+To do,Tao repo twenty-k05 tren GitHub va day ma,Tien,2026-10-16,Dung cau truc trong README.md; moi nguoi it nhat 3 commit truoc 20/10
+To do,Xac nhan tag va SHA voi ban dang ky 18/9,Tien,2026-10-17,Doi chieu env/VERSION.txt
+To do,Gui email hoi thay (REST-only; GraphQL; nguong),Tien,2026-10-17,Dung docs/email-hoi-thay.md
+To do,Dung instance Twenty tren may chuan,Tuan,2026-10-17,docs/SETUP.md muc 2-4; truoc 12:00
+To do,Nop muc C va H,Tuan,2026-10-18,Anh bang chung; env/VERSION.txt; truoc 12:00
+To do,Quay video du phong,Tuan,2026-10-19,1-2 phut
+To do,Dua tai lieu kien truc va ve lai sodo,Thuan,2026-10-18,docs/architecture.md; so do truoc 18:00
+To do,Dung lai tu may sach theo README,Thuan,2026-10-19,Ghi cac cho tai lieu thieu
+To do,Nop muc A va B,Thuan,2026-10-19,Truoc 12:00
+To do,Tao API key va tai core.openapi.json,Trung,2026-10-18,python scripts/fetch_schema.py; truoc 12:00
+To do,Chot danh sach operation,Trung,2026-10-18,python scripts/list_operations.py --md docs/operations.md
+To do,Seed du lieu va chay 3 luong nghiep vu,Trung,2026-10-19,seed.py; business_flows.py; truoc 12:00
+To do,Tao key role chi doc cho SC5,Trung,2026-10-19,docs/business-flows.md
+To do,Cai Schemathesis va chay thu SC1 tren Companies,Quang,2026-10-19,python scripts/run_k05.py SC1; truoc 18:00
+To do,Ca do co y (red case),Quang,2026-10-19,make_red_case.py; run_k05.py SC1 --label RED
+To do,Probe bien limit batch auth,Quang,2026-10-19,probe_boundaries.py
+To do,Ghep bao cao A-E va slide nhap,Tien,2026-10-19,docs/bao-cao-giua-ky.md; slide truoc 20:00
+To do,Ra soat checklist SPEC muc 10,Tien,2026-10-19,Tick toi 19/10
+To do,Demo giua ky,Ca nhom,2026-10-20,docs/demo-script.md
