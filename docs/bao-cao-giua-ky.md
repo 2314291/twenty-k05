@@ -24,16 +24,19 @@ Trạng thái: **XONG**. Sơ đồ container (server, worker, PostgreSQL, Redis,
 
 ## C. Môi trường và 3 luồng nghiệp vụ
 
-Trạng thái: tài liệu **XONG**; bằng chứng **CHỜ CHẠY THẬT**.
+Trạng thái: tài liệu **XONG**; bằng chứng **XONG** (17/10), còn thiếu video dự phòng.
 
 - Cài đặt, biến môi trường, lệnh, sự cố: `docs/SETUP.md`; ghim phiên bản: `env/VERSION.txt`; Compose: `env/docker-compose.yml` (cổng 3001).
 - 3 luồng (tạo Company; tạo Person gắn Company; đổi stage Opportunity): `docs/business-flows.md`, chạy bằng `python scripts/business_flows.py`.
 
 | Bằng chứng | File | Có chưa |
 |---|---|---|
-| Instance chạy (`docker compose ps`) | `evidence/01_*.png` | [ĐIỀN] |
-| Đăng nhập Twenty ở :3001 | `evidence/02_*.png` | [ĐIỀN] |
-| Kết quả 3 luồng | `evidence/business-flows-20261016-213042.json` | Có (cả 3 luồng đạt, 16/10) |
+| Instance chạy (`docker compose ps`) | `evidence/01_docker_compose_ps.png` | Có (17/10, máy Tuấn) |
+| Đăng nhập Twenty ở :3001 | `evidence/02_dang_nhap.png` | Có (17/10) |
+| Companies có dữ liệu | `evidence/03_companies.png` | Có (17/10) |
+| Tạo API key (đã che key) | `evidence/04_tao_api_key.png` | Có (17/10) |
+| Lấy schema: 322 đường dẫn, 522 operation | `evidence/05_fetch_schema.png` | Có (17/10); cấu trúc khớp bản nhóm 16/10, chỉ khác 80 UUID ví dụ riêng của workspace |
+| Kết quả 3 luồng | `evidence/business-flows-20261016-213042.json`, `evidence/business-flows-20261017-121256.json`, `evidence/06_business_flows.png` | Có (cả 3 luồng đạt ở hai lần chạy, 16/10 và 17/10 trên hai máy; F3c đọc lại stage = MEETING) |
 | Video dự phòng 1–2 phút | `evidence/demo.mp4` | [ĐIỀN] |
 
 ## D. Kỹ thuật K05
