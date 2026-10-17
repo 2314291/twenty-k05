@@ -8,12 +8,12 @@ Nhóm không sửa mã Twenty: mục tiêu là ghi nhận và đưa ra cách đi
 
 | ID | Tiêu đề | Mức độ | Tần suất | Workaround | Trạng thái |
 |---|---|---|---|---|---|
-| [ENV-01](ENV-01-install-apps-bo-qua.md) | Trang Install apps: bấm "Bỏ qua" không chuyển trang | Trung bình | 1/1 lần (17/10) | Gõ thẳng `localhost:3001/objects/companies` | Mới |
-| [ENV-02](ENV-02-nhan-dich-tron-ngon-ngu.md) | Nhãn giao diện trộn tiếng Việt và tiếng Anh, có dấu ngoặc kép thừa | Thấp | Luôn luôn | Không cần | Mới |
+| [ENV_01](ENV_01_install_apps_bo_qua.md) | Trang Install apps: bấm "Bỏ qua" không chuyển trang | Trung bình | 1/1 lần (17/10) | Gõ thẳng `localhost:3001/objects/companies` | Mới |
+| [ENV_02](ENV_02_nhan_dich_tron_ngon_ngu.md) | Nhãn giao diện trộn tiếng Việt và tiếng Anh, có dấu ngoặc kép thừa | Thấp | Luôn luôn | Không cần | Mới |
 
 ## Mẫu ghi một lỗi
 
-Mỗi lỗi một file `ENV-NN-ten-ngan.md`, ảnh để trong `anh/`. Các mục bắt buộc:
+Mỗi lỗi một file `ENV_NN_ten_ngan.md`, ảnh để trong `anh/`. Các mục bắt buộc:
 
 - **Môi trường:** phiên bản, hệ điều hành, trình duyệt
 - **Các bước tái hiện:** đánh số, người khác làm theo được

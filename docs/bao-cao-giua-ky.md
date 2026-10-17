@@ -31,8 +31,8 @@ Trạng thái: tài liệu **XONG**; bằng chứng **CHỜ CHẠY THẬT**.
 
 | Bằng chứng | File | Có chưa |
 |---|---|---|
-| Instance chạy (`docker compose ps`) | `evidence/01-*.png` | [ĐIỀN] |
-| Đăng nhập Twenty ở :3001 | `evidence/02-*.png` | [ĐIỀN] |
+| Instance chạy (`docker compose ps`) | `evidence/01_*.png` | [ĐIỀN] |
+| Đăng nhập Twenty ở :3001 | `evidence/02_*.png` | [ĐIỀN] |
 | Kết quả 3 luồng | `evidence/business-flows-20261016-213042.json` | Có (cả 3 luồng đạt, 16/10) |
 | Video dự phòng 1–2 phút | `evidence/demo.mp4` | [ĐIỀN] |
 

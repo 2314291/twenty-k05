@@ -1,4 +1,4 @@
-# ENV-02. Nhãn giao diện trộn tiếng Việt và tiếng Anh, có dấu ngoặc kép thừa
+# ENV_02. Nhãn giao diện trộn tiếng Việt và tiếng Anh, có dấu ngoặc kép thừa
 
 | Mục | Nội dung |
 |---|---|
@@ -21,13 +21,16 @@
 | `/create/profile`, ô thứ nhất | `Tên riêng` | `"Tên riêng"` (có dấu ngoặc kép) |
 | `/create/profile`, ô thứ hai | `Họ` | `Last name` (chưa dịch) |
 | `/objects/companies`, nút lọc | `Lọc` | `"Lọc"` (có dấu ngoặc kép) |
+| Cài đặt, menu bên trái | `Kinh nghiệm` | `"Kinh nghiệm"` (có dấu ngoặc kép) |
+| Cài đặt › MCP & APIs › khoá API | `Hết hạn` | `"Hết hạn"` (có dấu ngoặc kép) |
 
 Nhận định: bản dịch tiếng Việt của Twenty chưa hoàn chỉnh; dấu ngoặc kép có vẻ nằm sẵn trong chuỗi dịch.
 
 ## Bằng chứng
 
-- `anh/ENV-02-create-profile.png`: trang `/create/profile`.
-- `../../evidence/03-companies.png`: nút `"Lọc"` trên trang Công ty.
+- `anh/ENV_02_create_profile.png`: trang `/create/profile`.
+- `../../evidence/03_companies.png`: nút `"Lọc"` trên trang Công ty.
+- `../../evidence/04_tao_api_key.png`: `"Kinh nghiệm"`, `"Hết hạn"`.
 
 ## Workaround
 

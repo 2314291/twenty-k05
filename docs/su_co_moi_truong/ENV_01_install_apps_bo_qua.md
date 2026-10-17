@@ -1,4 +1,4 @@
-# ENV-01. Trang Install apps: bấm "Bỏ qua" không chuyển trang
+# ENV_01. Trang Install apps: bấm "Bỏ qua" không chuyển trang
 
 | Mục | Nội dung |
 |---|---|
@@ -36,7 +36,7 @@ Khi kẹt ở trang Install apps, gõ thẳng `http://localhost:3001/objects/com
 
 ## Bằng chứng
 
-- `anh/ENV-01-install-apps.png`: trang `/install-apps` trước khi bấm.
+- `anh/ENV_01_install_apps.png`: trang `/install-apps` trước khi bấm.
 
 ## Chưa biết
 
