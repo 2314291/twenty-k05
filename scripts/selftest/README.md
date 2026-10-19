@@ -5,3 +5,4 @@ cố ý (limit quá lớn → 500) để kiểm tra đường ống reproducer/t
 Kết quả chạy trên mock **không** được đưa vào báo cáo như kết quả của Twenty và không được lưu trong `reports/`.
 
     python scripts/selftest/run_selftest.py
+    python scripts/selftest/test_hooks.py      # chỉ kiểm tra hooks/k05_hooks.py, không cần Schemathesis
