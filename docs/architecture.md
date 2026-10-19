@@ -67,6 +67,8 @@ flowchart LR
     Worker --> Vol
 ```
 
+![Sơ đồ container](images/so-do-container.png)
+
 Nguồn: `packages/twenty-docker/docker-compose.yml` **[mã]**: dịch vụ `server`, `worker` (cùng image `twentycrm/twenty:${TAG}`, lệnh `yarn worker:prod`), `db` (`postgres:16`), `redis`; cổng `3001:3000`; `worker` chờ `db` và `server` khỏe.
 
 ## B. Kiến trúc mức component/container và module liên quan test
@@ -89,6 +91,8 @@ flowchart TB
     OA["OpenApiController<br/>GET /open-api/core, /rest/open-api/core"] --> OAS["OpenApiService<br/>sinh schema theo metadata workspace"]
     OAS --> Meta["FlatObjectMetadata<br/>(metadata-modules)"]
 ```
+
+![Sơ đồ component tầng REST](images/so-do-component-rest.png)
 
 ### B.2. Các module liên quan trực tiếp tới kiểm thử
 
@@ -128,13 +132,15 @@ sequenceDiagram
     G->>G: JWT → tra apiKeyMap → role → quyền object
     G->>Ctl: AuthenticatedRequest
     Ctl->>H: createOne (status 201)
-    H->>H: parse fields, depth, upsert; buildCommonOptions (metadata, quyền)
+    H->>H: parse fields, depth, upsert, rồi buildCommonOptions (metadata, quyền)
     H->>Q: execute({data, selectedFields, upsert})
     Q->>DB: INSERT (trong transaction nếu cần)
     DB-->>Q: bản ghi
     Q-->>H: results
     H-->>C: 201 {"data": {"createCompany": {...}}}
 ```
+
+![Luồng tạo Company](images/luong-tao-company.png)
 
 Handler `RestApiCreateManyHandler` **[mã]** trả `{ data: { create<Plural>: [...] } }`; handler tạo một bản ghi theo cùng mẫu **[chưa chạy]**: khóa phản hồi `createCompany` cần xác nhận khi chạy `scripts/business_flows.py`.
 
@@ -163,6 +169,8 @@ sequenceDiagram
     B->>B: ApiKeyRoleService.getRoleIdForApiKeyId → rolesPermissions[roleId]
     B->>B: objectsPermissions quyết định được đọc/ghi object nào
 ```
+
+![Luồng xác thực bằng API key](images/luong-xac-thuc-api-key.png)
 
 ### F5. Lấy OpenAPI schema (`GET /open-api/core`)
 
