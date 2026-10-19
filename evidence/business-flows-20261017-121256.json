@@ -1,0 +1,353 @@
+[
+  {
+    "step": "F1 tạo Company",
+    "request": "POST /rest/companies",
+    "body": {
+      "name": "K05-FLOW-Company",
+      "domainName": {
+        "primaryLinkUrl": "https://k05-flow.example.com"
+      }
+    },
+    "status": 201,
+    "seconds": 0.111,
+    "response": {
+      "data": {
+        "createCompany": {
+          "id": "ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+          "createdAt": "2026-10-17T05:12:56.291Z",
+          "updatedAt": "2026-10-17T05:12:56.291Z",
+          "deletedAt": null,
+          "name": "K05-FLOW-Company",
+          "domainName": {
+            "primaryLinkLabel": "",
+            "primaryLinkUrl": "k05-flow.example.com",
+            "secondaryLinks": []
+          },
+          "address": {
+            "addressStreet1": "",
+            "addressStreet2": "",
+            "addressCity": "",
+            "addressPostcode": "",
+            "addressState": "",
+            "addressCountry": "",
+            "addressLat": null,
+            "addressLng": null
+          },
+          "linkedinLink": {
+            "primaryLinkLabel": "",
+            "primaryLinkUrl": "",
+            "secondaryLinks": []
+          },
+          "annualRevenue": {
+            "amountMicros": null,
+            "currencyCode": null
+          },
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'company':4 'flow':3 'k05':2 'k05-flow-company':1 'k05-flow.example.com':5",
+          "accountOwnerId": null
+        }
+      }
+    }
+  },
+  {
+    "step": "F2 tạo Person gắn Company",
+    "request": "POST /rest/people",
+    "body": {
+      "name": {
+        "firstName": "K05",
+        "lastName": "FLOW"
+      },
+      "emails": {
+        "primaryEmail": "k05.flow@example.com"
+      },
+      "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b"
+    },
+    "status": 201,
+    "seconds": 0.051,
+    "response": {
+      "data": {
+        "createPerson": {
+          "id": "f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+          "createdAt": "2026-10-17T05:12:56.349Z",
+          "updatedAt": "2026-10-17T05:12:56.349Z",
+          "deletedAt": null,
+          "name": {
+            "firstName": "K05",
+            "lastName": "FLOW"
+          },
+          "emails": {
+            "primaryEmail": "k05.flow@example.com",
+            "additionalEmails": []
+          },
+          "linkedinLink": {
+            "primaryLinkLabel": "",
+            "primaryLinkUrl": "",
+            "secondaryLinks": []
+          },
+          "jobTitle": "",
+          "phones": {
+            "primaryPhoneNumber": "",
+            "primaryPhoneCountryCode": "",
+            "primaryPhoneCallingCode": "",
+            "additionalPhones": []
+          },
+          "avatarUrl": "",
+          "avatarFile": null,
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'example.com':4 'flow':2 'k05':1 'k05.flow@example.com':3",
+          "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b"
+        }
+      }
+    }
+  },
+  {
+    "step": "F2b đọc lại Person",
+    "request": "GET /rest/people/f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+    "body": null,
+    "status": 200,
+    "seconds": 0.023,
+    "response": {
+      "data": {
+        "person": {
+          "id": "f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+          "createdAt": "2026-10-17T05:12:56.349Z",
+          "updatedAt": "2026-10-17T05:12:56.349Z",
+          "deletedAt": null,
+          "name": {
+            "firstName": "K05",
+            "lastName": "FLOW"
+          },
+          "emails": {
+            "primaryEmail": "k05.flow@example.com",
+            "additionalEmails": []
+          },
+          "linkedinLink": {
+            "primaryLinkLabel": "",
+            "primaryLinkUrl": "",
+            "secondaryLinks": []
+          },
+          "jobTitle": "",
+          "phones": {
+            "primaryPhoneNumber": "",
+            "primaryPhoneCountryCode": "",
+            "primaryPhoneCallingCode": "",
+            "additionalPhones": []
+          },
+          "avatarUrl": "",
+          "avatarFile": null,
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'example.com':4 'flow':2 'k05':1 'k05.flow@example.com':3",
+          "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b"
+        }
+      }
+    }
+  },
+  {
+    "step": "F3a tạo Opportunity (NEW)",
+    "request": "POST /rest/opportunities",
+    "body": {
+      "name": "K05-FLOW-Opportunity",
+      "stage": "NEW",
+      "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+      "pointOfContactId": "f7f5ab14-4acb-4676-a5f4-232d2a41239d"
+    },
+    "status": 201,
+    "seconds": 0.034,
+    "response": {
+      "data": {
+        "createOpportunity": {
+          "id": "d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+          "createdAt": "2026-10-17T05:12:56.412Z",
+          "updatedAt": "2026-10-17T05:12:56.412Z",
+          "deletedAt": null,
+          "name": "K05-FLOW-Opportunity",
+          "amount": {
+            "amountMicros": null,
+            "currencyCode": null
+          },
+          "closeDate": null,
+          "stage": "NEW",
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'flow':3 'k05':2 'k05-flow-opportunity':1 'opportunity':4",
+          "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+          "pointOfContactId": "f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+          "ownerId": null
+        }
+      }
+    }
+  },
+  {
+    "step": "F3b đổi stage -> MEETING",
+    "request": "PATCH /rest/opportunities/d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+    "body": {
+      "stage": "MEETING"
+    },
+    "status": 200,
+    "seconds": 0.045,
+    "response": {
+      "data": {
+        "updateOpportunity": {
+          "id": "d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+          "createdAt": "2026-10-17T05:12:56.412Z",
+          "updatedAt": "2026-10-17T05:12:56.459Z",
+          "deletedAt": null,
+          "name": "K05-FLOW-Opportunity",
+          "amount": {
+            "amountMicros": null,
+            "currencyCode": null
+          },
+          "closeDate": null,
+          "stage": "MEETING",
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'flow':3 'k05':2 'k05-flow-opportunity':1 'opportunity':4",
+          "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+          "pointOfContactId": "f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+          "ownerId": null
+        }
+      }
+    }
+  },
+  {
+    "step": "F3c đọc lại Opportunity",
+    "request": "GET /rest/opportunities/d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+    "body": null,
+    "status": 200,
+    "seconds": 0.019,
+    "response": {
+      "data": {
+        "opportunity": {
+          "id": "d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+          "createdAt": "2026-10-17T05:12:56.412Z",
+          "updatedAt": "2026-10-17T05:12:56.459Z",
+          "deletedAt": null,
+          "name": "K05-FLOW-Opportunity",
+          "amount": {
+            "amountMicros": null,
+            "currencyCode": null
+          },
+          "closeDate": null,
+          "stage": "MEETING",
+          "position": 0,
+          "createdBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "updatedBy": {
+            "source": "API",
+            "workspaceMemberId": null,
+            "name": "K05_full",
+            "context": {}
+          },
+          "searchVector": "'flow':3 'k05':2 'k05-flow-opportunity':1 'opportunity':4",
+          "companyId": "ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+          "pointOfContactId": "f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+          "ownerId": null
+        }
+      }
+    }
+  },
+  {
+    "step": "dọn opportunities",
+    "request": "DELETE /rest/opportunities/d62df5c3-f43c-4f85-b81e-b7f7fe9113a5",
+    "body": null,
+    "status": 200,
+    "seconds": 0.032,
+    "response": {
+      "data": {
+        "deleteOpportunity": {
+          "id": "d62df5c3-f43c-4f85-b81e-b7f7fe9113a5"
+        }
+      }
+    }
+  },
+  {
+    "step": "dọn people",
+    "request": "DELETE /rest/people/f7f5ab14-4acb-4676-a5f4-232d2a41239d",
+    "body": null,
+    "status": 200,
+    "seconds": 0.285,
+    "response": {
+      "data": {
+        "deletePerson": {
+          "id": "f7f5ab14-4acb-4676-a5f4-232d2a41239d"
+        }
+      }
+    }
+  },
+  {
+    "step": "dọn companies",
+    "request": "DELETE /rest/companies/ab475f43-01ab-4b82-813e-0e9a378dcc1b",
+    "body": null,
+    "status": 200,
+    "seconds": 0.131,
+    "response": {
+      "data": {
+        "deleteCompany": {
+          "id": "ab475f43-01ab-4b82-813e-0e9a378dcc1b"
+        }
+      }
+    }
+  }
+]

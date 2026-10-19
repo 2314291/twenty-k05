@@ -62,7 +62,9 @@ Repo của nhóm Tiến đã sửa sẵn `ports: "3001:3000"`.
 
 1. Lần đầu server chạy migration vài phút; trạng thái `unhealthy`/`starting` ban đầu là bình thường (healthcheck gọi `http://localhost:3000/healthz` trong container).
 2. Theo dõi: `docker compose logs -f server`. Khi thấy server lắng nghe là xong.
-3. Mở `http://localhost:3001`, tạo tài khoản và workspace. Bước "Install apps" chọn **Skip**.
+3. Mở `http://localhost:3001`, tạo tài khoản và workspace. Bước "Install apps" chọn **Bỏ qua** (Skip); nếu trang đứng yên, gõ thẳng `http://localhost:3001/objects/companies` (xem [ENV_01](su_co_moi_truong/ENV_01_install_apps_bo_qua.md)). Bước "Mời đội" cũng chọn **Bỏ qua**: instance chỉ chạy ở `localhost` và chưa cấu hình gửi mail.
+4. `docker compose` in khoảng 10 dòng `WARN ... variable is not set` (`STORAGE_S3_*`, `FALLBACK_ENCRYPTION_KEY`, `DISABLE_DB_MIGRATIONS`, `DISABLE_CRON_JOBS_REGISTRATION`). **Vô hại**: đó là biến tuỳ chọn nhóm không dùng (`STORAGE_TYPE=local`; để trống nghĩa là migration và cron vẫn bật).
+5. `docker compose ps`: `db`, `redis`, `server` hiện `(healthy)`; `worker` chỉ hiện `Up` vì compose không khai báo healthcheck cho nó. Muốn biết worker có lỗi không: `docker compose logs worker`.
 
 ## 5. Tạo API key và tải schema
 
@@ -73,12 +75,12 @@ Repo của nhóm Tiến đã sửa sẵn `ports: "3001:3000"`.
 
 ## 6. Dữ liệu mẫu
 
-- Workspace mới có thể có dữ liệu mẫu sẵn của Twenty hoặc trống tùy cách tạo: **xác nhận** khi vào giao diện.
+- Workspace mới **có sẵn 5 công ty mẫu** (Airbnb, Anthropic, Stripe, Figma, Notion), người tạo `System` (xác nhận 17/10/2026). Sau `seed.py --count 30` sẽ có **35** công ty; `seed.py --cleanup` chỉ xoá bản ghi tiền tố `K05-`, không xoá 5 bản ghi mẫu.
 - Dữ liệu K05: `python scripts/seed.py --count 30` tạo 30 công ty, 30 người, 30 cơ hội tiền tố `K05-`; `python scripts/seed.py --cleanup` dọn lại.
 
 ## 7. Bằng chứng cần chụp (Phần C)
 
-Lưu trong `evidence/` (đặt tên `NN-mô-tả.png`):
+Lưu trong `evidence/` (đặt tên `NN_mo_ta.png`, dùng dấu gạch dưới):
 
 | # | Chụp gì |
 |---|---|
@@ -113,6 +115,8 @@ Sau `down -v` phải tạo lại tài khoản, workspace và **API key mới**; 
 | `docker ps` không kết nối được | Mở Docker Desktop, chờ "Engine running" |
 | Schema tải về không có đường dẫn của object | Thiếu hoặc sai Bearer key; xem lại bước 5 |
 | Đăng nhập lại báo sai sau `down -v` | Dữ liệu đã bị xoá, tạo tài khoản mới |
+| Trang "Install apps" bấm Bỏ qua không chuyển trang; F5 báo lỗi | Gõ thẳng `http://localhost:3001/objects/companies` ([ENV_01](su_co_moi_truong/ENV_01_install_apps_bo_qua.md)) |
+| Nhãn giao diện trộn Việt/Anh (`"Tên riêng"`, `Last name`, `"Lọc"`) | Lỗi dịch của Twenty, không ảnh hưởng chức năng ([ENV_02](su_co_moi_truong/ENV_02_nhan_dich_tron_ngon_ngu.md)) |
 
 ## 10. Chạy lại trên máy mới (Phần H)
 
