@@ -37,6 +37,8 @@ def main() -> int:
     rc = 0
     try:
         py = sys.executable
+        hk = sh([py, str(HERE / "test_hooks.py")])
+        assert hk.returncode == 0, "test_hooks.py có ca lỗi"
         r1 = sh([py, str(work / "scripts/run_k05.py"), "SC1", "--seed", "7", "--max-examples", "20"], env=env)
         r2 = sh([py, str(work / "scripts/run_k05.py"), "SC1", "--seed", "7", "--max-examples", "20"], env=env)
         runs = sorted((work / "reports" / "SC1").iterdir())

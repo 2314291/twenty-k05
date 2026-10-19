@@ -11,20 +11,27 @@ cấu hình và chạy. Mọi lệnh chạy qua `python scripts/run_k05.py <SC>`
   `junit-*.xml`, `html-*/`, **`summary.md`**, `summary.json`, `REPRODUCERS.md`, `reproducers/*.sh`.
 - Tái lập: `--generation-deterministic` (loại bỏ ngẫu nhiên); kiểm tra bằng `python scripts/summarize.py --compare <A> <B>`.
   (Ở chế độ này Schemathesis in "Seed: not used"; vẫn truyền `--seed` để ghi lại.)
-- Trước mỗi lần chạy: `python scripts/seed.py --cleanup` rồi `python scripts/seed.py --count 30` để dữ liệu giống nhau.
+- Trước mỗi lần chạy: thêm `--reset` (runner tự gọi `seed.py --cleanup` rồi `seed.py --count 30`) để dữ liệu giống nhau.
+- Hook `hooks/k05_hooks.py` được nạp mặc định (biến `SCHEMATHESIS_HOOKS`):
+  - **Bảo vệ dữ liệu:** `DELETE`/`PATCH /{đối tượng}` (ghi hàng loạt theo filter) bị bọc filter thành
+    `and(<filter gốc>,createdAt[gte]:"<mốc bắt đầu>")`, chỉ chạm bản ghi tạo trong lần chạy. Lý do: lần SC1 16/10 tự xoá sạch Companies (`docs/defects.md` R-01). Tắt: `--no-protect`.
+  - **Id có thật:** ca dương của `GET`/`PATCH /{đối tượng}/{id}` và `.../{id}/restore` dùng id trong `reports/seed-manifest.json` thay vì UUID ngẫu nhiên (giảm 404). `DELETE .../{id}` và ca âm giữ nguyên. Tắt: `--no-real-ids`. Tắt cả hai: `--no-hooks`.
+- Mỗi thư mục kết quả có thêm `run-config.json` (kịch bản, đối tượng, regex, seed, mốc thời gian, số bản ghi seed, hook bật/tắt) để báo cáo Phần H và để so sánh hai lần chạy.
+- Chia nhỏ theo đối tượng (tránh 429, dễ so sánh): `--object companies|people|opportunities|notes|tasks` dùng được cho mọi kịch bản.
 
 ## SC1 — Quét Companies với dữ liệu theo schema (PoC giữa kỳ)
 
 | Mục | Nội dung |
 |---|---|
-| Lệnh | `python scripts/run_k05.py SC1` |
-| Phạm vi | Đường dẫn khớp `^/(batch/)?companies(/\|$)`: list, create, get, update, delete, batch, duplicates, restore, merge, groupBy |
+| Lệnh | `python scripts/run_k05.py SC1 --reset` (Companies); đối tượng khác: `--object people` (tương tự opportunities, notes, tasks) |
+| Phạm vi | Đường dẫn khớp `^/(batch/)?<đối tượng>(/\|$)`: list, create, get, update, delete, batch, duplicates, restore, merge, groupBy (13 operation mỗi đối tượng) |
 | Precondition | Instance chạy; key đầy đủ quyền; đã seed |
 | Check | `all` (gồm 7 check của SPEC mục 5.4 và các check phụ) |
 | Phase / mode | `examples,coverage,fuzzing` / `all` (cả dữ liệu đúng và sai) / 50 ví dụ mỗi operation |
 | Invariant | Không 5xx; status và body đúng schema; dữ liệu sai bị 4xx |
 | Đầu ra | `summary.md` (số operation, số request, lỗi theo check và theo operation), reproducer `.sh` cho từng lỗi |
-| Giới hạn | Request phụ thuộc dữ liệu (cần id có thật) sẽ nhiều 404 → xem SC6 |
+| Giới hạn | Hook chỉ gắn id có thật ở phase coverage/fuzzing (phase examples dùng nguyên ví dụ của schema); `notes`, `tasks` chưa có trong `seed.py` nên vẫn 404 nhiều → SC6 hoặc mở rộng seed (Trung) |
+| Sprint 3 (chạy trên 5 đối tượng) | `for o in companies people opportunities notes tasks; do python scripts/run_k05.py SC1 --object $o --reset; done` |
 
 **Ca đỏ cố ý (chứng minh công cụ bắt được lỗi):**
 ```bash

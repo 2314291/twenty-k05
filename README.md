@@ -24,7 +24,8 @@ cp .env.example .env                                 # điền TWENTY_API_KEY (k
 python scripts/fetch_schema.py
 python scripts/list_operations.py --md docs/operations.md
 python scripts/seed.py --count 30
-python scripts/run_k05.py SC1                        # PoC giữa kỳ
+python scripts/run_k05.py SC1 --reset                # PoC giữa kỳ (--reset: seed lại trước khi chạy)
+python scripts/run_k05.py SC1 --object people --reset # cùng kịch bản trên đối tượng khác
 python scripts/probe_boundaries.py                   # ca biên SC3/SC4/SC5
 ```
 
@@ -39,7 +40,7 @@ Kết quả nằm ở `reports/<SC>/<lần chạy>/` (`summary.md`, `REPRODUCERS
 | `env/` | `docker-compose.yml` (cổng 3001), `.env.example`, `VERSION.txt` |
 | `schema/` | `core.openapi.json` (tải về), `core.red.openapi.json` (ca đỏ) |
 | `scripts/` | `fetch_schema.py`, `list_operations.py`, `seed.py`, `business_flows.py`, `run_k05.py`, `summarize.py`, `probe_boundaries.py`, `make_red_case.py`, `selftest/` |
-| `hooks/` | Dành cho hook Schemathesis (cuối kỳ) |
+| `hooks/` | `k05_hooks.py`: chặn ghi hàng loạt xoá dữ liệu có sẵn, gắn id seed vào ca dương (nạp tự động) |
 | `reports/` | Log, thống kê, reproducer (key đã redact) |
 | `evidence/` | Ảnh, video, bằng chứng 3 luồng |
 
@@ -47,7 +48,7 @@ Kết quả nằm ở `reports/<SC>/<lần chạy>/` (`summary.md`, `REPRODUCERS
 
 | ID | Nội dung | Lệnh |
 |---|---|---|
-| SC1 | Quét Companies (PoC giữa kỳ) | `python scripts/run_k05.py SC1` |
+| SC1 | Quét một đối tượng (mặc định Companies) | `python scripts/run_k05.py SC1 [--object people]` |
 | SC2 | Dữ liệu sai trên 5 đối tượng | `python scripts/run_k05.py SC2` |
 | SC3 | Phân trang/lọc/sắp xếp | `run_k05.py SC3` + `probe_boundaries.py --only sc3` |
 | SC4 | Batch 0/1/200/201 | `run_k05.py SC4` + `probe_boundaries.py --only sc4` |
