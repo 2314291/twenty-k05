@@ -67,9 +67,36 @@ Cập nhật bảng này sau khi chạy SC1 đến SC5.
 
 `unsupported_method`: 39 lần (ví dụ `TRACE /companies/merge` → `404 {"message":"Cannot TRACE /rest/companies/merge...","error":"Not Found"}`, không có `Allow`). Hành vi mặc định của Express/Nest; ghi để đối chiếu RFC 9110 (405). Reproducer: `reproducers/15-*unsupported_method.sh` (và 19, 27, 31, 38, 42, 47, 52).
 
-### D-07. Server chấp nhận dữ liệu sai kiểu thay vì từ chối (mức trung bình, cần xác minh)
+### D-07. Server chấp nhận dữ liệu "sai kiểu": thực chất là `null` mà schema không khai báo (lệch schema, mức thấp)
 
-`negative_data_rejection`, 5 lần: `POST /companies` với `accountOwnerId` sai kiểu vẫn trả **201** và tạo bản ghi; `PATCH /companies` (filter `createdAt[gte]`) với `accountOwnerId` hoặc `updatedBy.source` sai kiểu trả 200; `POST /companies/duplicates` với `{"ids":[null]}` trả 200 `{"data":[]}`; `limit` > 200 (D-01). Reproducer: `reproducers/44-*`, `21-*`, `49-*`, `07-*`. Cần Quang mở file reproducer để biết giá trị sai cụ thể (có thể là `null` được coi như bỏ qua) rồi kết luận có phải lỗi hay chủ ý.
+`negative_data_rejection`, 5 lần, giống hệt nhau ở cả hai lần chạy `213452` và `220101`. Quang đã mở từng request/response trong `ndjson-*.ndjson` (cách làm ở cuối mục):
+
+| Operation | Giá trị "sai" Schemathesis gửi | Schema khai báo | Phản hồi | Kết luận |
+|---|---|---|---|---|
+| `POST /companies` | `"accountOwnerId": null` | `{"type":"string","format":"uuid"}`, không cho `null` | **201**, tạo bản ghi | Không có chủ sở hữu là trạng thái hợp lệ (bản ghi trả về cũng có `accountOwnerId: null`, xem D-03). Lỗi nằm ở schema: thiếu `"type": ["string","null"]`. **Cùng nguyên nhân gốc với D-03** |
+| `PATCH /companies?filter=createdAt[gte]:"2023-01-01"` | `"accountOwnerId": null` | như trên | 200 `{"data":{"updateCompanies":[]}}` | Như dòng trên. Lưu ý: cập nhật **0 bản ghi** vì bảng đã bị xoá sạch (R-01), nên không biết server có thật sự ghi `null` hay không |
+| `PATCH /companies?filter=...` | `"updatedBy": {"source": null}` | `source` là chuỗi trong enum 9 giá trị | 200, 0 bản ghi | **Chưa kết luận được**: không có bản ghi nào để cập nhật. `updatedBy` là trường actor do hệ thống ghi, có thể bị bỏ qua. Cần xác minh lại bằng `PATCH /companies/{id có thật}` sau khi seed |
+| `POST /companies/duplicates` | `{"ids": [null]}` | `ids`: mảng UUID | 200 `{"data":[]}` | Server bỏ qua phần tử `null` thay vì trả 400. Lệch schema nhẹ, không gây hại |
+| `GET /companies?limit=201` | `limit=201` | `maximum 200` | 200 | Là D-01 |
+
+Phân loại: 3/5 là "schema không biểu đạt `nullable`" (gộp RCA với D-03), 1/5 là D-01, 1/5 chờ chạy lại.
+Reproducer: `reproducers/44-*`, `21-*`, `49-*`, `07-*`. Việc tiếp: Trung xác minh tay dòng `updatedBy.source` trên một bản ghi có thật.
+
+Cách lấy request/response từ log (để kiểm tra lại): đọc `ndjson-*.ndjson`, sự kiện `ScenarioFinished` → `recorder.checks[<case id>]` có `name == "negative_data_rejection"` và `status == "failure"` → `recorder.interactions[<case id>]` chứa `request` và `response` (body mã hóa base64; hàm `decode_body` trong `scripts/summarize.py`).
+
+## R-01. Lần chạy SC1 ngày 16/10 tự xoá sạch Companies ngay từ ca thứ 34 (ảnh hưởng tính hợp lệ của kết quả)
+
+Đây không phải lỗi của Twenty mà là **lỗi thiết kế của bộ test**, phát hiện khi đọc lại log để phân tích D-07 (Quang, 19/10).
+
+| Mục | Nội dung |
+|---|---|
+| Ca gây ra | Phase `examples`, `DELETE /companies?soft_delete=false&filter=or(createdAt[gte]:"2024-01-01",createdAt[lte]:"2023-01-01",not(id[is]:NULL))` |
+| Nguồn của giá trị | Ví dụ `complex` của tham số `filter` trong chính schema (`components.parameters.filter.examples`). Schemathesis dùng nguyên văn ví dụ của schema ở phase `examples` |
+| Hệ quả | Điều kiện `not(id[is]:NULL)` khớp mọi bản ghi; `soft_delete=false` (cũng là mặc định của schema) là **xoá vĩnh viễn**. Phản hồi 200 liệt kê **209 bản ghi đã xoá**, tức toàn bộ Companies của workspace, gồm 30 công ty seed |
+| Phạm vi ảnh hưởng | Đó là request thứ 34/1248. Sau đó bảng chỉ còn bản ghi do fuzz tạo ra: `GET /companies?limit=201` trả 1 dòng; mọi `PATCH /companies` hàng loạt cập nhật 0 dòng. Lần chạy `220101` bắt đầu từ bảng gần rỗng (cùng ca đó chỉ xoá được 1 bản ghi) |
+| Hệ quả cho báo cáo | Số liệu lỗi của SC1 ngày 16/10 vẫn đúng (các lỗi lệch schema D-01 đến D-06 không phụ thuộc dữ liệu), nhưng: (1) 161/173 lần 404 thuộc các operation theo `{id}` với UUID ngẫu nhiên, vốn 404 dù bảng có dữ liệu hay không; hook `map_case` mới thay bằng id seed để các ca này chạm bản ghi thật; (2) hai lần chạy giống nhau 96% một phần vì **cả hai cùng chạy trên bảng rỗng**; (3) các ca ghi hàng loạt không kiểm tra được hành vi trên dữ liệu thật. Khi demo nên nói rõ điểm này |
+| Biện pháp (đã làm, nhánh `feature/quang-harness-hooks`) | `hooks/k05_hooks.py` hook `before_call` (chạy ở mọi phase, kể cả `examples`) bọc filter của `DELETE`/`PATCH /{đối tượng}` thành `and(<filter gốc>,createdAt[gte]:"<mốc bắt đầu>")`, chỉ chạm bản ghi tạo trong lần chạy. `run_k05.py --reset` dọn và seed lại trước mỗi lần chạy; `run-config.json` ghi mốc thời gian và số bản ghi seed. `reports/seed-manifest.json` hiện có trong repo trỏ tới 30 công ty **đã bị xoá** trong lần chạy này, nên lần chạy tới phải dùng `--reset` |
+| Còn phải kiểm chứng trên instance | Twenty chấp nhận `and(...)` lồng `or(...)` và so sánh `createdAt` với chuỗi ISO có giờ (cú pháp lấy từ phần mô tả filter trong schema, chưa chạy thật). Lệnh thử: `curl -H "Authorization: Bearer $TWENTY_API_KEY" 'http://localhost:3001/rest/companies?filter=and(not(id%5Bis%5D:NULL),createdAt%5Bgte%5D:%222026-10-19T00:00:00.000Z%22)'` phải trả 200 và chỉ các bản ghi tạo sau mốc |
 
 ## Nhóm "báo động giả do schema thiếu ràng buộc" (không tính là lỗi của Twenty)
 
@@ -108,6 +135,6 @@ Cập nhật bảng này sau khi chạy SC1 đến SC5.
 ## Việc còn lại
 
 - Chạy SC2 đến SC5 và bổ sung lỗi mới vào đây (mỗi lỗi: reproducer, check, RCA).
-- RCA đầy đủ cho D-02, D-03, D-04 (Thuận), xác minh tay D-05, D-07 (Quang, Trung).
-- Đã chạy ca đỏ và lần SC1 thứ hai (50/52 nhóm lỗi trùng). Còn lại: chạy không cắt thời gian để kiểm tra tái lập chặt hơn.
+- RCA đầy đủ cho D-02, D-03 (gộp cả D-07), D-04 (Thuận); xác minh tay D-05 và dòng `updatedBy.source` của D-07 (Trung).
+- Đã chạy ca đỏ và lần SC1 thứ hai (50/52 nhóm lỗi trùng). Còn lại: chạy lại SC1 có hook bảo vệ dữ liệu và `--reset` (R-01), không cắt thời gian, rồi so sánh hai lần bằng `summarize.py --compare`.
 - Quyết định với thầy: phân loại "lệch schema" có tính là defect không (xem `email-hoi-thay.md`, bổ sung câu hỏi).
