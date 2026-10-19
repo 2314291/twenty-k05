@@ -6,7 +6,7 @@ Người phụ trách: Tiến. Bản đầy đủ các bảng nằm trong `SPEC.
 
 Schemathesis đọc OpenAPI và dùng Hypothesis (kiểm thử dựa trên thuộc tính) để sinh request **hợp lệ** và **không hợp lệ** cho từng operation,
 gửi tới instance thật rồi kiểm các invariant: không 5xx, status nằm trong danh sách khai báo, Content-Type và body đúng schema, dữ liệu sai bị từ chối,
-thiếu key bị chặn. Khi gặp lỗi, công cụ thu nhỏ ca lỗi và in lệnh tái hiện. Bộ test của nhóm bọc công cụ này bằng
+thiếu key bị chặn. Khi gặp lỗi, công cụ thu nhỏ ca lỗi và in lệnh tái hiện. Bộ test của nhóm (viết ở Sprint 3–4) sẽ bọc công cụ này bằng
 `scripts/run_k05.py` (cấu hình từng kịch bản, chốt localhost, redact key) và `scripts/summarize.py` (thống kê, reproducer `curl`).
 
 ## D.2. Vì sao chọn phạm vi này

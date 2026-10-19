@@ -165,7 +165,7 @@ SC1 là PoC cho Milestone 2; SC6, SC7 làm nếu kịp. K05 khai báo invariant,
 
 1. Schemathesis đọc OpenAPI, sinh request hợp lệ và không hợp lệ theo từng operation (dựa trên Hypothesis, property-based).
 2. Gửi vào instance thật, rồi kiểm tra các check: không 5xx, status trong danh sách schema khai báo, Content-Type và body đúng schema, input sai bị từ chối, thiếu key bị chặn.
-3. Khi gặp lỗi, công cụ tự thu nhỏ ca lỗi và in lệnh `curl` tái hiện. Nhóm lưu reproducer và thống kê (số operation, số request, số lỗi theo check và theo endpoint) vào `reports/`.
+3. Khi gặp lỗi, công cụ tự thu nhỏ ca lỗi và in lệnh `curl` tái hiện. Nhóm lưu reproducer và thống kê (số operation, số request, số lỗi theo check và theo endpoint) vào thư mục kết quả của từng lần chạy.
 
 ### 5.2. Lý do chọn phạm vi
 
@@ -208,7 +208,7 @@ Mỗi defect ghi kèm reproducer (`curl` hoặc cassette), endpoint, check bị 
 **Ngưỡng cuối kỳ (đề xuất):**
 - Ít nhất 80% operation trong phạm vi được chạy ít nhất một lần.
 - Mỗi operation chạy tối thiểu 50 test case; tổng số request được thống kê.
-- Mỗi lỗi có reproducer trong `reports/`.
+- Mỗi lỗi có lệnh tái hiện (reproducer).
 - Chạy lại hai lần với cùng seed cho kết quả lỗi giống nhau.
 - Nếu không tìm thấy lỗi: nộp bằng chứng coverage theo các ngưỡng trên.
 
@@ -253,7 +253,7 @@ Dự phòng:
 
 ## 8. Quy trình làm việc
 
-- Cấu trúc repo `twenty-k05`: `docs/` (SPEC, SETUP, architecture, test-plan), `env/` (docker-compose.yml, `.env.example`, `VERSION.txt` ghi tag và SHA), `schema/` (`core.openapi.json`), `scripts/` (`fetch_schema.sh`, `seed.py`, `run_k05.sh`), `hooks/` (hook Schemathesis cho xác thực), `reports/` (log, kết quả, reproducer, `summary.md`), `README.md` (SHA của Twenty ở đầu).
+- Cấu trúc repo `twenty-k05`: `docs/` (SPEC, SETUP, architecture, test-plan), `env/` (docker-compose.yml, `.env.example`, `VERSION.txt` ghi tag và SHA), `schema/` (`core.openapi.json`), `scripts/` (`fetch_schema.py`, `seed.py`, `business_flows.py`), `evidence/`, `README.md` (SHA của Twenty ở đầu). Bộ test (`run_k05.py`, hook Schemathesis, thư mục kết quả) bổ sung ở Sprint 3–4.
 - Nhánh: `main` được bảo vệ; mỗi task một nhánh `feature/<ten>-<task>`; PR cần 1 người review.
 - Commit: `feat(harness): ...`, `feat(scenario): ...`, `docs(setup): ...`, `fix: ...`.
 - Mỗi người tối thiểu 3 commit trước 20/10 (phục vụ peer-review).
@@ -273,7 +273,7 @@ Dự phòng:
 6. Mở `http://localhost:3001`, tạo tài khoản và workspace; bước "Install apps" chọn Skip.
 7. Tạo API key: Settings, mục **MCP & APIs** (tên menu theo ghi chú nhóm). Lưu vào biến môi trường `TWENTY_API_KEY`, không commit.
 8. Tải schema: `python scripts/fetch_schema.py` (hoặc `curl.exe -H "Authorization: Bearer <KEY>" http://localhost:3001/open-api/core -o schema/core.openapi.json`).
-9. Chạy thử (tên tham số kiểm tra bằng `st run --help` ở bản đã cài):
+9. (Sprint 3–4, khi đã có bộ test) Chạy kịch bản (tên tham số kiểm tra bằng `st run --help` ở bản đã cài):
    `python scripts/run_k05.py SC1` (bên trong gọi `st run schema/core.openapi.json --url http://localhost:3001/rest -H "Authorization: Bearer <KEY>" --checks all --max-examples 50 ...`; xem `st run --help`, đã đối chiếu với Schemathesis 4.31.1)
 
 Sự cố đã gặp và cách xử lý:
@@ -305,7 +305,7 @@ Sự cố đã gặp và cách xử lý:
 
 - [ ] Tag/SHA khớp với bản đã đăng ký với thầy hạn 18/9 (trong repo, tag và SHA đã khớp nhau).
 - [ ] `GET /open-api/core` kèm key trả đủ object. (Mã nguồn cho thấy `servers[0].url` = `${SERVER_URL}/rest/`; xác nhận trên instance.)
-- [ ] Giới hạn 100 call/phút có áp dụng trên instance self-host. (Ngưỡng batch: mã nguồn nói 200, không phải 60; `scripts/probe_boundaries.py` ca P4-03/04/05 xác nhận.)
+- [ ] Giới hạn 100 call/phút có áp dụng trên instance self-host. (Ngưỡng batch: mã nguồn nói 200, không phải 60; kiểm chứng bằng ca P4-03/04/05 ở Sprint 3–4.)
 - [ ] Tên menu tạo API key ("MCP & APIs") đúng với bản v2.45.6.
 - [ ] Đường dẫn và cách lấy schema GraphQL nếu làm SC7.
 - [ ] Hỏi giảng viên: phạm vi chỉ REST có được chấp nhận không, có yêu cầu thêm GraphQL không.

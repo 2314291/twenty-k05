@@ -37,4 +37,4 @@ Mẫu số cho tiêu chí "≥80% operation" lấy từ file này.
 
 1. Settings → Roles → tạo role mới, chỉ bật quyền **đọc** trên Companies/People/Opportunities/Notes/Tasks, tắt tạo/sửa/xoá. (Tên menu cần xác nhận trên v2.45.6.)
 2. Settings → API → tạo key thứ hai, gán role vừa tạo.
-3. Dán vào `.env`: `TWENTY_API_KEY_LIMITED=...`. Kiểm tra bằng `python scripts/probe_boundaries.py --only sc5` (ca P5-07 đọc 200, P5-08 ghi 403).
+3. Dán vào `.env`: `TWENTY_API_KEY_LIMITED=...`. Key này dùng cho SC5 ở Sprint 3–4 (ca P5-07 đọc → 200, P5-08 ghi → 403).
