@@ -92,7 +92,7 @@ Lưu trong `evidence/` (đặt tên `NN_mo_ta.png`, dùng dấu gạch dưới):
 | 06 | Kết quả `python scripts/business_flows.py` (3 luồng) |
 | 07 | `git rev-parse HEAD` ra đúng SHA (nếu dùng 2B) |
 
-Ngoài ảnh nên quay video 1–2 phút (đăng nhập, tạo Company, chạy `run_k05.py SC1`) làm dự phòng cho buổi demo.
+Ngoài ảnh nên quay video 1–2 phút (đăng nhập, tạo Company, chạy `business_flows.py`) làm dự phòng cho buổi demo.
 
 ## 8. Dừng, reset, chạy lại
 
@@ -127,5 +127,5 @@ cp .env.example .env                       # điền TWENTY_API_KEY sau khi dự
 cd env && cp .env.example .env && docker compose up -d && cd ..
 python scripts/fetch_schema.py
 python scripts/seed.py --count 30
-python scripts/run_k05.py SC1
+python scripts/business_flows.py
 ```

@@ -1,7 +1,7 @@
 # Sự cố môi trường và giao diện (ngoài phạm vi K05)
 
 Người phụ trách: Tuấn. Thư mục này ghi lỗi gặp khi **dựng và dùng** Twenty `v2.45.6` (cài đặt, onboarding, giao diện).
-Lỗi **API** do Schemathesis tìm ra nằm ở `docs/defects.md` (Phần G), không ghi ở đây.
+Lỗi **API** do Schemathesis tìm ra (cuối kỳ) ghi ở danh sách lỗi của Phần G, không ghi ở đây.
 Nhóm không sửa mã Twenty: mục tiêu là ghi nhận và đưa ra cách đi vòng (workaround) để người sau dựng lại không bị kẹt.
 
 ## Danh sách

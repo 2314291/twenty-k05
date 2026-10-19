@@ -184,7 +184,7 @@ với mỗi `FlatObjectMetadata` sinh các đường dẫn ở B.2 mục 1. **[m
 
 | Mã | Phát hiện | Việc phải làm |
 |---|---|---|
-| H1 | `limit>200` bị cắt âm thầm | Ca P3-05/06 trong `probe_boundaries.py`; nếu schema khai báo `maximum`, đây là "lệch schema" cần phân loại |
+| H1 | `limit>200` bị cắt âm thầm | Ca P3-05/06 (đặc tả ở `dac-ta-sc3-sc4.md`); nếu schema khai báo `maximum`, đây là "lệch schema" cần phân loại |
 | H2 | Batch tối đa 200, không phải 60 | SC4 dùng 0/1/200/201 (+61 đối chứng) |
 | H3 | Lỗi nội bộ có thể hiện thành 400 | Đọc nội dung lỗi, không chỉ mã trạng thái |
 | H4 | `PUT *path` không có trong OpenAPI | Ghi nhận khi `unsupported_method` báo |

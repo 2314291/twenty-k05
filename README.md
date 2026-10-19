@@ -20,45 +20,38 @@ cd env && cp .env.example .env && docker compose up -d && cd ..
 # 2) Cấu hình test
 cp .env.example .env                                 # điền TWENTY_API_KEY (không commit)
 
-# 3) Lấy schema, nạp dữ liệu, chạy
+# 3) Lấy schema, nạp dữ liệu, chạy 3 luồng nghiệp vụ
 python scripts/fetch_schema.py
 python scripts/list_operations.py --md docs/operations.md
 python scripts/seed.py --count 30
-python scripts/run_k05.py SC1                        # PoC giữa kỳ
-python scripts/probe_boundaries.py                   # ca biên SC3/SC4/SC5
+python scripts/business_flows.py
 ```
 
-Kết quả nằm ở `reports/<SC>/<lần chạy>/` (`summary.md`, `REPRODUCERS.md`, `reproducers/*.sh`). Kiểm tra tái lập:
-`python scripts/summarize.py --compare <lần chạy A> <lần chạy B>`.
+Giữa kỳ, kho mã gồm môi trường, schema, dữ liệu mẫu, 3 luồng nghiệp vụ và đặc tả kịch bản kiểm thử.
+Bộ test K05 (chạy kịch bản, thống kê, lệnh tái hiện lỗi) được bổ sung ở Sprint 3–4.
 
 ## Bố cục
 
 | Thư mục | Nội dung |
 |---|---|
-| `docs/` | `SPEC.md`, `PHAN_CONG.md`, `architecture.md` (A, B), `SETUP.md` (C, H), `test-plan.md` (D), `scenarios.md` (E), `business-flows.md`, `bao-cao-giua-ky.md`, `demo-script.md`, `email-hoi-thay.md`, `board-cards.csv` |
+| `docs/` | `SPEC.md`, `PHAN_CONG.md`, `architecture.md` (A, B), `SETUP.md` (C, H), `test-plan.md` (D), `scenarios.md`, `dac-ta-sc1-sc2-red.md`, `dac-ta-sc3-sc4.md` (E), `business-flows.md`, `operations.md`, `demo-script.md`, `email-hoi-thay.md`, `board-cards.csv` |
 | `env/` | `docker-compose.yml` (cổng 3001), `.env.example`, `VERSION.txt` |
-| `schema/` | `core.openapi.json` (tải về), `core.red.openapi.json` (ca đỏ) |
-| `scripts/` | `fetch_schema.py`, `list_operations.py`, `seed.py`, `business_flows.py`, `run_k05.py`, `summarize.py`, `probe_boundaries.py`, `make_red_case.py`, `selftest/` |
-| `hooks/` | Dành cho hook Schemathesis (cuối kỳ) |
-| `reports/` | Log, thống kê, reproducer (key đã redact) |
-| `evidence/` | Ảnh, video, bằng chứng 3 luồng |
+| `schema/` | `core.openapi.json` (tải về từ instance) |
+| `scripts/` | `fetch_schema.py`, `list_operations.py`, `seed.py`, `business_flows.py`, `k05_common.py` |
+| `evidence/` | Ảnh, bằng chứng 3 luồng nghiệp vụ |
 
-## Kịch bản
+## Kịch bản (đặc tả giữa kỳ, triển khai Sprint 3–4)
 
-| ID | Nội dung | Lệnh |
+| ID | Nội dung | Đặc tả |
 |---|---|---|
-| SC1 | Quét Companies (PoC giữa kỳ) | `python scripts/run_k05.py SC1` |
-| SC2 | Dữ liệu sai trên 5 đối tượng | `python scripts/run_k05.py SC2` |
-| SC3 | Phân trang/lọc/sắp xếp | `run_k05.py SC3` + `probe_boundaries.py --only sc3` |
-| SC4 | Batch 0/1/200/201 | `run_k05.py SC4` + `probe_boundaries.py --only sc4` |
-| SC5 | Xác thực (`--variant none\|wrong\|limited`) | `run_k05.py SC5 --variant none` |
-| Ca đỏ | Schema sửa kiểu một trường | `make_red_case.py` rồi `run_k05.py SC1 --schema schema/core.red.openapi.json --label RED` |
-
-## Tự kiểm tra bộ script (không cần Twenty)
-
-`python scripts/selftest/run_selftest.py` chạy toàn bộ đường ống trên máy chủ **giả**. Kết quả này không phải kết quả của Twenty.
+| SC1 | Quét toàn bộ Companies | `docs/dac-ta-sc1-sc2-red.md` |
+| SC2 | Dữ liệu sai trên 5 đối tượng | `docs/dac-ta-sc1-sc2-red.md` |
+| SC3 | Phân trang, lọc, sắp xếp (17 ca biên P3) | `docs/dac-ta-sc3-sc4.md` |
+| SC4 | Batch 0/1/200/201 (8 ca biên P4) | `docs/dac-ta-sc3-sc4.md` |
+| SC5 | Xác thực: không key, key sai, key chỉ đọc (6 ca biên P5) | `docs/scenarios.md` |
+| Ca đỏ | Schema sửa kiểu một trường | `docs/dac-ta-sc1-sc2-red.md` |
 
 ## Bảo mật
 
-`.env` nằm trong `.gitignore`; API key không được commit hay gửi qua chat; mọi tệp trong `reports/` và `evidence/` do script tạo đã được thay key bằng `<REDACTED>`
-(kiểm tra lại bằng `grep -r "eyJ" reports evidence` trước khi push).
+`.env` nằm trong `.gitignore`; API key không được commit hay gửi qua chat; mọi tệp trong `evidence/` do script tạo đã được thay key bằng `<REDACTED>`
+(kiểm tra lại bằng `grep -r "eyJ" evidence` trước khi push).
