@@ -1,0 +1,166 @@
+Đã tạo 30 công ty, 30 người, 30 cơ hội, 30 ghi chú, 30 việc. Manifest: reports\seed-manifest.json
+DELETE /tasks/78cb6878-5d09-43dd-bdd4-8faa289f0ab2 -> 200
+DELETE /tasks/56b9800a-1bc2-4931-b982-bd7f579f865b -> 200
+DELETE /tasks/177debaf-3cf1-47c7-a909-581fe17f5256 -> 200
+DELETE /tasks/35e86ef8-18ef-417e-8e49-7af8a994f870 -> 200
+DELETE /tasks/e75cbb87-f107-4feb-bef0-f5d65b7a7e27 -> 200
+DELETE /tasks/efe75ac9-7bb3-4a17-8486-4ec3794a6f08 -> 200
+DELETE /tasks/9a81bfef-264f-4eb9-af6f-887018575526 -> 200
+DELETE /tasks/af638689-cd5a-403f-8eba-07e9c211571a -> 200
+DELETE /tasks/a2e57ad6-58e5-4133-adf2-d81a03665239 -> 200
+DELETE /tasks/1379310d-4d44-4795-9374-93746c491cc3 -> 200
+DELETE /tasks/c7a93980-6b38-4089-b4cc-cef012574a99 -> 200
+DELETE /tasks/c422bf66-751b-493c-860a-e96833d1864e -> 200
+DELETE /tasks/7be9f9c7-79d0-4265-920d-d78b62ff618b -> 200
+DELETE /tasks/e3289fb5-ba8f-4fd4-bd92-1e727a8ecc4e -> 200
+DELETE /tasks/c5f853fa-1cf6-4f7a-a89f-5c5aeb2b1349 -> 200
+DELETE /tasks/82d2c8cb-2ec6-498a-b7a5-99a96e107c41 -> 200
+DELETE /tasks/b699c3e4-1481-4efd-a2c2-fe5938faa232 -> 200
+DELETE /tasks/c43c6933-f5c9-4608-846e-65873fe9562a -> 200
+DELETE /tasks/713a113e-2e2d-4f54-b154-ac2c19fb1276 -> 200
+DELETE /tasks/ae0e8c4f-8f2b-49d7-b0e7-86dca9ddd289 -> 200
+DELETE /tasks/acbbc080-32c4-459f-a192-22a933241ef9 -> 200
+DELETE /tasks/eeafcb04-4ef6-497d-acc7-092cd19de6d6 -> 200
+DELETE /tasks/00736a5c-5908-4043-932e-c9f725671f39 -> 200
+DELETE /tasks/9edd3cc5-9480-4103-95c3-389d7001ef5d -> 200
+DELETE /tasks/4b361b83-903e-4ea8-a8b7-6a72a8ff0209 -> 200
+DELETE /tasks/74be2a3e-c385-4075-93dc-4c81f43c2411 -> 200
+DELETE /tasks/809d542a-8e9a-4d72-8ea4-cfe9ad9a4e30 -> 200
+DELETE /tasks/f805084a-50e5-46ab-b2db-5da3a03963e4 -> 200
+DELETE /tasks/2fda301e-cb9c-4c2b-9dc1-94724c0c649d -> 200
+DELETE /tasks/bd9ba521-168e-488e-8b22-e326cde86370 -> 200
+DELETE /notes/b61a6109-9076-4487-b4f7-22755f1b0d99 -> 200
+DELETE /notes/993c06d0-4a39-4906-9de2-881f026761d6 -> 200
+DELETE /notes/aca790a7-8465-4dba-90e7-5b64c807cd65 -> 200
+DELETE /notes/ef5e056b-5d3b-4757-90ac-30920d800c82 -> 200
+DELETE /notes/35568c5d-dbf5-4385-9645-b6be6a481e5e -> 200
+DELETE /notes/ef82a402-94e3-4236-83c9-c5ec7418cdbc -> 200
+DELETE /notes/dfd2f3b1-1ba0-4950-bc46-eac1be58aa5a -> 200
+DELETE /notes/c757dc25-9f4a-4183-8333-16e0dcaef7af -> 200
+DELETE /notes/1346d53d-ceba-4203-8f59-898dbc542fb1 -> 200
+DELETE /notes/729aef9e-b037-4b50-aac5-18dfe5d46e05 -> 200
+DELETE /notes/bafed332-6d28-4e12-b340-be9f055fc491 -> 200
+DELETE /notes/7ba1d5e3-5d8d-4990-8a02-9ff9ea9efbd0 -> 200
+DELETE /notes/3dc63ae3-c54b-4d08-b9a3-8b9668765f73 -> 200
+DELETE /notes/d3e1bec2-1996-45be-983e-8175bca78a8f -> 200
+DELETE /notes/5bdd74d4-626e-4eba-8d1d-221dc663924b -> 200
+DELETE /notes/119ca04c-edb0-47f3-9981-e04fc4ea1af8 -> 200
+DELETE /notes/6eb98606-3369-447d-9ccf-9121e62b479f -> 200
+DELETE /notes/745663e4-f56b-4aa5-a4d4-b38d7f0113ec -> 200
+DELETE /notes/94911c0d-fa65-4eb0-9ef3-1201d1184bf9 -> 200
+DELETE /notes/1f7ef4e1-cc58-4b17-8afc-d75d1c128078 -> 200
+DELETE /notes/d05fa566-6fb9-414f-96e6-bb898f92d5c0 -> 200
+DELETE /notes/d4b924b2-cef8-4e44-97d8-323f9a7b849a -> 200
+DELETE /notes/f2f49aa3-7d42-44d5-9a75-3f4a893f0c41 -> 200
+DELETE /notes/23f5ca7c-516c-47b3-9b6f-f551aee1b8c8 -> 200
+DELETE /notes/89b99d86-5264-4ddb-9494-bc82648ba74f -> 200
+DELETE /notes/def414f0-9a6d-4f7e-b0fb-1eb01eb04806 -> 200
+DELETE /notes/396c5e0b-542c-4448-9602-0ade48d0a3bc -> 200
+DELETE /notes/8a77d58e-31bd-4510-8b21-e62ee40d34c1 -> 200
+DELETE /notes/08bc500e-0c9a-45c7-87e2-c22ade8200a7 -> 200
+DELETE /notes/8d88e159-75a1-4336-b6c3-d4b0cdc7fb29 -> 200
+DELETE /opportunities/daad2179-ab5b-490a-9abb-9c0b958dacdd -> 200
+DELETE /opportunities/5d203dbe-fa91-49ca-a5c3-ddd982a396f3 -> 200
+DELETE /opportunities/1dceb81c-5eae-4530-a0a8-98a5656b71bf -> 200
+DELETE /opportunities/752f09e8-5c92-4754-904a-83ed594798cb -> 200
+DELETE /opportunities/b6ddb62f-2292-42a7-8909-9b1b36272b81 -> 200
+DELETE /opportunities/0cd1ab56-e2b6-4248-8591-1a243cc7f83f -> 200
+DELETE /opportunities/c814573c-58d9-4ebb-9b72-4f0034fa7ce1 -> 200
+DELETE /opportunities/d7933f30-99bb-45b4-9442-23360c5ed301 -> 200
+DELETE /opportunities/d168360b-acdf-4f50-b2d2-f5c89be068e3 -> 200
+DELETE /opportunities/96543b9d-0b9e-4dc3-8640-65c23caf6516 -> 200
+DELETE /opportunities/c68aaf55-c7c2-4069-b9b9-cc31530286de -> 200
+DELETE /opportunities/636a3ccb-2b68-49d7-b4f8-aed8b319b472 -> 200
+DELETE /opportunities/21685ab4-4f29-48b3-a12d-a206ebc79ade -> 200
+DELETE /opportunities/376553eb-4279-4f35-8549-0ae8a1a1b715 -> 200
+DELETE /opportunities/ebbf69bc-3854-4b69-8075-d3d05f6d4435 -> 200
+DELETE /opportunities/74e78b12-87d9-4d26-aefb-35013fc2f421 -> 200
+DELETE /opportunities/85492283-1ff3-44bd-bad5-d741f0607460 -> 200
+DELETE /opportunities/49d565f9-110d-41d1-9f3d-6b18fc90d54a -> 200
+DELETE /opportunities/6d66fa6d-16b5-4e87-86d7-8a8750b9b334 -> 200
+DELETE /opportunities/1f1e00a4-e9a7-463a-9624-d46301469ea5 -> 200
+DELETE /opportunities/4ae35987-286e-4022-b35e-90cd0ae206f5 -> 200
+DELETE /opportunities/802f6e42-8774-4929-94f6-052c6cbc0b79 -> 200
+DELETE /opportunities/3b0b93b8-3050-4232-8b49-3b9fb4ffa766 -> 200
+DELETE /opportunities/40625fab-2e94-45b1-96b4-e22a46448817 -> 200
+DELETE /opportunities/ae2fe117-0dfe-48c4-b9d7-5cdeea253ccc -> 200
+DELETE /opportunities/ef49fbbe-e660-4f79-b260-e01e0dac60f6 -> 200
+DELETE /opportunities/e4bdd233-0043-48f8-a7e8-0827331b716c -> 200
+DELETE /opportunities/12bde5da-ba34-4da4-a691-63a40b4b83b6 -> 200
+DELETE /opportunities/cd381e2a-1667-4abf-b568-d5d13ff94426 -> 200
+DELETE /opportunities/29aefce7-edea-44fb-96fd-9fc8ae5e4bfd -> 200
+DELETE /people/316f8166-d0fe-4a31-b90a-d1e7f1a442d2 -> 200
+DELETE /people/3fb4ad56-eaf1-4a13-a43d-feb21e15bb0f -> 200
+DELETE /people/3f261f69-1cb9-4a27-9a73-bde55a9c909f -> 200
+DELETE /people/43d0ead7-80aa-44d7-9a1c-482323b71539 -> 200
+DELETE /people/2fdc4f3b-dd41-47c0-847b-f46295f26b56 -> 200
+DELETE /people/96b716ec-7ed6-4af4-aacb-7613b352fdfa -> 200
+DELETE /people/90b497f9-0eef-40f0-a46f-43f817bd3ed4 -> 200
+DELETE /people/2d2660c8-27ef-40e4-a276-bd24d8c110bc -> 200
+DELETE /people/a1f6898a-ddc7-4417-9a36-339e86829a7a -> 200
+DELETE /people/c50b6a04-0a35-4a0b-9fbb-4186694fc259 -> 200
+DELETE /people/5c99d68b-28f0-4c2a-9135-6911526a5b2f -> 200
+DELETE /people/34bbf697-3495-48ba-a893-0df16461c85b -> 200
+DELETE /people/ccb4835d-42a6-45d1-b0d7-0eca9294e1eb -> 200
+DELETE /people/aedb4df2-fb97-4d29-b02c-2d83a177bece -> 200
+DELETE /people/230207f5-0fac-4896-8254-54f2d2c0e2ff -> 200
+DELETE /people/bc590a0f-6771-4ccb-80ea-067070961731 -> 200
+DELETE /people/e86c0d4c-0df2-433c-b1ec-98cc6fad3912 -> 200
+DELETE /people/ca5eb8fc-0a1f-4d51-9704-163645eb3b7a -> 200
+DELETE /people/c397deca-2afd-4c86-a493-bb5a0fc56f5f -> 200
+DELETE /people/90ed79b6-0109-4eff-8812-4b1134872087 -> 200
+DELETE /people/af04e6a3-c5bf-4e96-9fec-85f1da9b2dfe -> 200
+DELETE /people/16fcc981-bf92-478b-86c1-770be7bea6db -> 200
+DELETE /people/9e583d44-ebbd-4296-a0fa-b8f2958421fd -> 200
+DELETE /people/3d1289b1-0df4-4b9d-919f-a3660fccfb6b -> 200
+DELETE /people/7aae653a-8f4d-4b30-a462-767633f5ae0b -> 200
+DELETE /people/7ceb828f-6125-4e96-a33e-571bab3e13be -> 200
+DELETE /people/24b29e6f-2be3-494a-96e3-2e261f5f3e04 -> 200
+DELETE /people/c98619a4-cdfc-4ac4-989e-a74114d00eea -> 200
+DELETE /people/697d8d86-4090-4d2a-acb9-e9872bee6099 -> 200
+DELETE /people/a36137e0-2c9f-4bf0-b5bf-e0c39b200c51 -> 200
+DELETE /companies/af35b057-8204-494c-9232-19bf3d720875 -> 200
+  DELETE /companies/c61bef17-0f5a-4816-bd10-cda39f2eaaad bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/c61bef17-0f5a-4816-bd10-cda39f2eaaad -> 200
+DELETE /companies/89418f16-fca0-4c3c-acf2-a1d68fd3e9de -> 200
+  DELETE /companies/99bc1b92-4485-4b17-8483-e70a4569ec36 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/99bc1b92-4485-4b17-8483-e70a4569ec36 -> 200
+DELETE /companies/e94ed312-316d-42a0-8d5b-936efd76d6be -> 200
+  DELETE /companies/161e6d64-479c-4e9c-8d37-cadfda7f8c26 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/161e6d64-479c-4e9c-8d37-cadfda7f8c26 -> 200
+DELETE /companies/7a85b5ac-ec12-4a86-a5be-5e25ee5a88a3 -> 200
+  DELETE /companies/131ac88a-ce3c-4bfa-91d2-3a4f0afdcdc4 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/131ac88a-ce3c-4bfa-91d2-3a4f0afdcdc4 -> 200
+DELETE /companies/07b6ea08-e92d-4b86-80a9-a02c356856a6 -> 200
+  DELETE /companies/908967a0-3de0-4bd4-80f9-541f63e3553e bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/908967a0-3de0-4bd4-80f9-541f63e3553e -> 200
+DELETE /companies/02a52ea6-4e33-4729-95ec-54fda47ab68c -> 200
+  DELETE /companies/2b8af577-d84d-42d0-83d6-438bbece77d1 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/2b8af577-d84d-42d0-83d6-438bbece77d1 -> 200
+DELETE /companies/843e4ef3-cca4-4c27-9dcd-fa9f517f1026 -> 200
+  DELETE /companies/7dd2ddda-06d4-4b74-b5d4-368cbcfda37e bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/7dd2ddda-06d4-4b74-b5d4-368cbcfda37e -> 200
+DELETE /companies/9f3774b9-88fc-4da2-af33-61d8659c5094 -> 200
+  DELETE /companies/65826780-9329-42ab-b2d2-d52913f112be bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/65826780-9329-42ab-b2d2-d52913f112be -> 200
+DELETE /companies/92e3d946-a85b-4814-a7ab-e8b87ebbae89 -> 200
+  DELETE /companies/13c21172-e03a-46a6-9202-0489b949fecf bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/13c21172-e03a-46a6-9202-0489b949fecf -> 200
+DELETE /companies/047e6fe0-c745-461f-bfa6-fa404c7e961a -> 200
+  DELETE /companies/2427fd9c-77d0-42f2-80ef-707621616093 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/2427fd9c-77d0-42f2-80ef-707621616093 -> 200
+DELETE /companies/cfea40ed-1efb-4586-ad7b-3435656b34b0 -> 200
+  DELETE /companies/ada2c2b7-780e-4bfb-8664-68cbb35d0dfb bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/ada2c2b7-780e-4bfb-8664-68cbb35d0dfb -> 200
+DELETE /companies/15b4eb7f-3577-460f-8eb9-82e515a16a92 -> 200
+  DELETE /companies/70f091fe-8a5e-449d-be5f-e823159dca15 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/70f091fe-8a5e-449d-be5f-e823159dca15 -> 200
+DELETE /companies/b64803b6-4544-4fc9-9e71-c1056549ad4c -> 200
+  DELETE /companies/7bee810d-f823-4992-bea0-df507a44ce88 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/7bee810d-f823-4992-bea0-df507a44ce88 -> 200
+DELETE /companies/bf4448fa-f2c7-405e-8103-3b6765a04537 -> 200
+  DELETE /companies/ffa37fd0-318f-4669-9326-4c703fbb59f9 bị giới hạn tốc độ (429), chờ 1s rồi thử lại
+DELETE /companies/ffa37fd0-318f-4669-9326-4c703fbb59f9 -> 200
+DELETE /companies/0ac5f1ef-99c9-4114-b019-35ef33880bff -> 200
+DELETE /companies/6c618bd0-b675-4df3-9c99-54823d51da68 -> 200
+Đã dọn xong.
