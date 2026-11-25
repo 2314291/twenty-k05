@@ -1,6 +1,6 @@
 # Kế hoạch kiểm thử K05 (Báo cáo Phần D)
 
-Người phụ trách: Tiến. Bản đầy đủ các bảng nằm trong `SPEC.md` (mục 3 đến 5); tệp này là bản trình bày cho báo cáo giữa kỳ.
+Người phụ trách: Thuận. Bản đầy đủ các bảng nằm trong `docs/SPEC.md` (mục 3 đến 5); tệp này là bản trình bày cho báo cáo cuối kỳ.
 
 ## D.1. Nguyên lý
 
@@ -32,6 +32,8 @@ Twenty chạy local ở tag đã ghim, workspace test riêng, reset được; m�
 | Lỗi nội bộ hiện thành 400 (H3) | Đọc thông điệp lỗi, không chỉ mã |
 | Lộ API key | `.env` trong `.gitignore`; mọi báo cáo bị redact; thu hồi key nếu lỡ lộ |
 | Test nhầm hệ thống công khai | Mọi script `assert_localhost` |
+| Harness `run_k05.py` chưa có trên nhánh chung → SC1, SC2, SC5 bị chặn | Quang khôi phục harness trước tiên; nếu harness lỗi, dùng tạm script của Trung cho các kịch bản nó hỗ trợ, sửa harness song song |
+| Nhiều người dùng chung một Twenty, chạy cùng lúc → đụng giới hạn 100 request/60 giây, kết quả lẫn nhau | Mỗi người một key riêng; nếu chung instance thì chạy lần lượt |
 
 ## D.5. Tiêu chí pass/fail
 
@@ -45,8 +47,14 @@ Twenty chạy local ở tag đã ghim, workspace test riêng, reset được; m�
 | `positive_data_acceptance` | Dữ liệu đúng được nhận | Dữ liệu đúng bị từ chối |
 | `ignored_auth` | Thiếu/sai key bị 401/403 | Truy cập được không cần key |
 
-**Giữa kỳ (20/10):** SC1 chạy xong trên Companies có thống kê + ít nhất 1 reproducer + 1 ca đỏ cố ý.
-**Cuối kỳ:** ≥80% operation trong phạm vi được chạy; mỗi operation ≥50 test case; chạy hai lần cùng cấu hình cho cùng kết quả; mỗi lỗi có reproducer và RCA; nếu không có lỗi thì nộp bằng chứng coverage.
+**Giữa kỳ (20/10, mốc đã qua):** SC1 chạy xong trên Companies có thống kê + ít nhất 1 reproducer + 1 ca đỏ cố ý.
+
+**Cuối kỳ** (ngưỡng nhóm tự đặt trong `docs/SPEC.md`, thầy không quy định), một kịch bản coi là đạt khi:
+
+- Mỗi object phủ ≥ 11/13 operation (≥ 80%); mỗi operation ≥ 50 test case.
+- Có seed cố định; chạy hai lần cùng cấu hình cho cùng tập lỗi.
+- Mỗi lỗi có reproducer (`curl` hoặc ca Schemathesis), được phân loại "lệch schema" hoặc "lỗi chức năng", có RCA và ghi vào bảng lỗi chung (mã `D-xx`, mã `G-xx` cũ ở cột "mã cũ").
+- Nếu không tìm thấy lỗi thì nộp bằng chứng coverage.
 
 ## D.6. Giới hạn của K05
 
@@ -54,4 +62,5 @@ Không hiểu nghiệp vụ (sai logic mà đúng schema thì không phát hiệ
 
 ## D.7. Kịch bản và lịch
 
-Xem `scenarios.md` (SC1 đến SC5, SC6/SC7 mở rộng) và `PHAN_CONG.md` (lịch hai mốc).
+- Mô tả chi tiết SC1 đến SC6: `Phan_Cong_module/KICH_BAN_K05.md` (bản đặc tả gốc: `docs/scenarios.md`).
+- Phân công và lịch: `Phan_Cong_module/KE_HOACH_PHAN_CONG_V2.md`, `Phan_Cong_module/CHECKLIST_THANH_VIEN.md` (bản cũ: `docs/PHAN_CONG.md`).
