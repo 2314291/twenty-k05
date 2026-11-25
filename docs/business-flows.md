@@ -16,7 +16,7 @@ curl -s -X POST http://localhost:3001/rest/companies -H "Authorization: Bearer $
 
 ## Dữ liệu mẫu cho K05 (`scripts/seed.py`)
 
-Tạo N công ty, N người (gắn công ty luân phiên), N cơ hội (stage lần lượt NEW, SCREENING, MEETING, PROPOSAL, CUSTOMER). Chia lô 50 (giới hạn batch thật là 200).
+Tạo N công ty, N người (gắn công ty luân phiên), N cơ hội (stage lần lượt NEW, SCREENING, MEETING, PROPOSAL, CUSTOMER), N ghi chú và N việc cần làm (status lần lượt TODO, IN_PROGRESS, DONE). Chia lô 50 (giới hạn batch thật là 200). Mọi bản ghi có tên bắt đầu bằng `K05-`; `python scripts/seed.py --cleanup` xoá đúng các bản ghi ghi trong `reports/seed-manifest.json` (việc và ghi chú xoá trước). Twenty giới hạn 100 request mỗi 60 giây cho mỗi khoá; gặp 429 thì `seed.py` tự chờ rồi gửi lại, bản ghi chưa xoá được giữ lại trong manifest để chạy `--cleanup` lần nữa.
 Tên trường lấy từ hằng seed của Twenty rồi đổi từ dạng cột phẳng sang dạng lồng của REST:
 
 | Đối tượng | Trường gửi | Ghi chú |
@@ -24,8 +24,10 @@ Tên trường lấy từ hằng seed của Twenty rồi đổi từ dạng cộ
 | Company | `name`, `domainName.primaryLinkUrl`, `address.addressCity`, `annualRevenue.{amountMicros,currencyCode}` | Cột seed: `domainNamePrimaryLinkUrl`, `addressAddressCity` |
 | Person | `name.firstName`, `name.lastName`, `emails.primaryEmail`, `jobTitle`, `companyId` | |
 | Opportunity | `name`, `amount.amountMicros`, `amount.currencyCode`, `stage`, `closeDate`, `companyId`, `pointOfContactId` | |
+| Note | `title`, `bodyV2.markdown` | |
+| Task | `title`, `bodyV2.markdown`, `status`, `dueAt` | `status` thuộc TODO, IN_PROGRESS, DONE |
 
-Tên trường đã đối chiếu với `schema/core.openapi.json` thật (Company không có `employees` ở v2.45.6). Nếu API vẫn trả 400, so lại với schema rồi sửa hàm `build_*` trong `seed.py`.
+Tên trường đã đối chiếu với `schema/core.openapi.json` thật (Company không có `employees` ở v2.45.6; Note và Task đối chiếu theo schema và đã chạy trên instance thật ngày 02/11/2026). Nếu API vẫn trả 400, so lại với schema rồi sửa hàm `build_*` trong `seed.py`.
 
 ## Danh sách operation (chốt phạm vi)
 
