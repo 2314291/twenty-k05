@@ -116,7 +116,7 @@ Không dùng `down -v` giữa các lần chạy test. Dùng `scripts/reset_env.p
 | Chỉ khôi phục, không seed | `python scripts/reset_env.py --no-seed` |
 
 - Snapshot nằm ở `env/snapshot/` và **không commit** (chứa dữ liệu workspace và API key; đã có trong `.gitignore`). Mỗi máy tự chụp snapshot của mình.
-- Thứ gì tạo bằng tay (workspace, API key, role) phải có **trước** khi chụp; nếu tạo sau thì chạy `reset_env.py --no-seed` rồi chụp lại.
+- Thứ gì tạo bằng tay (workspace, API key, role) phải có **trước** khi chụp. Nếu tạo sau: KHÔNG chạy reset (reset sẽ xoá luôn thứ vừa tạo); thay vào đó dọn dữ liệu seed bằng `python scripts/seed.py --cleanup`, kiểm tra số bản ghi về 5/5/6/0/0, rồi chạy `reset_env.py --snapshot`.
 - Kiểm tra idempotent: chạy reset hai lần liên tiếp, bảng "Số bản ghi sau reset" phải giống hệt (bằng chứng: `evidence/reset-env-20261125.txt`).
 - Workspace mới của Twenty có sẵn dữ liệu mẫu (5 công ty, 5 người, 6 cơ hội), nên sau seed 30 sẽ là 35/35/36/30/30.
 
