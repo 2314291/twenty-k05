@@ -6,3 +6,5 @@ Kết quả chạy trên mock **không** được đưa vào báo cáo như kế
 
     python scripts/selftest/run_selftest.py
     python scripts/selftest/test_hooks.py      # chỉ kiểm tra hooks/k05_hooks.py, không cần Schemathesis
+    python scripts/selftest/test_run_k05.py    # mốc dữ liệu khi đồng hồ máy chủ lệch
+    python scripts/selftest/test_thong_ke.py   # thống kê gộp Phần G
