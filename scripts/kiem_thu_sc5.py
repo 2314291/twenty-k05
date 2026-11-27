@@ -43,7 +43,10 @@ SCHEMA = c.ROOT / "schema" / "core.openapi.json"
 OBJECTS = ("companies", "people", "opportunities", "notes", "tasks")
 VARIANTS = ("none", "wrong", "limited", "full")
 WRONG_KEY = "k05-sai-key-000000"
-GROUP_BY = '[{"createdAt":{"granularity":"DAY"}}]'
+# granularity theo ngày bắt buộc kèm timeZone, thiếu sẽ 400 "Time zone should be specified..." (sửa 28/11)
+GROUP_BY = '[{"createdAt":{"granularity":"DAY","timeZone":"Asia/Ho_Chi_Minh"}}]'
+# merge chỉ có ở object có tiêu chí trùng lặp; object khác trả 400 "Merge is only available..." (đúng thiết kế)
+NO_MERGE_MSG = "Merge is only available"
 
 
 # ---------------------------------------------------------------- dữ liệu
@@ -227,33 +230,42 @@ def judge(variant: str, write: bool, status: int, ok_code: int, control_ok: bool
 
 def run_object(r: Runner, obj: str, variants: list[str], declared: dict) -> None:
     print(f"\n== {obj}: chuẩn bị bản ghi đích (key đủ quyền)")
-    fx = {
-        "read": r.create(obj, "doc"),
-        "merge1": r.create(obj, "gop-1"), "merge2": r.create(obj, "gop-2"),
-        "soft1": r.create(obj, "khoi-phuc-1", soft=True), "soft2": r.create(obj, "khoi-phuc-2", soft=True),
-        "del1": r.create(obj, "xoa-1"), "del2": r.create(obj, "xoa-2"),
-    }
-    if not all(fx.values()):
-        missing = [k for k, v in fx.items() if not v]
+    # Hai bộ bản ghi đích: một cho none/wrong/limited, một riêng cho full (đối chứng). Nếu một key lẽ ra bị chặn
+    # mà vẫn sửa/xoá/gộp được, đối chứng vẫn có bản ghi riêng nên không bị hỏng dây chuyền (sửa 28/11).
+    def make(tag: str) -> dict:
+        return {
+            "read": r.create(obj, f"{tag}doc"),
+            "merge1": r.create(obj, f"{tag}gop-1"), "merge2": r.create(obj, f"{tag}gop-2"),
+            "soft1": r.create(obj, f"{tag}khoi-phuc-1", soft=True), "soft2": r.create(obj, f"{tag}khoi-phuc-2", soft=True),
+            "del1": r.create(obj, f"{tag}xoa-1"), "del2": r.create(obj, f"{tag}xoa-2"),
+        }
+    fx = make("")
+    fx_full = make("dc-") if "full" in variants else fx
+    if not all(fx.values()) or not all(fx_full.values()):
+        missing = [k for k, v in {**fx, **{f"dc-{k}": v for k, v in fx_full.items()}}.items() if not v]
         print(f"   Không tạo đủ bản ghi đích ({', '.join(missing)}), bỏ qua {obj}.")
         r.rows.append(dict(obj=obj, op="(chuẩn bị)", variant="full", status=0, note=f"thiếu {missing}",
                            block="KHÔNG KẾT LUẬN", code="", schema="", expect="", declared=[], msg="", curl=""))
         return
-    for o in operations(obj, fx):
+    for o, o_full in zip(operations(obj, fx), operations(obj, fx_full)):
         m_lower, spath = schema_path(o["op"], obj)
         decl = declared.get((spath, m_lower), [])
         ok_code = next((x for x in decl if 200 <= x < 300), 200)
         results = {}
         for v in variants:
-            s, p = r.http(v, o["m"], o["p"], o["b"])
+            oo = o_full if v == "full" else o
+            s, p = r.http(v, oo["m"], oo["p"], oo["b"])
             if 200 <= s < 300 and o["m"] == "POST" and o["write"]:
                 r.remember(obj, p)                 # dọn cả bản ghi tạo nhầm (nếu key không được phép mà vẫn tạo)
             results[v] = (s, p)
         control_ok = (200 <= results["full"][0] < 300) if "full" in results else None
+        not_applicable = "full" in results and NO_MERGE_MSG in message(results["full"][1])
         line = []
         for v in variants:
             s, p = results[v]
             block, code = judge(v, o["write"], s, ok_code, control_ok)
+            if not_applicable and v in ("full", "limited") and not (200 <= s < 300):
+                block, code = "KHÔNG ÁP DỤNG", "-"     # object không hỗ trợ merge: không có đối chứng hợp lệ
             schema = "CÓ" if s in decl else "KHÔNG"
             msg = message(p)
             if v == "limited" and "Missing authentication token" in msg:
@@ -304,7 +316,8 @@ def summary(rows: list[dict]) -> list[str]:
     return [
         f"- Tổng số ca: **{len(real)}**",
         f"- Chặn: ĐẠT {n('block', 'ĐẠT')}, LỖI BẢO MẬT {n('block', 'LỖI BẢO MẬT')}, CHẶN NHẦM {n('block', 'CHẶN NHẦM')}, "
-        f"ĐỐI CHỨNG HỎNG {n('block', 'ĐỐI CHỨNG HỎNG')}, KHÔNG KẾT LUẬN {n('block', 'KHÔNG KẾT LUẬN')}, "
+        f"ĐỐI CHỨNG HỎNG {n('block', 'ĐỐI CHỨNG HỎNG')}, KHÔNG ÁP DỤNG {n('block', 'KHÔNG ÁP DỤNG')}, "
+        f"KHÔNG KẾT LUẬN {n('block', 'KHÔNG KẾT LUẬN')}, "
         f"ĐIỀU KIỆN ĐẦU SAI {n('block', 'ĐIỀU KIỆN ĐẦU SAI')}",
         f"- Mã đúng kỳ vọng: {n('code', 'ĐÚNG')} / {len(real)}",
         f"- Mã nằm trong schema: {n('schema', 'CÓ')} / {len(real)}",
@@ -401,6 +414,14 @@ def main() -> int:
         s, p = r.http("limited", "GET", "/companies?limit=1")
         if s != 200:
             sys.exit(f"Key chỉ đọc không đọc được Companies (trả {s}, {message(p)}). Kiểm tra role đã bật quyền xem.")
+        # Key gán nhầm role Admin cũng đọc được (lần chạy 28/11 00:37 gặp đúng lỗi này), nên phải thử ghi một lần.
+        s, p = r.http("limited", "POST", "/companies", body_for("companies", "kiem-tra-dieu-kien-dau"))
+        if 200 <= s < 300:
+            rec = c.first_record(p)
+            if isinstance(rec, dict) and rec.get("id"):
+                r.http("full", "DELETE", f"/companies/{rec['id']}")
+            sys.exit(f"Key chỉ đọc GHI ĐƯỢC (trả {s}): key đang gán role có quyền ghi (thường là Admin). "
+                     "Vào Settings -> APIs đổi role của key sang role chỉ đọc, rồi chụp lại snapshot.")
     print("Điều kiện đầu: ĐẠT (key đủ quyền đọc được" + (", key chỉ đọc đọc được" if "limited" in variants else "") + ")")
 
     declared = load_declared()

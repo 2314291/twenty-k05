@@ -1,0 +1,4902 @@
+[
+  {
+    "obj": "companies",
+    "op": "GET /companies",
+    "op_tmpl": "GET /{o}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/companies?limit=1\""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies",
+    "op_tmpl": "GET /{o}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies",
+    "op_tmpl": "GET /{o}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies",
+    "op_tmpl": "GET /{o}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/companies/b3e00e94-6ee5-4734-a7de-8a553a55e2dd\""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "KHÔNG",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "limited",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "companies",
+    "op": "GET /companies/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "full",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"b3e00e94-6ee5-4734-a7de-8a553a55e2dd\\\"]}\" \"http://localhost:3001/rest/companies/duplicates\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies",
+    "op_tmpl": "POST /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/companies\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies",
+    "op_tmpl": "POST /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies",
+    "op_tmpl": "POST /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/companies\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /companies",
+    "op_tmpl": "POST /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /batch/companies",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/companies\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /batch/companies",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /batch/companies",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/companies\""
+  },
+  {
+    "obj": "companies",
+    "op": "POST /batch/companies",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/companies/b3e00e94-6ee5-4734-a7de-8a553a55e2dd\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/companies/b3e00e94-6ee5-4734-a7de-8a553a55e2dd\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/companies?filter=id%5Beq%5D%3Ab3e00e94-6ee5-4734-a7de-8a553a55e2dd\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/companies?filter=id%5Beq%5D%3Ab3e00e94-6ee5-4734-a7de-8a553a55e2dd\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"cc54769e-6610-49d9-8355-843038069637\\\", \\\"62857f31-d7cb-4f1b-a706-3df7cdcd6fb0\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/companies/merge\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer k05-sai-key-000000\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"cc54769e-6610-49d9-8355-843038069637\\\", \\\"62857f31-d7cb-4f1b-a706-3df7cdcd6fb0\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/companies/merge\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"cc54769e-6610-49d9-8355-843038069637\\\", \\\"62857f31-d7cb-4f1b-a706-3df7cdcd6fb0\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/companies/merge\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:K\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"cc54769e-6610-49d9-8355-843038069637\\\", \\\"62857f31-d7cb-4f1b-a706-3df7cdcd6fb0\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/companies/merge\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/companies/49780b9b-5cd4-4b6e-9ba7-6ef564b91aa8/restore\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/companies/49780b9b-5cd4-4b6e-9ba7-6ef564b91aa8/restore\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/companies/restore?filter=id%5Beq%5D%3Ad311b617-bf74-4ee0-9b54-edb016749024\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/companies/restore?filter=id%5Beq%5D%3Ad311b617-bf74-4ee0-9b54-edb016749024\""
+  },
+  {
+    "obj": "companies",
+    "op": "PATCH /companies/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/companies/055f3b8c-bac1-4278-9b8a-0aa6eef74fce\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/companies/055f3b8c-bac1-4278-9b8a-0aa6eef74fce\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/companies/055f3b8c-bac1-4278-9b8a-0aa6eef74fce\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/companies/055f3b8c-bac1-4278-9b8a-0aa6eef74fce\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/companies?filter=id%5Beq%5D%3A8f0bb558-fcb5-417e-a40a-c15e9a4ab442\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/companies?filter=id%5Beq%5D%3A8f0bb558-fcb5-417e-a40a-c15e9a4ab442\""
+  },
+  {
+    "obj": "companies",
+    "op": "DELETE /companies",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people",
+    "op_tmpl": "GET /{o}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/people?limit=1\""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people",
+    "op_tmpl": "GET /{o}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people",
+    "op_tmpl": "GET /{o}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people",
+    "op_tmpl": "GET /{o}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/people/ff48aef3-3fde-448a-b608-a0d9e673114c\""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/people/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "KHÔNG",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/people/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "limited",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/people/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "people",
+    "op": "GET /people/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "full",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/people/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"ff48aef3-3fde-448a-b608-a0d9e673114c\\\"]}\" \"http://localhost:3001/rest/people/duplicates\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people",
+    "op_tmpl": "POST /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-tao\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people",
+    "op_tmpl": "POST /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people",
+    "op_tmpl": "POST /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-tao\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /people",
+    "op_tmpl": "POST /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /batch/people",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-batch\\\", \\\"lastName\\\": \\\"SC5\\\"}}]\" \"http://localhost:3001/rest/batch/people\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /batch/people",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "POST /batch/people",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-batch\\\", \\\"lastName\\\": \\\"SC5\\\"}}]\" \"http://localhost:3001/rest/batch/people\""
+  },
+  {
+    "obj": "people",
+    "op": "POST /batch/people",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-sua\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people/ff48aef3-3fde-448a-b608-a0d9e673114c\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-sua\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people/ff48aef3-3fde-448a-b608-a0d9e673114c\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-sua-loat\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people?filter=id%5Beq%5D%3Aff48aef3-3fde-448a-b608-a0d9e673114c\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": {\\\"firstName\\\": \\\"K05-SC5-sua-loat\\\", \\\"lastName\\\": \\\"SC5\\\"}}\" \"http://localhost:3001/rest/people?filter=id%5Beq%5D%3Aff48aef3-3fde-448a-b608-a0d9e673114c\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"67832ab9-df5f-46c8-82ef-912cec8fe0e8\\\", \\\"ec725e55-1054-402e-a0da-5824051ee137\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/people/merge\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer k05-sai-key-000000\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"67832ab9-df5f-46c8-82ef-912cec8fe0e8\\\", \\\"ec725e55-1054-402e-a0da-5824051ee137\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/people/merge\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"67832ab9-df5f-46c8-82ef-912cec8fe0e8\\\", \\\"ec725e55-1054-402e-a0da-5824051ee137\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/people/merge\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:K\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"67832ab9-df5f-46c8-82ef-912cec8fe0e8\\\", \\\"ec725e55-1054-402e-a0da-5824051ee137\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/people/merge\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/people/a6f67955-876e-4cf3-86a3-9556d39aad73/restore\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/people/a6f67955-876e-4cf3-86a3-9556d39aad73/restore\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/people/restore?filter=id%5Beq%5D%3A86bb2ff5-6b32-401f-ae81-51ae054e1c4b\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/people/restore?filter=id%5Beq%5D%3A86bb2ff5-6b32-401f-ae81-51ae054e1c4b\""
+  },
+  {
+    "obj": "people",
+    "op": "PATCH /people/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/people/c5642712-88bc-46f0-94a8-f96ab39e64a4\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/people/c5642712-88bc-46f0-94a8-f96ab39e64a4\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/people/c5642712-88bc-46f0-94a8-f96ab39e64a4\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/people/c5642712-88bc-46f0-94a8-f96ab39e64a4\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/people?filter=id%5Beq%5D%3A3ef2c4a6-8839-4bab-8884-ad8a4d0bfbc1\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/people?filter=id%5Beq%5D%3A3ef2c4a6-8839-4bab-8884-ad8a4d0bfbc1\""
+  },
+  {
+    "obj": "people",
+    "op": "DELETE /people",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities",
+    "op_tmpl": "GET /{o}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/opportunities?limit=1\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities",
+    "op_tmpl": "GET /{o}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities",
+    "op_tmpl": "GET /{o}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities",
+    "op_tmpl": "GET /{o}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/opportunities/6de2e5ac-952d-4779-9544-361ad2ffd624\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "KHÔNG",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "limited",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "GET /opportunities/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "full",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"6de2e5ac-952d-4779-9544-361ad2ffd624\\\"]}\" \"http://localhost:3001/rest/opportunities/duplicates\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities",
+    "op_tmpl": "POST /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/opportunities\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities",
+    "op_tmpl": "POST /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities",
+    "op_tmpl": "POST /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/opportunities\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /opportunities",
+    "op_tmpl": "POST /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /batch/opportunities",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/opportunities\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /batch/opportunities",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /batch/opportunities",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"[{\\\"name\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/opportunities\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "POST /batch/opportunities",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/opportunities/6de2e5ac-952d-4779-9544-361ad2ffd624\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/opportunities/6de2e5ac-952d-4779-9544-361ad2ffd624\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/opportunities?filter=id%5Beq%5D%3A6de2e5ac-952d-4779-9544-361ad2ffd624\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"name\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/opportunities?filter=id%5Beq%5D%3A6de2e5ac-952d-4779-9544-361ad2ffd624\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"326e0173-96b2-4c9b-8cd6-6f36cdfbed7f\\\", \\\"b4310fdd-2c04-42fd-b5d2-7f275d1a2555\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/opportunities/merge\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer k05-sai-key-000000\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"326e0173-96b2-4c9b-8cd6-6f36cdfbed7f\\\", \\\"b4310fdd-2c04-42fd-b5d2-7f275d1a2555\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/opportunities/merge\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "limited",
+    "write": true,
+    "status": 400,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'opportunity' does not have dup",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"326e0173-96b2-4c9b-8cd6-6f36cdfbed7f\\\", \\\"b4310fdd-2c04-42fd-b5d2-7f275d1a2555\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/opportunities/merge\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "full",
+    "write": true,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'opportunity' does not have dup",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:K\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"326e0173-96b2-4c9b-8cd6-6f36cdfbed7f\\\", \\\"b4310fdd-2c04-42fd-b5d2-7f275d1a2555\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/opportunities/merge\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/opportunities/d49d9a72-1351-4e15-b0cd-692920dc2f42/restore\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/opportunities/d49d9a72-1351-4e15-b0cd-692920dc2f42/restore\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/opportunities/restore?filter=id%5Beq%5D%3A1279afec-6e92-47cb-af23-b74fd9e1aff0\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/opportunities/restore?filter=id%5Beq%5D%3A1279afec-6e92-47cb-af23-b74fd9e1aff0\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "PATCH /opportunities/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/opportunities/bfb65665-1bdd-44d6-befd-d51a738e5064\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/opportunities/bfb65665-1bdd-44d6-befd-d51a738e5064\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/opportunities/bfb65665-1bdd-44d6-befd-d51a738e5064\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/opportunities/bfb65665-1bdd-44d6-befd-d51a738e5064\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/opportunities?filter=id%5Beq%5D%3A7c9d5c09-da3b-4bf2-9547-e5418815ab9e\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/opportunities?filter=id%5Beq%5D%3A7c9d5c09-da3b-4bf2-9547-e5418815ab9e\""
+  },
+  {
+    "obj": "opportunities",
+    "op": "DELETE /opportunities",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes",
+    "op_tmpl": "GET /{o}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/notes?limit=1\""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes",
+    "op_tmpl": "GET /{o}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes",
+    "op_tmpl": "GET /{o}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes",
+    "op_tmpl": "GET /{o}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/notes/4d536c80-f500-4280-9c6b-a0c5bc57246c\""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "KHÔNG",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "limited",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "notes",
+    "op": "GET /notes/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "full",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"4d536c80-f500-4280-9c6b-a0c5bc57246c\\\"]}\" \"http://localhost:3001/rest/notes/duplicates\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes",
+    "op_tmpl": "POST /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/notes\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes",
+    "op_tmpl": "POST /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes",
+    "op_tmpl": "POST /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/notes\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /notes",
+    "op_tmpl": "POST /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /batch/notes",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"[{\\\"title\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/notes\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /batch/notes",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /batch/notes",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"[{\\\"title\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/notes\""
+  },
+  {
+    "obj": "notes",
+    "op": "POST /batch/notes",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/notes/4d536c80-f500-4280-9c6b-a0c5bc57246c\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/notes/4d536c80-f500-4280-9c6b-a0c5bc57246c\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/notes?filter=id%5Beq%5D%3A4d536c80-f500-4280-9c6b-a0c5bc57246c\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/notes?filter=id%5Beq%5D%3A4d536c80-f500-4280-9c6b-a0c5bc57246c\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"8cf859e7-ec1c-4255-8b7f-1eb553ad1598\\\", \\\"750ce9ea-3572-46cc-b52e-7b4461e7cf7e\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/notes/merge\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer k05-sai-key-000000\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"8cf859e7-ec1c-4255-8b7f-1eb553ad1598\\\", \\\"750ce9ea-3572-46cc-b52e-7b4461e7cf7e\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/notes/merge\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "limited",
+    "write": true,
+    "status": 400,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'note' does not have duplicate ",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"8cf859e7-ec1c-4255-8b7f-1eb553ad1598\\\", \\\"750ce9ea-3572-46cc-b52e-7b4461e7cf7e\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/notes/merge\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "full",
+    "write": true,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'note' does not have duplicate ",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:K\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"8cf859e7-ec1c-4255-8b7f-1eb553ad1598\\\", \\\"750ce9ea-3572-46cc-b52e-7b4461e7cf7e\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/notes/merge\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/notes/d6e6828c-bb8e-4bac-a039-d3f810222895/restore\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/notes/d6e6828c-bb8e-4bac-a039-d3f810222895/restore\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/notes/restore?filter=id%5Beq%5D%3A52fbe10f-f80a-4b91-8952-1b5ac10724a8\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/notes/restore?filter=id%5Beq%5D%3A52fbe10f-f80a-4b91-8952-1b5ac10724a8\""
+  },
+  {
+    "obj": "notes",
+    "op": "PATCH /notes/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/notes/5a39edf1-2b33-49f5-85f2-b422eb41eab5\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/notes/5a39edf1-2b33-49f5-85f2-b422eb41eab5\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/notes/5a39edf1-2b33-49f5-85f2-b422eb41eab5\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/notes/5a39edf1-2b33-49f5-85f2-b422eb41eab5\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/notes?filter=id%5Beq%5D%3Aab44cb02-ccce-41f4-8634-3f4a44ddc673\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/notes?filter=id%5Beq%5D%3Aab44cb02-ccce-41f4-8634-3f4a44ddc673\""
+  },
+  {
+    "obj": "notes",
+    "op": "DELETE /notes",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks",
+    "op_tmpl": "GET /{o}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/tasks?limit=1\""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks",
+    "op_tmpl": "GET /{o}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks",
+    "op_tmpl": "GET /{o}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks",
+    "op_tmpl": "GET /{o}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/tasks/604754e4-a9e1-4445-b879-bcb1e10beec3\""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/{id}",
+    "op_tmpl": "GET /{o}/{id}",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET \"http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "KHÔNG",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "limited",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "tasks",
+    "op": "GET /tasks/groupBy",
+    "op_tmpl": "GET /{o}/groupBy",
+    "variant": "full",
+    "write": false,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "BadRequestException: Time zone should be specified for a group by date on Day, Week, Month, Quarter or Year",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X GET -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22createdAt%22%3A%7B%22granularity%22%3A%22DAY%22%7D%7D%5D\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "none",
+    "write": false,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"604754e4-a9e1-4445-b879-bcb1e10beec3\\\"]}\" \"http://localhost:3001/rest/tasks/duplicates\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "wrong",
+    "write": false,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "limited",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks/duplicates",
+    "op_tmpl": "POST /{o}/duplicates",
+    "variant": "full",
+    "write": false,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks",
+    "op_tmpl": "POST /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/tasks\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks",
+    "op_tmpl": "POST /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks",
+    "op_tmpl": "POST /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-tao\\\"}\" \"http://localhost:3001/rest/tasks\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /tasks",
+    "op_tmpl": "POST /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /batch/tasks",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Content-Type: application/json\" -d \"[{\\\"title\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/tasks\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /batch/tasks",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /batch/tasks",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 201,
+    "expect": 403,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X POST -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"[{\\\"title\\\": \\\"K05-SC5-batch\\\"}]\" \"http://localhost:3001/rest/batch/tasks\""
+  },
+  {
+    "obj": "tasks",
+    "op": "POST /batch/tasks",
+    "op_tmpl": "POST /batch/{o}",
+    "variant": "full",
+    "write": true,
+    "status": 201,
+    "expect": 201,
+    "declared": [
+      201,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/tasks/604754e4-a9e1-4445-b879-bcb1e10beec3\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua\\\"}\" \"http://localhost:3001/rest/tasks/604754e4-a9e1-4445-b879-bcb1e10beec3\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}",
+    "op_tmpl": "PATCH /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/tasks?filter=id%5Beq%5D%3A604754e4-a9e1-4445-b879-bcb1e10beec3\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"title\\\": \\\"K05-SC5-sua-loat\\\"}\" \"http://localhost:3001/rest/tasks?filter=id%5Beq%5D%3A604754e4-a9e1-4445-b879-bcb1e10beec3\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks",
+    "op_tmpl": "PATCH /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"3fc585ee-29f5-4247-a792-d1fd8f63b24b\\\", \\\"91f8d29d-752a-43ec-9530-c51872c49985\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/tasks/merge\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer k05-sai-key-000000\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"3fc585ee-29f5-4247-a792-d1fd8f63b24b\\\", \\\"91f8d29d-752a-43ec-9530-c51872c49985\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/tasks/merge\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "limited",
+    "write": true,
+    "status": 400,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'task' does not have duplicate ",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"3fc585ee-29f5-4247-a792-d1fd8f63b24b\\\", \\\"91f8d29d-752a-43ec-9530-c51872c49985\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/tasks/merge\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/merge",
+    "op_tmpl": "PATCH /{o}/merge",
+    "variant": "full",
+    "write": true,
+    "status": 400,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "BadRequestException: Merge is only available for objects with duplicate criteria. Object 'task' does not have duplicate ",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:K\" -H \"Content-Type: application/json\" -d \"{\\\"ids\\\": [\\\"3fc585ee-29f5-4247-a792-d1fd8f63b24b\\\", \\\"91f8d29d-752a-43ec-9530-c51872c49985\\\"], \\\"conflictPriorityIndex\\\": 0}\" \"http://localhost:3001/rest/tasks/merge\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/tasks/95bbc830-bf54-47ec-966d-f04d74118d50/restore\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/tasks/95bbc830-bf54-47ec-966d-f04d74118d50/restore\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/{id}/restore",
+    "op_tmpl": "PATCH /{o}/{id}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH \"http://localhost:3001/rest/tasks/restore?filter=id%5Beq%5D%3A5b0c3da2-fe63-4c36-a26b-65eccee34433\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X PATCH -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/tasks/restore?filter=id%5Beq%5D%3A5b0c3da2-fe63-4c36-a26b-65eccee34433\""
+  },
+  {
+    "obj": "tasks",
+    "op": "PATCH /tasks/restore",
+    "op_tmpl": "PATCH /{o}/restore",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/tasks/3e1b640a-bf6c-446d-9b9e-04c2064869ad\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer k05-sai-key-000000\" \"http://localhost:3001/rest/tasks/3e1b640a-bf6c-446d-9b9e-04c2064869ad\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "KHÔNG KẾT LUẬN",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/tasks/3e1b640a-bf6c-446d-9b9e-04c2064869ad\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks/{id}",
+    "op_tmpl": "DELETE /{o}/{id}",
+    "variant": "full",
+    "write": true,
+    "status": 404,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐỐI CHỨNG HỎNG",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "NotFoundException: Record not found",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:K\" \"http://localhost:3001/rest/tasks/3e1b640a-bf6c-446d-9b9e-04c2064869ad\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "none",
+    "write": true,
+    "status": 403,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "LỆCH",
+    "schema": "KHÔNG",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE \"http://localhost:3001/rest/tasks?filter=id%5Beq%5D%3A12c2fd05-1ed5-46f6-ae7e-64c5e82e65db\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "wrong",
+    "write": true,
+    "status": 401,
+    "expect": 401,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "curl": ""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "limited",
+    "write": true,
+    "status": 200,
+    "expect": 403,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "LỖI BẢO MẬT",
+    "code": "LỆCH",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": "curl.exe -s -w \"%{http_code}\" -X DELETE -H \"Authorization: Bearer $env:L\" \"http://localhost:3001/rest/tasks?filter=id%5Beq%5D%3A12c2fd05-1ed5-46f6-ae7e-64c5e82e65db\""
+  },
+  {
+    "obj": "tasks",
+    "op": "DELETE /tasks",
+    "op_tmpl": "DELETE /{o}",
+    "variant": "full",
+    "write": true,
+    "status": 200,
+    "expect": 200,
+    "declared": [
+      200,
+      400,
+      401
+    ],
+    "block": "ĐẠT",
+    "code": "ĐÚNG",
+    "schema": "CÓ",
+    "msg": "",
+    "curl": ""
+  }
+]
