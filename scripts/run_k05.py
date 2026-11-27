@@ -130,6 +130,22 @@ def find_st() -> list[str]:
     sys.exit("Không tìm thấy lệnh `st`. Chạy: pip install -r requirements.txt (xem thư mục Scripts của Python).")
 
 
+def run_each_object(argv: list[str]) -> int:
+    """`--object all`: gọi lại chính script này cho từng đối tượng (mỗi lần một thư mục kết quả, --reset nếu có)."""
+    i = argv.index("--object")
+    results = []
+    for obj in OBJECTS:
+        sub = argv[:i] + ["--object", obj] + argv[i + 2:]
+        print(f"\n===== {obj} =====", flush=True)
+        rc = subprocess.run([sys.executable, str(Path(__file__).resolve()), *sub]).returncode
+        results.append((obj, rc))
+    print("\nTổng kết (exit code của st: 0 = không lỗi, 1 = có lỗi test, khác = lỗi chạy):")
+    for obj, rc in results:
+        print(f"  {obj:<14} {rc}")
+    print("Thống kê gộp cho Phần G: python scripts/thong_ke.py")
+    return max((rc for _, rc in results if rc not in (0, 1)), default=0) or (1 if any(rc for _, rc in results) else 0)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("scenario", choices=sorted(SCENARIOS))
@@ -141,7 +157,9 @@ def main() -> int:
     ap.add_argument("--label", default="", help="nhãn thêm vào tên thư mục (vd RED)")
     ap.add_argument("--rate-limit", default="auto", help="vd 100/m hoặc auto (mặc định, theo Retry-After khi 429)")
     ap.add_argument("--max-time", type=int, help="giới hạn thời gian tổng (giây)")
-    ap.add_argument("--object", choices=OBJECTS, help="chỉ chạy trên một đối tượng (SC1 mặc định companies, SC2-SC5 mặc định cả 5)")
+    ap.add_argument("--object", choices=OBJECTS + ["all"],
+                    help="chỉ chạy trên một đối tượng (SC1 mặc định companies, SC2-SC5 mặc định cả 5 trong một lần);\n"
+                         "all = chạy lần lượt từng đối tượng, mỗi đối tượng một thư mục kết quả")
     ap.add_argument("--reset", action="store_true", help="dọn và seed lại dữ liệu K05 trước khi chạy (scripts/seed.py)")
     ap.add_argument("--seed-count", type=int, default=int(os.environ.get("K05_SEED_COUNT", "30")), help="số bản ghi mỗi loại khi --reset")
     ap.add_argument("--no-hooks", action="store_true", help="không nạp hooks/k05_hooks.py")
@@ -149,6 +167,8 @@ def main() -> int:
     ap.add_argument("--no-real-ids", action="store_true", help="không thay {id} bằng id seed")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
+    if args.object == "all":
+        return run_each_object(sys.argv[1:])
 
     c.load_env()
     sc = SCENARIOS[args.scenario]

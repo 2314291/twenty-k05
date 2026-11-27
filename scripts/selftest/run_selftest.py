@@ -41,6 +41,8 @@ def main() -> int:
         assert hk.returncode == 0, "test_hooks.py có ca lỗi"
         rk = sh([py, str(HERE / "test_run_k05.py")])
         assert rk.returncode == 0, "test_run_k05.py có ca lỗi"
+        tk = sh([py, str(HERE / "test_thong_ke.py")])
+        assert tk.returncode == 0, "test_thong_ke.py có ca lỗi"
         r1 = sh([py, str(work / "scripts/run_k05.py"), "SC1", "--seed", "7", "--max-examples", "20"], env=env)
         r2 = sh([py, str(work / "scripts/run_k05.py"), "SC1", "--seed", "7", "--max-examples", "20"], env=env)
         runs = sorted((work / "reports" / "SC1").iterdir())

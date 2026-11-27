@@ -218,8 +218,16 @@ def summarize(run_dir: Path, schema: Path | None) -> None:
     else:
         lines += ["Không có lỗi.", ""]
     (run_dir / "summary.md").write_text("\n".join(lines), encoding="utf-8")
-    (run_dir / "summary.json").write_text(json.dumps({"seed": seed, "signature": signature(a), "tested": tested,
-                                                      "schema_operations": len(all_ops)}, ensure_ascii=False, indent=2), encoding="utf-8")
+    (run_dir / "summary.json").write_text(json.dumps({
+        "seed": seed, "signature": signature(a), "tested": tested, "schema_operations": len(all_ops),
+        "test_cases": sum(v["cases"] for v in a["ops"].values()),
+        "ops_ge_50": sum(1 for v in a["ops"].values() if v["cases"] >= 50),
+        "five_xx": sum(n for code, n in a["codes"].items() if code >= 500),
+        "running_time": info.get("running_time"),
+        "checks": {n: {"success": c["success"], "failure": c["failure"]} for n, c in sorted(chk.items())},
+        "failures": [{"operation": f["operation"], "check": f["check"], "type": f["type"], "count": f["count"]}
+                     for f in sorted(a["failures"], key=lambda x: (x["operation"], x["check"]))]},
+        ensure_ascii=False, indent=2), encoding="utf-8")
     (run_dir / "REPRODUCERS.md").write_text("# Reproducer\n\n" + ("\n".join(f"- `reproducers/{n}` — {d}" for n, d in index) or "Không có lỗi."), encoding="utf-8")
     print(f"Đã ghi summary.md, summary.json, REPRODUCERS.md ({len(index)} reproducer) trong {run_dir}")
 
