@@ -1,0 +1,302 @@
+[
+  {
+    "id": "P4-01",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "batch 0 bản ghi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 201,
+    "expect": null,
+    "verdict": "QUAN SÁT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 0 bản ghi",
+    "bug": "G-03",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[]'"
+  },
+  {
+    "id": "P4-02",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "batch 1 bản ghi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 1 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[{\"name\": \"K05-TIEN-B1-0\"}]'"
+  },
+  {
+    "id": "P4-05",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "batch 61 bản ghi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 61 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-61.json  # tạo body bằng hàm build() trong script, 61 phần tử"
+  },
+  {
+    "id": "P4-03",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "batch 200 bản ghi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 200 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-200.json  # tạo body bằng hàm build() trong script, 200 phần tử"
+  },
+  {
+    "id": "P4-04",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "batch 201 bản ghi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 400,
+    "expect": [
+      400,
+      413,
+      422
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 0 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-201.json  # tạo body bằng hàm build() trong script, 201 phần tử"
+  },
+  {
+    "id": "P4-06",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "object thay vì mảng",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "LỆCH",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=TypeError",
+    "bug": "G-05",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '{\"name\":\"x\"}'"
+  },
+  {
+    "id": "P4-07",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "mảng có phần tử sai kiểu (name=123), null và chuỗi",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "LỆCH",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=TypeError",
+    "bug": "G-05",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[{\"name\":123},null,\"x\"]'"
+  },
+  {
+    "id": "P4-08",
+    "sc": "SC4",
+    "object": "opportunities",
+    "desc": "JSON hỏng",
+    "method": "POST",
+    "path": "/batch/opportunities",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=Bad Request",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/opportunities\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '{khong phai json'"
+  },
+  {
+    "id": "P4-01",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "batch 0 bản ghi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 201,
+    "expect": null,
+    "verdict": "QUAN SÁT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 0 bản ghi",
+    "bug": "G-03",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[]'"
+  },
+  {
+    "id": "P4-02",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "batch 1 bản ghi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 1 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[{\"title\": \"K05-TIEN-B1-0\"}]'"
+  },
+  {
+    "id": "P4-05",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "batch 61 bản ghi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 61 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-61.json  # tạo body bằng hàm build() trong script, 61 phần tử"
+  },
+  {
+    "id": "P4-03",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "batch 200 bản ghi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 201,
+    "expect": [
+      200,
+      201
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 201,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 200 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-200.json  # tạo body bằng hàm build() trong script, 200 phần tử"
+  },
+  {
+    "id": "P4-04",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "batch 201 bản ghi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 400,
+    "expect": [
+      400,
+      413,
+      422
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "tạo 0 bản ghi",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" --data-binary @body-201.json  # tạo body bằng hàm build() trong script, 201 phần tử"
+  },
+  {
+    "id": "P4-06",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "object thay vì mảng",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "LỆCH",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=TypeError",
+    "bug": "G-05",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '{\"title\":\"x\"}'"
+  },
+  {
+    "id": "P4-07",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "mảng có phần tử sai kiểu (title=123), null và chuỗi",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "LỆCH",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=TypeError",
+    "bug": "G-05",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '[{\"title\":123},null,\"x\"]'"
+  },
+  {
+    "id": "P4-08",
+    "sc": "SC4",
+    "object": "tasks",
+    "desc": "JSON hỏng",
+    "method": "POST",
+    "path": "/batch/tasks",
+    "status": 400,
+    "expect": [
+      400,
+      422
+    ],
+    "verdict": "ĐẠT",
+    "companies_0211": 400,
+    "same_as_companies": "GIỐNG",
+    "note": "error=Bad Request",
+    "bug": "",
+    "curl": "curl -s -X POST \"http://localhost:3001/rest/batch/tasks\" -H \"Authorization: Bearer $TWENTY_API_KEY\" -H \"Content-Type: application/json\" -d '{khong phai json'"
+  }
+]
