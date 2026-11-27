@@ -26,6 +26,12 @@ from pathlib import Path
 
 import k05_common as c
 
+for _stream in (sys.stdout, sys.stderr):  # console Windows (cp1252, cp1258) không in được tiếng Việt: UnicodeEncodeError
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 OBJECTS = ["companies", "people", "opportunities", "notes", "tasks"]
 OBJ = "|".join(OBJECTS)
 HOOKS_FILE = c.ROOT / "hooks" / "k05_hooks.py"

@@ -20,6 +20,12 @@ from pathlib import Path
 
 import k05_common as c
 
+for _stream in (sys.stdout, sys.stderr):  # console Windows (cp1252, cp1258) không in được tiếng Việt: UnicodeEncodeError
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 
 def find_target(doc: dict, component: str | None, field: str | None):
     """Chọn (thành phần, trường) để đổi kiểu. Ưu tiên schema PHẢN HỒI (`...ForResponse`) vì check

@@ -22,6 +22,12 @@ import shlex
 import sys
 from pathlib import Path
 
+for _stream in (sys.stdout, sys.stderr):  # console Windows (cp1252, cp1258) không in được tiếng Việt: UnicodeEncodeError
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 METHODS = {"get", "post", "put", "patch", "delete"}
 
 

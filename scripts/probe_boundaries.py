@@ -15,9 +15,16 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import sys
 import uuid
 
 import k05_common as c
+
+for _stream in (sys.stdout, sys.stderr):  # console Windows (cp1252, cp1258) không in được tiếng Việt: UnicodeEncodeError
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
 MISSING_UUID = str(uuid.UUID(int=0x20202020_0000_4000_8000_000000000001))
 
