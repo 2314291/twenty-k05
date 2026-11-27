@@ -1,6 +1,6 @@
 # Bảng lỗi chung K05 (Báo cáo Phần G: danh sách lỗi và RCA)
 
-Người gộp: Thuận. Cập nhật: 26/11/2026. Twenty `v2.45.6` (SHA `6007ad5a7f6cb676fd8a9ff0c2a86a2e3d4c260e`), REST `http://localhost:3001/rest`.
+Người gộp: Thuận. Cập nhật: 27/11/2026. Twenty `v2.45.6` (SHA `6007ad5a7f6cb676fd8a9ff0c2a86a2e3d4c260e`), REST `http://localhost:3001/rest`.
 
 Quy tắc (theo `Phan_Cong_module/KE_HOACH_PHAN_CONG_V2.md` mục 7):
 - Mỗi lỗi **một mã D-xx duy nhất**; mã G-xx cũ ghi ở cột "Mã cũ". Một lỗi gặp ở nhiều kịch bản vẫn chỉ một mã.
@@ -8,7 +8,7 @@ Quy tắc (theo `Phan_Cong_module/KE_HOACH_PHAN_CONG_V2.md` mục 7):
 - **Loại:** *Lỗi chức năng* (máy chủ xử lý sai) · *Lệch schema* (tài liệu OpenAPI mô tả sai, máy chủ đúng) · *Quan sát* (hành vi đáng ghi nhận, chưa đủ căn cứ gọi là lỗi).
 - **Trạng thái:** *Đã xác nhận* (có reproducer chạy lại được) · *Chờ xác nhận* (người phát hiện cần kiểm lại sau lần chạy chính thức).
 
-Người phát hiện điền phần của mình vào đúng dòng, rồi gửi Thuận. Lỗi mới: lấy mã tiếp theo còn trống (D-11, D-12…) và báo nhóm để tránh trùng.
+Người phát hiện điền phần của mình vào đúng dòng, rồi gửi Thuận. Lỗi mới: lấy mã tiếp theo còn trống (D-13, D-14…) và báo nhóm để tránh trùng. D-11 đã dùng cho lỗi SC1 ở trên; lỗi SC1 khác của Quang lấy D-13 trở đi.
 
 ## 1. Tổng quan
 
@@ -24,7 +24,7 @@ Người phát hiện điền phần của mình vào đúng dòng, rồi gửi 
 | D-08 | | `limit` thập phân lộ lỗi PostgreSQL (`invalid input syntax for type bigint`) | SC2 | cả 5 | Lỗi chức năng | Trung bình | `input-request-parsers` + bộ lọc lỗi | Thuận | Đã xác nhận |
 | D-09 | | Schema không khai `nullable` ở bất kỳ trường nào; response trả `null` | SC2 (cả SC1, SC3, SC4) | cả 5 | Lệch schema | Trung bình | `open-api` | Thuận | Đã xác nhận |
 | D-10 | | `groupBy`: body sai cấu trúc, số tổng hợp là chuỗi, thiếu mã 400; tham số sai bị bỏ qua | SC2 | cả 5 | Lệch schema (+ chức năng nhỏ) | Trung bình | `open-api` + `input-request-parsers` | Thuận | Đã xác nhận |
-| D-11 | | *(SC1: Quang điền)* | SC1 | | | | | Quang | |
+| D-11 | | `DELETE /{obj}/groupBy` (và `/duplicates`, `/merge`) bị hiểu thành xoá hàng loạt: **xoá vĩnh viễn** mọi bản ghi khớp filter | SC1 | cả 5 | Lỗi chức năng | **Cao** | `input-request-parsers` (đọc đường dẫn) | Thuận (khi chạy lại SC1 bằng harness của Quang) | Đã xác nhận |
 | D-12 | | *(SC5: Tuấn điền)* | SC5 | | | | | Tuấn | |
 
 Không phải lỗi của Twenty (ghi riêng, không đánh mã D):
@@ -34,24 +34,25 @@ Không phải lỗi của Twenty (ghi riêng, không đánh mã D):
 | G-01 | Giới hạn 100 request / 60 giây mỗi key (429 `RATE_LIMITED`) | Môi trường (thiết kế có chủ ý) | `--rate-limit auto`, `--workers 1`, mỗi người một key |
 | G-02 | `seed.py --cleanup` bỏ qua 429 và xoá manifest | Bộ test của nhóm | Đã sửa 02/11/2026 (chờ theo `retryAfterSeconds`) |
 | (mới) | Hook `k05_hooks.py` chặn xoá hàng loạt nhưng không chặn `DELETE /{obj}/{id}`: SC2 xoá 6/30 task seed | Bộ test của nhóm | Luôn `--reset` trước khi chạy; báo Quang |
-| (mới) | `summarize.py --compare` lỗi `UnicodeEncodeError` trên console Windows | Bộ test của nhóm | Tạm đặt `PYTHONUTF8=1`; báo Quang |
+| (mới) | `summarize.py --compare` lỗi `UnicodeEncodeError` trên console Windows | Bộ test của nhóm | Tạm đặt `PYTHONUTF8=1`; báo Quang (đã sửa ở `feat/sc1-harness-quang`) |
+| (mới) | Hook không chặn phương thức ghi trên `/{obj}/groupBy`, `/duplicates`, `/merge`: check `unsupported_method` của SC1 gửi `DELETE /{obj}/groupBy` và xoá sạch dữ liệu (D-11), các ca theo id seed sau đó nhận 404 nên kết quả SC1 27/11 bị đếm lệch | Bộ test của nhóm | Báo Quang sửa hook rồi chạy lại SC1 |
 
 ## 2. Thống kê
 
 | Theo loại | Số lỗi | Mã |
 |---|---|---|
-| Lỗi chức năng | 3 | D-04, D-07, D-08 |
+| Lỗi chức năng | 4 | D-04, D-07, D-08, D-11 |
 | Lệch schema | 5 | D-01, D-02, D-03, D-09, D-10 |
 | Quan sát | 2 | D-05, D-06 |
 
 | Theo module code | Số lỗi | Mã |
 |---|---|---|
-| `api/rest/input-request-parsers/` | 4 | D-01, D-07, D-08, D-10 (một phần) |
+| `api/rest/input-request-parsers/` | 5 | D-01, D-07, D-08, D-10 (một phần), D-11 |
 | `core-modules/open-api/` | 4 | D-02 (một phần), D-03, D-09, D-10 |
 | `api/rest/core/` + `rest-api-exception.filter.ts` | 3 | D-04, D-05, D-08 (một phần) |
 | `core-modules/auth/` | 1 | D-02 (một phần) |
 
-*(Cập nhật khi có D-11 trở đi.)*
+*(Cập nhật khi có D-12 trở đi.)*
 
 ## 3. Chi tiết từng lỗi
 
@@ -198,6 +199,19 @@ Mẫu cho mỗi lỗi:
 | Người phát hiện, ngày | Thuận 26/11/2026 |
 | Nguồn chi tiết | KIEM_CHUNG_E_F |
 
+### D-11. `DELETE /{obj}/groupBy` xoá vĩnh viễn mọi bản ghi khớp filter
+
+| Mục | Nội dung |
+|---|---|
+| Kịch bản, object | SC1 (check `unsupported_method`); cả 5 object. Cũng đúng với `DELETE /{obj}/duplicates` |
+| Reproducer | **An toàn** (filter chỉ khớp id không tồn tại, xoá mềm): `curl -X DELETE -G -H 'Authorization: Bearer <KEY>' 'http://localhost:3001/rest/companies/groupBy' --data-urlencode 'filter=id[eq]:"00000000-0000-4000-8000-000000000000"' --data-urlencode 'soft_delete=true'` → `200 {"data":{"deleteCompanies":[]}}`. Ca gốc của Schemathesis (**không chạy trên dữ liệu thật**): `DELETE /rest/tasks/groupBy?group_by=[{"updatedAt":true}]&filter=createdAt[gte]:"2023-01-01"&…` |
+| Kỳ vọng | 405 Method Not Allowed (schema chỉ khai `GET` cho `/{obj}/groupBy`), hoặc ít nhất 4xx |
+| Thực tế | 200, body `{"data":{"deleteTasks":[…]}}`: server chạy **xoá cứng hàng loạt** theo `filter`. Lần chạy SC1 27/11 xoá sạch cả 5 object (47 công ty, 50 người, 45 cơ hội, 41 ghi chú, 39 việc, gồm toàn bộ 30 bản ghi seed mỗi object). `DELETE /{obj}/duplicates` cho cùng kết quả (`deleteCompanies`). `PATCH /{obj}/groupBy` vào nhánh cập nhật hàng loạt và lộ `TypeError` (400). Đối chứng: `DELETE /companies/abc` → 400 `'abc' is not a valid UUID` |
+| Loại, mức | Lỗi chức năng; **cao**: mất dữ liệu không khôi phục được, chỉ cần một request sai phương thức. Request vẫn cần key hợp lệ có quyền xoá, nên không phải lỗ hổng cho người ngoài |
+| Nguyên nhân | **[mã]** `api/rest/input-request-parsers/path-parser-utils/parse-core-path.utils.ts:42–47`: đoạn thứ hai là `duplicates`, `groupBy` hoặc `merge` thì trả `{ object }` (không id) **với mọi phương thức HTTP**. Route `@Delete('*path')` của `api/rest/core/controllers/rest-api-core.controller.ts` bắt mọi đường dẫn, rồi `api/rest/core/services/rest-api-core.service.ts:85–88`: không id và không `soft_delete=true` → `restApiDestroyManyHandler` (xoá cứng). Chính đội Twenty đã chặn đúng lỗi này cho `/restore` (comment dòng 15: *"other methods' wildcard routes would read the id as a target (DELETE would destroy it)"*) nhưng chưa chặn cho `groupBy`, `duplicates`, `merge` |
+| Người phát hiện, ngày | Thuận 27/11/2026, khi chạy lại SC1 bằng harness nhánh `feat/sc1-harness-quang` |
+| Nguồn chi tiết | `reports/SC1/20261127-*-seed20261020-{companies,…,tasks}/ndjson-*.ndjson` (bản ghi request/response của ca `GET /{obj}/groupBy`, check `unsupported_method`), chưa đưa lên git |
+
 ## 4. RCA xuyên module (khung)
 
 Quan sát chung: **mọi lỗi SC2 lặp y hệt ở cả 5 object**, vì Twenty sinh REST API và OpenAPI từ metadata theo một khuôn. Lỗi nằm ở mã dùng chung, không ở từng object. Các lỗi dồn về 4 nguyên nhân gốc (R1 đến R4):
@@ -206,7 +220,7 @@ Quan sát chung: **mọi lỗi SC2 lặp y hệt ở cả 5 object**, vì Twenty
 
 | Nguyên nhân gốc | Bằng chứng trong mã | Lỗi | Hệ quả |
 |---|---|---|---|
-| **R1. Không có tầng kiểm tra tham số query theo schema.** Mỗi tham số có một hàm parse viết tay riêng, mỗi hàm tự quyết định cách xử lý giá trị sai: so chuỗi rồi rơi về `false`, cắt về giá trị tối đa, chỉ chặn `NaN`, hoặc đọc sai tên | `api/rest/input-request-parsers/`: `parse-soft-delete-rest-request.util.ts:12`, `parse-upsert-rest-request.util.ts:12` (`=== 'true'`); `parse-limit-rest-request.util.ts:21–30` (chỉ chặn `NaN`/âm, rồi `Math.min`); `parse-view-id-rest-request.util.ts:9` (đọc `viewId`, schema khai `view_id`) | D-01, D-07, D-08, D-10 (một phần) | Nhận dữ liệu sai mà vẫn báo thành công; **mất dữ liệu** (D-07); giá trị sai lọt xuống SQL (D-08) |
+| **R1. Không có tầng kiểm tra tham số query theo schema.** Mỗi tham số có một hàm parse viết tay riêng, mỗi hàm tự quyết định cách xử lý giá trị sai: so chuỗi rồi rơi về `false`, cắt về giá trị tối đa, chỉ chặn `NaN`, hoặc đọc sai tên | `api/rest/input-request-parsers/`: `parse-soft-delete-rest-request.util.ts:12`, `parse-upsert-rest-request.util.ts:12` (`=== 'true'`); `parse-limit-rest-request.util.ts:21–30` (chỉ chặn `NaN`/âm, rồi `Math.min`); `parse-view-id-rest-request.util.ts:9` (đọc `viewId`, schema khai `view_id`); `path-parser-utils/parse-core-path.utils.ts:42–47` (bỏ qua `groupBy`/`duplicates`/`merge` mà không xét phương thức) | D-01, D-07, D-08, D-10 (một phần), D-11 | Nhận dữ liệu sai mà vẫn báo thành công; **mất dữ liệu** (D-07, D-11); giá trị sai lọt xuống SQL (D-08) |
 | **R2. Bộ sinh OpenAPI viết tay, tách rời khỏi mã xử lý thật.** Schema không sinh từ cùng nguồn với handler, nên lệch ở nhiều chỗ | `core-modules/open-api/utils/components.utils.ts` (`isNullable` chỉ dùng cho `required` và ví dụ, dòng 56, 180); `path.utils.ts` (mọi operation chỉ khai 200/201, 400, 401; `groupBy` chỉ 200, dòng 306–307); `responses.utils.ts:487` (`groupBy` bọc `data.*GroupBy`, trong khi `rest-api-group-by.handler.ts:66` trả mảng trần) | D-02 (một phần), D-03, D-09, D-10 | Phần lớn báo động của Schemathesis (~800 lần `response_schema_conformance` ở SC2); client sinh từ schema đọc sai kết quả |
 | **R3. Bộ lọc lỗi REST đổi mọi lỗi không phải `HttpException` thành 400.** Lỗi JavaScript và lỗi PostgreSQL trông như "từ chối dữ liệu sai" | `api/rest/rest-api-exception.filter.ts:27–28`: `exception instanceof HttpException ? exception.getStatus() : 400;`. Comment của chính đội Twenty ngay dòng đó: *"should actually default to 500 but we dont have input validation yet and dont want to be flooded with errors from input"* (issue `twentyhq/core-team-issues#1027`) | D-04, D-08 | Lỗi nội bộ bị che thành ca "đạt" (Schemathesis không báo); lộ thông điệp nội bộ (`TypeError`, `bigint`) |
 | **R4. Gắn sai mã lỗi xác thực.** "Không có token" là lỗi xác thực nhưng bị dán nhãn `FORBIDDEN_EXCEPTION` (dành cho thiếu quyền) | `core-modules/auth/token/services/access-token.service.ts:217–220`; bảng đổi mã `core-modules/auth/utils/get-auth-exception-rest-status.util.ts` (`FORBIDDEN_EXCEPTION` → 403) | D-02 (cùng với R2: schema không khai 403) | Mọi request thiếu key ở mọi operation của cả 5 object đều lệch schema; client không phân biệt được "thiếu key" với "thiếu quyền" |
@@ -217,7 +231,7 @@ Quan sát chung: **mọi lỗi SC2 lặp y hệt ở cả 5 object**, vì Twenty
 
 | Nguyên nhân | Đề xuất |
 |---|---|
-| R1 | Kiểm tra query bằng chính schema đã sinh (hoặc DTO có validation) trước khi gọi handler; `boolean` chỉ nhận `true`/`false`, `limit` phải là số nguyên trong `[0, 200]`, trả 400 với thông điệp rõ ràng; thống nhất tên `view_id` |
+| R1 | Kiểm tra query bằng chính schema đã sinh (hoặc DTO có validation) trước khi gọi handler; `boolean` chỉ nhận `true`/`false`, `limit` phải là số nguyên trong `[0, 200]`, trả 400 với thông điệp rõ ràng; thống nhất tên `view_id`; `parseCorePath` chỉ nhận `groupBy` với `GET`, `duplicates` với `POST`, `merge` với `PATCH` (như đã làm cho `/restore`), phương thức khác trả 405 |
 | R2 | Sinh `nullable` từ `isNullable`; thêm response 403, 404, 429 dùng chung; sửa `getGroupByResponse200` cho khớp mảng thật (hoặc sửa handler bọc `data`) và kiểu số tổng hợp |
 | R3 | Sau khi có R1, trả 500 cho lỗi không phải `HttpException` (đúng như comment trong mã đề xuất) và không đưa thông điệp nội bộ ra ngoài |
 | R4 | Đổi mã ở `access-token.service.ts:219` thành `AuthExceptionCode.UNAUTHENTICATED` (401); hoặc giữ 403 và khai thêm 403 cho mọi operation (gộp với đề xuất R2) |
