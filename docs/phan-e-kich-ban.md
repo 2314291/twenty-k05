@@ -44,7 +44,7 @@ Ca tay dùng thêm hai bất biến không có trong Schemathesis: **I8** nhất
 ### Phạm vi và tiêu chí đạt (SPEC.md)
 
 5 object (Companies, People, Opportunities, Notes, Tasks) × 13 operation = 65 operation. Mỗi object phủ ≥ 11/13 operation; mỗi operation
-≥ 50 test case (ngoại lệ `DELETE /{obj}/{id}`, xem E.3); mỗi lỗi có reproducer; hai lần chạy cùng cấu hình cho cùng tập lỗi.
+≥ 50 test case (ngoại lệ `DELETE /{obj}/{id}`, xem E.4); mỗi lỗi có reproducer; hai lần chạy cùng cấu hình cho cùng tập lỗi.
 Ngoài phạm vi: GraphQL, metadata API, giao diện web.
 
 ## E.2. Bảng kịch bản
@@ -67,10 +67,10 @@ Ngoài phạm vi: GraphQL, metadata API, giao diện web.
 | Phạm vi | 13 operation mỗi object: `POST /batch/{obj}`; `GET`, `POST`, `DELETE`, `PATCH /{obj}`; `POST /{obj}/duplicates`; `GET /{obj}/groupBy`; `PATCH /{obj}/merge`; `PATCH /{obj}/restore`; `GET`, `DELETE`, `PATCH /{obj}/{id}`; `PATCH /{obj}/{id}/restore` |
 | Điều kiện đầu | Twenty chạy; key đủ quyền; reset dữ liệu trước mỗi object |
 | Input | Schemathesis sinh: `--mode all`, `--phases examples,coverage,fuzzing`, `--max-examples 50`, `--checks all`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto` |
-| Lệnh | `python scripts/run_k05.py SC1` |
+| Lệnh | `python scripts/run_k05.py SC1 --object all --reset` |
 | Kỳ vọng | I1 đến I7 không bị vi phạm; mọi vi phạm được tái hiện bằng `curl` và phân loại |
 | Đầu ra | `reports/SC1/<thời điểm>/summary.md`, `REPRODUCERS.md`, báo cáo JSON/JUnit/HTML |
-| Rủi ro | Phase `examples` có bộ lọc khớp mọi bản ghi; `DELETE /{obj}` hoặc `PATCH /{obj}` hàng loạt có thể xoá hoặc sửa toàn bộ dữ liệu. Hook chặn thao tác hàng loạt và reset trước mỗi lần chạy |
+| Rủi ro | Phase `examples` có bộ lọc khớp mọi bản ghi; `DELETE /{obj}` hoặc `PATCH /{obj}` hàng loạt có thể xoá hoặc sửa toàn bộ dữ liệu. Hook chặn thao tác hàng loạt và reset trước mỗi lần chạy. Check `unsupported_method` gửi `DELETE /{obj}/groupBy`: máy chủ hiểu thành xoá hàng loạt và xoá vĩnh viễn mọi bản ghi khớp `filter` (D-11); hook hiện chưa chặn đường dẫn này, nên kết quả các ca theo id sau đó bị lệch (404) |
 
 **Ca đỏ (RED):** tạo bản sao schema, đổi `CompanyForResponse.name` từ `string` sang `integer` (không sửa schema gốc), chạy SC1 trên bản sao.
 Kỳ vọng: I3 đỏ ở các operation trả Company; lần chạy với schema gốc không có lỗi đó. Ca này chứng minh bộ test bắt được lệch schema thật.
@@ -83,7 +83,7 @@ Kỳ vọng: I3 đỏ ở các operation trả Company; lần chạy với schem
 | Phạm vi | 5 object × 13 operation = 65 operation |
 | Điều kiện đầu | Như SC1; seed lại trước mỗi object (`--reset`) |
 | Dữ liệu test | 30 bản ghi `K05-` mỗi object, seed `20261020`; id lấy từ `reports/seed-manifest.json`; ca tay P2 tạo bản ghi riêng `K05-A-`, `K05-B-` rồi xoá |
-| Input | `--mode negative`, `--phases coverage,fuzzing`, `--max-examples 50`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto`; hook chặn `DELETE`/`PATCH` hàng loạt |
+| Input | `--mode negative`, `--phases coverage,fuzzing`, `--max-examples 50`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto`; hook chặn `DELETE`/`PATCH` hàng loạt (chưa chặn `DELETE /{obj}/{id}` và `DELETE /{obj}/groupBy`, nên luôn `--reset`) |
 | Lệnh | `python scripts/run_k05.py SC2 --object <obj> --reset`; tái lập: `python scripts/summarize.py --compare <lần 1> <lần 2>` |
 | Kỳ vọng | I1, I2, I3, I4 |
 
@@ -247,7 +247,7 @@ Dữ liệu tạo và trường sửa của từng object (mỗi object sửa m�
 | Kịch bản | Bất biến kiểm | Lỗi liên quan (mã ở `reports/bang-loi.md`) |
 |---|---|---|
 | SC1 | I1–I7 | D-03, D-09, D-11 |
-| SC2 | I1–I4 | D-01, D-03, D-07, D-08, D-09, D-10 |
+| SC2 | I1–I4 | D-01, D-02, D-03, D-07, D-08, D-09, D-10 |
 | SC3 | I1–I3 | D-01, D-03 |
 | SC4 | I1–I4, I9 | D-04, D-05 |
 | SC5 | I1, I2, I6 | D-02, D-12 |
