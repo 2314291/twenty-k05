@@ -74,6 +74,37 @@ def reset_seed(count: int, dry_run: bool) -> None:
             sys.exit("Seed lại thất bại, dừng để không chạy trên dữ liệu lệch. Xem lỗi ở trên.")
 
 
+def iso_ms(t: dt.datetime) -> str:
+    return t.astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.") + f"{t.microsecond // 1000:03d}Z"
+
+
+def data_mark(key: str | None) -> tuple[str, str]:
+    """Mốc mà sau nó DELETE/PATCH hàng loạt mới được chạm tới bản ghi.
+
+    Lấy max(giờ máy này + 1 giây, createdAt mới nhất trong DB + 1 ms). Phần sau cần vì đồng hồ của
+    container (Docker/WSL) có thể chạy nhanh hơn Windows vài giây: khi đó bản ghi seed vừa tạo có
+    createdAt lớn hơn giờ máy này và lọt qua bộ lọc (ngày 26/11 SC2 đã xoá 6/30 task seed vì vậy)."""
+    local = dt.datetime.now(dt.timezone.utc).replace(microsecond=0) + dt.timedelta(seconds=1)
+    newest, src = None, "giờ máy chạy test"
+    if key:
+        for obj in OBJECTS:
+            try:
+                status, parsed, _ = c.http("GET", f"/{obj}?order_by=createdAt[DescNullsLast]&limit=1&depth=0", key=key)
+            except SystemExit:
+                break
+            rows = (((parsed or {}).get("data") or {}).get(obj) or []) if status == 200 and isinstance(parsed, dict) else []
+            stamp = rows[0].get("createdAt") if rows and isinstance(rows[0], dict) else None
+            try:
+                t = dt.datetime.fromisoformat(str(stamp).replace("Z", "+00:00")) if stamp else None
+            except ValueError:
+                t = None
+            if t and (newest is None or t > newest):
+                newest = t
+    if newest and newest + dt.timedelta(milliseconds=1) > local:
+        return iso_ms(newest + dt.timedelta(milliseconds=1)), "createdAt mới nhất trong DB (đồng hồ máy chủ đi trước)"
+    return iso_ms(local), src
+
+
 def find_st() -> list[str]:
     """Tìm lệnh `st`. Trên Windows nó nằm trong thư mục Scripts, thường KHÔNG có trong PATH."""
     import sysconfig
@@ -161,17 +192,19 @@ def main() -> int:
     if args.reset:
         reset_seed(args.seed_count, args.dry_run)
 
-    # Mốc thời gian sau khi seed (làm tròn LÊN giây kế tiếp để bản ghi seed tạo trong cùng giây vẫn nằm trước mốc):
-    # hook chỉ cho DELETE/PATCH hàng loạt chạm bản ghi tạo sau mốc này.
-    run_start = (dt.datetime.now(dt.timezone.utc).replace(microsecond=0) + dt.timedelta(seconds=1)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    # Mốc thời gian sau khi seed: hook chỉ cho DELETE/PATCH hàng loạt chạm bản ghi tạo sau mốc này.
     use_hooks = not args.no_hooks and HOOKS_FILE.exists()
+    if use_hooks and not args.no_protect and not args.dry_run:
+        run_start, mark_src = data_mark(c.api_key(required=False) or None)
+    else:
+        run_start, mark_src = iso_ms(dt.datetime.now(dt.timezone.utc).replace(microsecond=0) + dt.timedelta(seconds=1)), "giờ máy chạy test"
     hook_env = {"K05_RUN_START": run_start, "K05_SEED_MANIFEST": str(MANIFEST),
                 "K05_PROTECT_DATA": "0" if args.no_protect else "1", "K05_REAL_IDS": "0" if args.no_real_ids else "1"}
     if use_hooks:
         hook_env["SCHEMATHESIS_HOOKS"] = str(HOOKS_FILE)
     hooks_note = (f"hook {HOOKS_FILE.relative_to(c.ROOT)} (bảo vệ dữ liệu={hook_env['K05_PROTECT_DATA']}, id seed={hook_env['K05_REAL_IDS']})"
                   if use_hooks else "không dùng hook")
-    print(f"$ {shown}\n[{hooks_note}; mốc dữ liệu {run_start}]\n")
+    print(f"$ {shown}\n[{hooks_note}; mốc dữ liệu {run_start} theo {mark_src}]\n")
     if use_hooks and not args.no_real_ids and not args.reset:
         print("Lưu ý: không có --reset, id lấy từ reports/seed-manifest.json có thể đã bị xoá ở lần chạy trước (ca theo id sẽ 404).\n")
     if args.no_hooks or args.no_protect:
@@ -188,7 +221,7 @@ def main() -> int:
         "scenario": args.scenario, "object": args.object, "path_regex": regex, "variant": args.variant,
         "seed": seed, "schema": str(schema.relative_to(c.ROOT)) if schema.is_relative_to(c.ROOT) else str(schema),
         "url": url, "reset": args.reset, "seed_count": args.seed_count if args.reset else None,
-        "seed_manifest": manifest_counts, "run_start_utc": run_start, "hooks": use_hooks,
+        "seed_manifest": manifest_counts, "run_start_utc": run_start, "run_start_source": mark_src, "hooks": use_hooks,
         "protect_data": use_hooks and not args.no_protect, "real_ids": use_hooks and not args.no_real_ids,
         "command": shown}, ensure_ascii=False, indent=2), encoding="utf-8")
     env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1", **hook_env)

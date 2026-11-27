@@ -30,7 +30,7 @@ def load_hooks():
 
 def case(method, path, path_parameters=None, query=None, mode="positive"):
     meta = SimpleNamespace(generation=SimpleNamespace(mode=SimpleNamespace(value=mode)))
-    return SimpleNamespace(method=method, path=path, path_parameters=path_parameters, query=query, meta=meta)
+    return SimpleNamespace(method=method, path=path, path_parameters=path_parameters, query=query, meta=meta, body=None)
 
 
 h = load_hooks()
@@ -69,7 +69,30 @@ for method, path in [("GET", "/companies"), ("POST", "/companies"), ("PATCH", "/
     h.before_call(None, c, {})
     check(f"không đụng {method} {path}", c.query == {"filter": "x[eq]:1"})
 
+# --- before_call: không xoá hay gộp bản ghi seed theo id ---
+c = case("DELETE", "/companies/{id}", {"id": SEED_IDS[0]}, query={"soft_delete": "abc"}, mode="negative")
+h.before_call(None, c, {})
+check("DELETE theo id seed: đổi sang UUID không tồn tại", c.path_parameters["id"] not in SEED_IDS and h.UUID_RE.match(c.path_parameters["id"]))
+first_decoy = c.path_parameters["id"]
+c = case("DELETE", "/companies/{id}", {"id": SEED_IDS[0].upper()})
+h.before_call(None, c, {})
+check("UUID chữ hoa vẫn được nhận ra, đổi tất định", c.path_parameters["id"] == first_decoy)
+c = case("DELETE", "/companies/{id}", {"id": RANDOM_UUID})
+h.before_call(None, c, {})
+check("DELETE theo id không phải seed: giữ nguyên", c.path_parameters["id"] == RANDOM_UUID)
+c = case("PATCH", "/companies/{id}", {"id": SEED_IDS[1]})
+h.before_call(None, c, {})
+check("PATCH theo id seed: giữ nguyên (sửa, không mất bản ghi)", c.path_parameters["id"] == SEED_IDS[1])
+c = case("PATCH", "/companies/merge", query={})
+c.body = {"ids": [SEED_IDS[1], RANDOM_UUID, 5], "conflictPriorityIndex": 0}
+h.before_call(None, c, {})
+check("merge: id seed bị đổi, id khác và phần tử lạ giữ nguyên",
+      c.body["ids"][0] not in SEED_IDS and c.body["ids"][1:] == [RANDOM_UUID, 5])
+
 os.environ["K05_PROTECT_DATA"] = "0"
+c = case("DELETE", "/companies/{id}", {"id": SEED_IDS[0]})
+h.before_call(None, c, {})
+check("K05_PROTECT_DATA=0 không đổi id seed", c.path_parameters["id"] == SEED_IDS[0])
 c = case("DELETE", "/companies", query={"filter": "x[eq]:1"})
 h.before_call(None, c, {})
 check("K05_PROTECT_DATA=0 tắt bảo vệ", c.query == {"filter": "x[eq]:1"})

@@ -12,6 +12,11 @@ Hai việc, bật/tắt bằng biến môi trường (run_k05.py tự đặt):
    + `soft_delete=false` (lấy từ `examples` của schema) đã xoá vĩnh viễn 209 công ty, gồm cả dữ liệu
    seed, và phần còn lại của lần chạy diễn ra trên bảng gần như rỗng (xem docs/defects.md, mục R-01).
 
+   Thêm vào đó (cũng trong `before_call`): `DELETE /{đối tượng}/{id}` và `PATCH /{đối tượng}/merge` mà
+   trỏ tới id của bản ghi seed thì id đó được đổi sang một UUID không tồn tại (cùng giá trị -> cùng UUID), nên
+   bản ghi seed không bao giờ bị xoá hay gộp mất giữa lần chạy. Mốc `K05_RUN_START` do run_k05.py lấy theo
+   đồng hồ của máy chủ (createdAt mới nhất trong DB), để đồng hồ Docker lệch với Windows không làm lọt bản ghi seed.
+
 2. Id có thật (`K05_REAL_IDS=1`, mặc định bật). Hook `map_case` (phase coverage, fuzzing, stateful)
    thay `{id}` là UUID hợp lệ của ca DƯƠNG bằng một id trong `reports/seed-manifest.json`, để
    GET/PATCH/restore theo id chạm bản ghi thật thay vì 404. Không áp dụng cho `DELETE /{đối tượng}/{id}`
@@ -28,6 +33,7 @@ import hashlib
 import json
 import os
 import re
+import uuid
 from pathlib import Path
 
 try:  # cho phép chạy unit test (scripts/selftest/test_hooks.py) khi chưa cài schemathesis
@@ -43,6 +49,8 @@ UUID_RE = re.compile(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]
 BULK_PATH_RE = re.compile(r"^/([A-Za-z]+)$")                 # /companies
 ID_PATH_RE = re.compile(r"^/([A-Za-z]+)/\{id\}(/restore)?$")  # /companies/{id}, /companies/{id}/restore
 BULK_METHODS = {"DELETE", "PATCH"}
+DELETE_ID_RE = re.compile(r"^/([A-Za-z]+)/\{id\}$")            # DELETE /companies/{id}
+MERGE_RE = re.compile(r"^/([A-Za-z]+)/merge$")                  # PATCH /companies/merge
 
 
 def _flag(name: str, default: str = "1") -> bool:
@@ -76,6 +84,34 @@ def pick_real_id(obj: str, generated: str) -> str | None:
     if not ids:
         return None
     return ids[int(hashlib.sha256(generated.encode()).hexdigest(), 16) % len(ids)]
+
+
+def seed_ids(obj: str) -> set[str]:
+    return {i.lower() for i in load_manifest().get(obj, []) if isinstance(i, str)}
+
+
+def decoy_id(value: str) -> str:
+    """UUID không tồn tại, tất định theo giá trị gốc (chạy lại vẫn ra cùng request)."""
+    return str(uuid.UUID(hashlib.sha256(("k05-decoy:" + value).encode()).hexdigest()[:32]))
+
+
+def shield_seed_ids(case) -> None:
+    """Không để request xoá theo id hoặc gộp bản ghi chạm vào bản ghi seed."""
+    method, path = str(case.method).upper(), case.path or ""
+    m = DELETE_ID_RE.match(path)
+    if method == "DELETE" and m:
+        params = case.path_parameters if isinstance(case.path_parameters, dict) else None
+        value = params.get("id") if params else None
+        if isinstance(value, str) and value.lower() in seed_ids(m.group(1)):
+            params["id"] = decoy_id(value)
+        return
+    m = MERGE_RE.match(path)
+    if method == "PATCH" and m and isinstance(case.body, dict) and isinstance(case.body.get("ids"), list):
+        protected = seed_ids(m.group(1))
+        ids = case.body["ids"]
+        for i, v in enumerate(ids):
+            if isinstance(v, str) and v.lower() in protected:
+                ids[i] = decoy_id(v)
 
 
 def is_negative(case) -> bool:
@@ -118,6 +154,7 @@ def map_case(ctx, case):
 def before_call(ctx, case, kwargs):
     if not _flag("K05_PROTECT_DATA"):
         return
+    shield_seed_ids(case)
     if str(case.method).upper() not in BULK_METHODS or not BULK_PATH_RE.match(case.path or ""):
         return
     if not isinstance(case.query, dict):
