@@ -15,7 +15,7 @@ Người phát hiện điền phần của mình vào đúng dòng, rồi gửi 
 | Mã | Mã cũ | Mô tả ngắn | Kịch bản | Object | Loại | Mức | Module code (RCA) | Người phát hiện | Trạng thái |
 |---|---|---|---|---|---|---|---|---|---|
 | D-01 | G-04 | `limit` > 200 bị cắt âm thầm về 200 | SC3, SC2 | cả 5 | Lệch schema | Thấp | `input-request-parsers` | Trung; Tiến, Thuận xác nhận | Đã xác nhận |
-| D-02 | | Thiếu API key trả 403, schema chỉ khai 401 | SC5, SC2 | cả 5 | Lệch schema | Thấp | `auth` + `open-api` | Quang (P5) | Chờ SC5 (Tuấn) |
+| D-02 | | Thiếu API key trả 403, schema chỉ khai 401 | SC5, SC2 | cả 5 | Lệch schema | Thấp | `auth` + `open-api` | Tuấn (P5); Thuận thấy lại ở SC2 | Đã xác nhận |
 | D-03 | G-07 | Schema không khai 404 (và 403, 429) ở mọi operation | SC3, SC6, SC2 | cả 5 | Lệch schema | Thấp | `open-api` | Trung; Thuận xác nhận | Đã xác nhận |
 | D-04 | G-05 | Body batch sai kiểu lộ `TypeError` nội bộ (400) | SC4 | Companies, People, Notes | Lỗi chức năng | Trung bình | `rest/core` + bộ lọc lỗi | Trung; Tiến xác nhận | Đã xác nhận |
 | D-05 | G-03 | Batch rỗng `[]` trả 201 dù không tạo gì | SC4 | Companies, People, Notes | Quan sát | Thấp | `rest/core` | Trung; Tiến xác nhận | Đã xác nhận |
@@ -77,7 +77,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | 400 (schema: `limit` `integer`, `minimum 0`, `maximum 200`) |
 | Thực tế | 200, đúng 200 bản ghi, không báo lỗi |
 | Loại, mức | Lệch schema; thấp |
-| Nguyên nhân | Mã cố ý cắt về `QueryMaxRecords` = 200 (`parse-limit-rest-request.util.ts`) thay vì từ chối, trong khi bộ sinh OpenAPI vẫn ghi `maximum: 200` (H1) |
+| Nguyên nhân | **[mã]** `api/rest/input-request-parsers/limit-parser-utils/parse-limit-rest-request.util.ts:30` trả `Math.min(limit, maxLimit)` với `QUERY_MAX_RECORDS = 200` (`twenty-shared/src/constants/QueryMaxRecords.ts`): cắt thay vì từ chối, trong khi bộ sinh OpenAPI vẫn ghi `maximum: 200` (H1) |
 | Người phát hiện, ngày | Trung 02/11/2026; Tiến, Thuận xác nhận 25–26/11/2026 |
 | Nguồn chi tiết | `docs/dac-ta-sc3-sc4.md` (G-04); `docs/kiem-thu-tien-sc3-sc4.md`; KIEM_CHUNG_B (SC2) |
 
@@ -85,14 +85,14 @@ Mẫu cho mỗi lỗi:
 
 | Mục | Nội dung |
 |---|---|
-| Kịch bản, object | SC5 (P5-01, P5-05); SC2 thấy ở mọi operation của cả 5 object |
-| Reproducer | `curl -i 'http://localhost:3001/rest/companies'` (không gửi key) |
-| Kỳ vọng | 401 (mã duy nhất schema khai cho lỗi xác thực) |
-| Thực tế | 403 `{"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}` |
-| Loại, mức | Lệch schema; thấp |
-| Nguyên nhân | *(Tuấn điền sau SC5: guard trả `FORBIDDEN_EXCEPTION` thay vì 401? schema thiếu 403?)* |
-| Người phát hiện, ngày | Quang (ca P5); Thuận thấy lại trong SC2 26/11/2026 |
-| Nguồn chi tiết | `docs/dac-ta-sc1-sc2-red.md` mục 5; kết quả SC5 *(Tuấn)* |
+| Kịch bản, object | SC5 (P5-01, P5-03, P5-04, P5-05: một nguyên nhân, tính là một lỗi); SC2 thấy ở mọi operation của cả 5 object |
+| Reproducer | `curl -i 'http://localhost:3001/rest/companies?limit=1'` (không gửi key); `curl -i -H 'Authorization: Bearer ' '…'` (Bearer rỗng); `Authorization: Basic <key>` cũng cho kết quả như vậy |
+| Kỳ vọng | 401 (schema chỉ khai 200/400/401; RFC 9110: chưa xác thực là 401) |
+| Thực tế | 403 `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`. Đối chứng: key **sai** (P5-02) ra 401 đúng, nên server chỉ gắn sai mã khi **không có** token |
+| Loại, mức | Lệch schema (server vẫn chặn đúng, không lộ dữ liệu); thấp. Tác hại: client nhận 403 hiểu là "thiếu quyền", không biết cần gắn key |
+| Nguyên nhân | **[mã]** `core-modules/auth/token/services/access-token.service.ts:195–221` (`validateTokenByRequest`): không có Bearer token và không có cookie phiên thì ném `AuthException('Missing authentication token', AuthExceptionCode.FORBIDDEN_EXCEPTION)` (dòng 217–220); token có nhưng sai thì đi nhánh `UNAUTHENTICATED`. `middlewares/middleware.service.ts` (`getStatus`) đổi lỗi qua `core-modules/auth/utils/get-auth-exception-rest-status.util.ts`: `FORBIDDEN_EXCEPTION` → 403, `UNAUTHENTICATED` → 401. `Basic …` và `Bearer ` rỗng không khớp mẫu `Bearer <chuỗi>` nên cũng bị coi là không có token. Phía schema: `open-api/utils/path.utils.ts` không khai 403 (cùng gốc với D-03) |
+| Người phát hiện, ngày | Tuấn (17/10/2026, xác nhận lại 25–26/11/2026 với 4 reproducer); Thuận thấy lại trong SC2 26/11/2026; Thuận đối chiếu mã nguồn 27/11/2026 |
+| Nguồn chi tiết | `docs/dac-ta-sc5.md` mục 5, 7; `evidence/sc5-thu-cong-20261126.md` (nhánh `feat/sc5-tuan`, chưa merge) |
 
 ### D-03 (G-07). Schema không khai 404, 403, 429
 
@@ -103,7 +103,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | Mã nằm trong danh sách khai báo (`200, 400, 401`) |
 | Thực tế | 404 `Record not found` (đúng chuẩn HTTP; id sai định dạng thì 400, cũng đúng) |
 | Loại, mức | Lệch schema; thấp |
-| Nguyên nhân | Bộ sinh OpenAPI chỉ sinh response 200/201, 400, 401 cho mọi operation; không sinh 404, 403, 429 dù máy chủ có trả |
+| Nguyên nhân | **[mã]** `core-modules/open-api/utils/path.utils.ts`: mọi operation chỉ khai `'200'`/`'201'`, `'400'`, `'401'` (ví dụ find-one dòng 140–142, delete-one 154–156); không có nhánh nào sinh 403, 404, 429 dù máy chủ có trả |
 | Người phát hiện, ngày | Trung (G-07); Thuận xác nhận 26/11/2026 |
 | Nguồn chi tiết | `docs/test-case-trung.md` mục 8; KIEM_CHUNG_E_F (SC2) |
 
@@ -116,7 +116,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | 400 với thông điệp kiểm tra dữ liệu ("body phải là mảng") |
 | Thực tế | 400, `error` = `TypeError`, `args.data.forEach is not a function` / `Cannot read properties of null (reading 'position')` |
 | Loại, mức | Lỗi chức năng; trung bình |
-| Nguyên nhân | Body batch không được kiểm tra là mảng các object trước khi xử lý; lỗi JavaScript bị bộ lọc lỗi đổi thành 400 (H3) |
+| Nguyên nhân | **[mã]** `api/rest/core/handlers/rest-api-create-many.handler.ts:89` lấy thẳng `data: request.body`, không kiểm tra là mảng các object; `api/common/common-query-runners/common-create-many-query-runner/common-create-many-query-runner.service.ts:259` gọi `args.data.forEach(...)` → `TypeError` với object; bộ lọc lỗi đổi thành 400 (R3) |
 | Người phát hiện, ngày | Trung 02/11/2026; Tiến xác nhận 25/11/2026 |
 | Nguồn chi tiết | `docs/dac-ta-sc3-sc4.md` (G-05); `docs/kiem-thu-tien-sc3-sc4.md` |
 
@@ -155,7 +155,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | 400 (schema: `soft_delete`, `upsert` là `boolean`) |
 | Thực tế | 200/201. Chỉ chuỗi đúng `true` được hiểu là bật; `1`, `TRUE`, `True`, `abc`, `-1`, `null` đều bị coi là `false` (default): `soft_delete` → **xoá vĩnh viễn**, `upsert` → không upsert |
 | Loại, mức | Lỗi chức năng; **cao** (mất dữ liệu không khôi phục được mà vẫn báo thành công) |
-| Nguyên nhân | Parser so sánh chuỗi với `'true'` thay vì kiểm tra kiểu `boolean`; giá trị không hợp lệ rơi về default thay vì bị từ chối |
+| Nguyên nhân | **[mã]** `api/rest/input-request-parsers/soft-delete-parser-utils/parse-soft-delete-rest-request.util.ts:12` là `return request.query.soft_delete === 'true';` và `upsert-parser-utils/parse-upsert-rest-request.util.ts:12` là `return request.query.upsert === 'true';`. So sánh đúng chuỗi `'true'`, không kiểm tra kiểu, không ném lỗi: mọi giá trị khác thành `false`. Cùng kiểu ở `group-by-with-records/parse-include-records-sample-rest-request.util.ts:12` (`include_records_sample`) |
 | Người phát hiện, ngày | Thuận 26/11/2026 (Schemathesis `negative_data_rejection` + kiểm tay) |
 | Nguồn chi tiết | `Phan_Cong_module/KICH_BAN_K05.md` SC2 (P2); KIEM_CHUNG_A |
 
@@ -168,7 +168,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | 400 với thông điệp về `limit` (như `limit=abc`: `Should be an integer`) |
 | Thực tế | 400 `invalid input syntax for type bigint: "2.5"` (giá trị = `limit + 1`) |
 | Loại, mức | Lỗi chức năng; trung bình (lộ chi tiết nội bộ: kiểu cột, cách tính trang sau) |
-| Nguyên nhân | Parser không kiểm tra `limit` là số nguyên; giá trị đi xuống câu SQL, PostgreSQL báo lỗi, bộ lọc lỗi đổi thành 400 (H3). Schemathesis không bắt được vì mã 400 hợp lệ |
+| Nguyên nhân | **[mã]** `parse-limit-rest-request.util.ts:21–23`: `const limit = +request.query.limit;` rồi chỉ chặn `isNaN(limit) \|\| limit < 0`. Không kiểm tra số nguyên, dù thông điệp lỗi ghi "Should be an integer". `1.5` lọt qua, tới `api/common/common-query-runners/common-find-many-query-runner.service.ts:188` `queryBuilder.limit(limit + 1)` → PostgreSQL báo `bigint: "2.5"` → bộ lọc lỗi đổi thành 400 (R3). Schemathesis không bắt được vì mã 400 hợp lệ |
 | Người phát hiện, ngày | Thuận 26/11/2026 (kiểm tay) |
 | Nguồn chi tiết | KICH_BAN_K05 SC2 (P2-07); KIEM_CHUNG_B |
 
@@ -181,7 +181,7 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | Trường có thể `null` thì schema khai `nullable` / `type: [..., "null"]` |
 | Thực tế | Toàn bộ `components` có 0 lần `nullable`; `deletedAt`, `*.workspaceMemberId`, `accountOwnerId`, `ownerId`, `assigneeId`, `avatarFile`, `addressLat/Lng`… trả `null` |
 | Loại, mức | Lệch schema; trung bình (client sinh từ schema sẽ lỗi khi gặp `null`) |
-| Nguyên nhân | Bộ sinh OpenAPI không chuyển cờ `isNullable` của field metadata sang schema |
+| Nguyên nhân | **[mã]** `core-modules/open-api/utils/components.utils.ts`: cờ `field.isNullable` chỉ được dùng ở dòng 56 (chọn ví dụ) và dòng 180 (`getRequiredFields`); phần sinh kiểu cho từng property không đọc `isNullable`, nên không trường nào được khai `nullable` / `type: [..., "null"]` |
 | Người phát hiện, ngày | Thuận 26/11/2026 |
 | Nguồn chi tiết | KIEM_CHUNG_C |
 
@@ -194,22 +194,32 @@ Mẫu cho mỗi lỗi:
 | Kỳ vọng | 200, body `{"data":{"companiesGroupBy":[…]}}`, số tổng hợp kiểu `number`; mã lỗi có khai báo |
 | Thực tế | Body là mảng trần `[…]`; `"countNotEmptyId": "1"` (chuỗi); thiếu `group_by` trả 400 (schema chỉ khai 200); `limit=0.5`, `view_id=0` bị bỏ qua (200) |
 | Loại, mức | Lệch schema (chính) + lỗi chức năng nhỏ (tham số sai bị bỏ qua); trung bình |
-| Nguyên nhân | Bộ sinh OpenAPI mô tả response `groupBy` khác với dữ liệu controller thật trả về; parser `groupBy` không kiểm `limit`, `view_id` |
+| Nguyên nhân | **[mã]** Schema: `core-modules/open-api/utils/responses.utils.ts:487` (`getGroupByResponse200`) bọc kết quả trong `data.{namePlural}GroupBy` và khai số tổng hợp `additionalProperties: {type: 'number'}`; `path.utils.ts:306–307` chỉ khai `'200'`. Máy chủ: `api/rest/core/handlers/rest-api-group-by.handler.ts:66` `return results;` trả mảng trần. Tham số: `limit` dùng chung `parseLimitRestRequest` (không kiểm số nguyên, như D-08). Thêm: schema khai `view_id`, nhưng `input-request-parsers/view-id-parser-utils/parse-view-id-rest-request.util.ts:9` đọc `request.query.viewId`, nên `view_id` theo tài liệu không bao giờ được đọc *(quan sát từ mã, chưa chứng minh được trên instance vì view không tồn tại cũng bị bỏ qua)* |
 | Người phát hiện, ngày | Thuận 26/11/2026 |
 | Nguồn chi tiết | KIEM_CHUNG_E_F |
 
 ## 4. RCA xuyên module (khung)
 
-Quan sát chung: **mọi lỗi SC2 lặp y hệt ở cả 5 object**, vì Twenty sinh REST API và OpenAPI từ metadata theo một khuôn. Lỗi nằm ở mã dùng chung, không ở từng object. Các lỗi dồn về 3 module:
+Quan sát chung: **mọi lỗi SC2 lặp y hệt ở cả 5 object**, vì Twenty sinh REST API và OpenAPI từ metadata theo một khuôn. Lỗi nằm ở mã dùng chung, không ở từng object. Các lỗi dồn về 4 nguyên nhân gốc (R1 đến R4):
 
-| Nguyên nhân gốc | Module | Lỗi | Hệ quả |
+Đã đối chiếu với mã nguồn Twenty tag `twenty/v2.45.6` (SHA `6007ad5a7f6cb676fd8a9ff0c2a86a2e3d4c260e`) ngày 26–27/11/2026. Đường dẫn dưới đây tính từ `packages/twenty-server/src/engine/`. **[mã]** = đọc trực tiếp từ mã nguồn.
+
+| Nguyên nhân gốc | Bằng chứng trong mã | Lỗi | Hệ quả |
 |---|---|---|---|
-| R1. Tham số query không được kiểm tra theo kiểu và biên mà schema khai; giá trị sai bị bỏ qua, cắt, hoặc chuyển thẳng xuống DB | `api/rest/input-request-parsers/` | D-01, D-07, D-08, D-10 (một phần) | Nhận dữ liệu sai; mất dữ liệu (D-07); lộ lỗi DB (D-08) |
-| R2. Bộ sinh OpenAPI không phản ánh đúng hành vi thật: thiếu `nullable`, thiếu mã 403/404/429, sai cấu trúc `groupBy` | `core-modules/open-api/` | D-02 (một phần), D-03, D-09, D-10 | Phần lớn báo động của Schemathesis; client sinh từ schema dễ lỗi |
-| R3. Bộ lọc lỗi đổi mọi lỗi không phải `HttpException` thành 400 (H3), che lỗi nội bộ thành "từ chối đúng" | `api/rest/rest-api-exception.filter.ts` | D-04, D-08 | Lỗi thật trông như ca đạt; lộ thông điệp nội bộ |
+| **R1. Không có tầng kiểm tra tham số query theo schema.** Mỗi tham số có một hàm parse viết tay riêng, mỗi hàm tự quyết định cách xử lý giá trị sai: so chuỗi rồi rơi về `false`, cắt về giá trị tối đa, chỉ chặn `NaN`, hoặc đọc sai tên | `api/rest/input-request-parsers/`: `parse-soft-delete-rest-request.util.ts:12`, `parse-upsert-rest-request.util.ts:12` (`=== 'true'`); `parse-limit-rest-request.util.ts:21–30` (chỉ chặn `NaN`/âm, rồi `Math.min`); `parse-view-id-rest-request.util.ts:9` (đọc `viewId`, schema khai `view_id`) | D-01, D-07, D-08, D-10 (một phần) | Nhận dữ liệu sai mà vẫn báo thành công; **mất dữ liệu** (D-07); giá trị sai lọt xuống SQL (D-08) |
+| **R2. Bộ sinh OpenAPI viết tay, tách rời khỏi mã xử lý thật.** Schema không sinh từ cùng nguồn với handler, nên lệch ở nhiều chỗ | `core-modules/open-api/utils/components.utils.ts` (`isNullable` chỉ dùng cho `required` và ví dụ, dòng 56, 180); `path.utils.ts` (mọi operation chỉ khai 200/201, 400, 401; `groupBy` chỉ 200, dòng 306–307); `responses.utils.ts:487` (`groupBy` bọc `data.*GroupBy`, trong khi `rest-api-group-by.handler.ts:66` trả mảng trần) | D-02 (một phần), D-03, D-09, D-10 | Phần lớn báo động của Schemathesis (~800 lần `response_schema_conformance` ở SC2); client sinh từ schema đọc sai kết quả |
+| **R3. Bộ lọc lỗi REST đổi mọi lỗi không phải `HttpException` thành 400.** Lỗi JavaScript và lỗi PostgreSQL trông như "từ chối dữ liệu sai" | `api/rest/rest-api-exception.filter.ts:27–28`: `exception instanceof HttpException ? exception.getStatus() : 400;`. Comment của chính đội Twenty ngay dòng đó: *"should actually default to 500 but we dont have input validation yet and dont want to be flooded with errors from input"* (issue `twentyhq/core-team-issues#1027`) | D-04, D-08 | Lỗi nội bộ bị che thành ca "đạt" (Schemathesis không báo); lộ thông điệp nội bộ (`TypeError`, `bigint`) |
+| **R4. Gắn sai mã lỗi xác thực.** "Không có token" là lỗi xác thực nhưng bị dán nhãn `FORBIDDEN_EXCEPTION` (dành cho thiếu quyền) | `core-modules/auth/token/services/access-token.service.ts:217–220`; bảng đổi mã `core-modules/auth/utils/get-auth-exception-rest-status.util.ts` (`FORBIDDEN_EXCEPTION` → 403) | D-02 (cùng với R2: schema không khai 403) | Mọi request thiếu key ở mọi operation của cả 5 object đều lệch schema; client không phân biệt được "thiếu key" với "thiếu quyền" |
 
-*(Bổ sung khi có kết quả SC1, SC5: thêm dòng hoặc gắn D-11, D-12 vào R1–R3.)*
+**Liên hệ giữa R1, R2, R3:** comment ở R3 cho thấy đội Twenty **biết** REST API chưa có kiểm tra input (R1), và chọn trả 400 cho mọi lỗi để giảm nhiễu. Hệ quả kép: dữ liệu sai hoặc bị nhận âm thầm (R1), hoặc gây lỗi nội bộ rồi bị che thành 400 (R3). Vì schema (R2) lại được viết tay riêng, nó mô tả một API "chặt" hơn API thật, nên công cụ kiểm thử dựa trên schema báo lệch hàng loạt. Cả ba cùng nằm ở mã dùng chung cho mọi object, nên **mọi lỗi lặp y hệt ở cả 5 object**.
 
-Việc còn lại cho phần RCA:
-- Đọc mã nguồn Twenty v2.45.6 ở 3 module trên để dẫn đúng file/hàm cho R1–R3 (hiện là suy luận từ hành vi và `docs/architecture.md`).
-- Đề xuất sửa cho từng nguyên nhân gốc (ví dụ R1: kiểm tra query bằng chính schema đã sinh; R2: sinh `nullable` từ `isNullable`, thêm 404).
+Đề xuất sửa:
+
+| Nguyên nhân | Đề xuất |
+|---|---|
+| R1 | Kiểm tra query bằng chính schema đã sinh (hoặc DTO có validation) trước khi gọi handler; `boolean` chỉ nhận `true`/`false`, `limit` phải là số nguyên trong `[0, 200]`, trả 400 với thông điệp rõ ràng; thống nhất tên `view_id` |
+| R2 | Sinh `nullable` từ `isNullable`; thêm response 403, 404, 429 dùng chung; sửa `getGroupByResponse200` cho khớp mảng thật (hoặc sửa handler bọc `data`) và kiểu số tổng hợp |
+| R3 | Sau khi có R1, trả 500 cho lỗi không phải `HttpException` (đúng như comment trong mã đề xuất) và không đưa thông điệp nội bộ ra ngoài |
+| R4 | Đổi mã ở `access-token.service.ts:219` thành `AuthExceptionCode.UNAUTHENTICATED` (401); hoặc giữ 403 và khai thêm 403 cho mọi operation (gộp với đề xuất R2) |
+
+*(Bổ sung khi có kết quả SC1 và ma trận 260 ca SC5: thêm dòng hoặc gắn D-11, D-12 vào R1–R4.)*
