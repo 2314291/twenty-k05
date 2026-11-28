@@ -1,0 +1,35 @@
+Bằng chứng: reset môi trường idempotent (Tuấn, 25/11/2026, máy Tuấn, Twenty v2.45.6)
+Trình tự: docker compose down -v -> up -d -> tạo workspace + API key -> reset_env.py --snapshot (1429 KB)
+-> reset_env.py lần 1 -> reset_env.py lần 2. Kết quả: hai lần cho cùng số bản ghi (không cộng dồn).
+
+Số bản ghi sau reset   Lần 1   Lần 2
+  companies             35      35
+  people                35      35
+  opportunities         36      36
+  notes                 30      30
+  tasks                 30      30
+
+Output nguyên văn lần 2:
+  $ docker compose ps --status running --services
+1/5 Dừng server và worker (để không còn ai giữ kết nối tới DB)
+  $ docker compose stop server worker
+2/5 Xoá DB và khôi phục từ snapshot
+  $ docker compose cp D:\CTK47C\KiemThu\Nhom\env\snapshot\k05-clean.dump db:/tmp/k05-clean.dump
+  $ docker compose exec -T db dropdb -U postgres --force --if-exists default
+  $ docker compose exec -T db createdb -U postgres default
+  $ docker compose exec -T db pg_restore -U postgres -d default --no-owner /tmp/k05-clean.dump
+3/5 Xoá cache Redis (cache metadata cũ sẽ không khớp với DB vừa khôi phục)
+  $ docker compose exec -T redis redis-cli FLUSHALL
+4/5 Bật lại server, worker và chờ sẵn sàng
+  $ docker compose start server worker
+  Twenty sẵn sàng sau 0s
+  API key vẫn dùng được
+5/5 Seed 30 bản ghi mỗi object
+Đã tạo 30 công ty, 30 người, 30 cơ hội, 30 ghi chú, 30 việc. Manifest: reports\seed-manifest.json
+
+Số bản ghi sau reset (chạy reset lần nữa phải ra đúng các số này):
+  companies      35
+  people         35
+  opportunities  36
+  notes          30
+  tasks          30

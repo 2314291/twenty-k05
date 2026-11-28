@@ -4,6 +4,8 @@ SHA        : 6007ad5a7f6cb676fd8a9ff0c2a86a2e3d4c260e
 Image      : twentycrm/twenty:v2.45.6
 Base URL   : http://localhost:3001   (REST: http://localhost:3001/rest)
 Node       : 24.16.0  (.nvmrc)    Yarn: 4.13.0
-Postgres   : 16 (image postgres:16)    Redis: image redis
+Postgres   : 16 (image postgres:16)    Redis: image redis (tag chưa ghim; bản đang chạy 28/11/2026 máy Tuấn: Redis 8.10.2, jemalloc-5.3.0)
 Schemathesis: 4.31.1
 Ghi chú    : SHA/tag phải trùng bản đã đăng ký với thầy ngày 18/9. Tiến xác nhận lại.
+Mặc định  : docker-compose.yml dùng ${TAG:-v2.45.6} (từ 26/11; trước đó mặc định là latest nếu thiếu TAG)
+Digest     : twentycrm/twenty@sha256:dca6d82985901468b391c0335aa8f0519a52b9809709e66f2de1dbff04351e53 (máy Tuấn, 28/11/2026; lệnh: docker image inspect --format "{{index .RepoDigests 0}}" twentycrm/twenty:v2.45.6)
