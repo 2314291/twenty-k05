@@ -123,7 +123,7 @@ Lưu ý H3: server đổi mọi lỗi không phải `HttpException` thành 400, 
 | Lệnh | `python scripts/run_k05.py SC1 --object companies --reset --schema schema/core.red.openapi.json --label RED` |
 | Bất biến | I3 |
 | Kỳ vọng | I3 (`response_schema_conformance`) đỏ ở các operation trả về Company, thông điệp dạng `"..." is not of type "integer"`; lần chạy với schema gốc không có lỗi này |
-| Kết quả | 16/10/2026 (harness giữa kỳ): **đạt**, I3 đỏ ở 4 operation trả Company (`GET /companies`, `POST /companies`, `PATCH /companies`, `PATCH /companies/restore`) với `"" is not of type "integer"`; lần chạy schema gốc không có lỗi này. Chạy lại với harness hiện tại: chờ |
+| Kết quả | 16/10/2026 (harness giữa kỳ): **đạt**, I3 đỏ ở 4 operation trả Company (`GET /companies`, `POST /companies`, `PATCH /companies`, `PATCH /companies/restore`) với `"" is not of type "integer"`; lần chạy schema gốc không có lỗi này. 28/11/2026 (harness trên `main`, máy Quang): **đạt**. Ca đỏ `reports/SC1/20261128-132314-seed20261020-companies-RED` so với lần chạy schema gốc cùng máy, cùng dữ liệu `reports/SC1/20261128-080326-seed20261020-companies`: nhóm lỗi *Response violates schema* 66 → 74, lần kiểm I3 trượt 815 → 1066, trong đó 218 lần `is not of type 'integer'` (lần chạy gốc: 0). I3 đỏ ở 8 operation trả Company: `GET /companies` (55), `GET /companies/{id}` (45), `PATCH /companies/{id}/restore` (43), `PATCH /companies/{id}` (39), `POST /batch/companies` (12), `POST /companies` (11), `PATCH /companies/restore` (11), `PATCH /companies` (2). Các nhóm lỗi khác giữ nguyên; seed còn 30/30 cả 5 object. So với lần chạy của Tiến (`20261128-120704-…-companies`, 76 nhóm I3) thì không so được vì dữ liệu hai máy khác nhau |
 
 ## 5. Ca biên viết tay P5 (xác thực, nay thuộc SC5 của Tuấn)
 

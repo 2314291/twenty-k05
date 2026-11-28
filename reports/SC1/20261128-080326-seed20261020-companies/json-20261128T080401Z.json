@@ -1,0 +1,432 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run C:\\Users\\Admin\\Downloads\\twenty-k05-git\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks all --mode all --phases examples,coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?companies(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir C:\\Users\\Admin\\Downloads\\twenty-k05-git\\reports\\SC1\\20261128-080326-seed20261020-companies",
+  "seed": 20261020,
+  "started_at": "2026-11-28T01:04:02.433313+00:00",
+  "running_time": 1100.1337121999823,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 2472,
+    "with_failures": 58,
+    "unique_failures": 123,
+    "without_checks": 22,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 66,
+      "operations": [
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies/restore",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 7,
+      "operations": [
+        "DELETE /companies",
+        "GET /companies",
+        "PATCH /companies",
+        "PATCH /companies/{id}",
+        "POST /batch/companies",
+        "POST /companies",
+        "POST /companies/duplicates"
+      ]
+    },
+    {
+      "type": "RejectedPositiveData",
+      "title": "API rejected schema-compliant request",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /companies",
+        "DELETE /companies/{id}",
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies",
+        "PATCH /companies/merge",
+        "PATCH /companies/restore",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore",
+        "POST /batch/companies",
+        "POST /companies",
+        "POST /companies/duplicates"
+      ]
+    },
+    {
+      "type": "MissingHeaderNotRejected",
+      "title": "Missing header not rejected",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /companies",
+        "DELETE /companies/{id}",
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies",
+        "PATCH /companies/merge",
+        "PATCH /companies/restore",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore",
+        "POST /batch/companies",
+        "POST /companies",
+        "POST /companies/duplicates"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 16,
+      "operations": [
+        "DELETE /companies",
+        "DELETE /companies/{id}",
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies",
+        "PATCH /companies/merge",
+        "PATCH /companies/restore",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore",
+        "POST /batch/companies",
+        "POST /companies",
+        "POST /companies/duplicates"
+      ]
+    },
+    {
+      "type": "UnsupportedMethodResponse",
+      "title": "Unsupported methods",
+      "severity": "medium",
+      "count": 8,
+      "operations": [
+        "PUT /companies/{id}",
+        "PUT /companies/{id}/restore",
+        "TRACE /batch/companies",
+        "TRACE /companies",
+        "TRACE /companies/duplicates",
+        "TRACE /companies/groupBy",
+        "TRACE /companies/merge",
+        "TRACE /companies/restore"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {
+    "POST /companies": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 9,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 70
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 21
+      }
+    },
+    "POST /companies/duplicates": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 75
+      },
+      "fuzzing": {
+        "accepted": 26,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 12
+      }
+    },
+    "GET /companies": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 3
+      },
+      "coverage": {
+        "accepted": 21,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 21,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 11
+      }
+    },
+    "GET /companies/groupBy": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 11,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 18
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 45
+      }
+    },
+    "PATCH /companies": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 79,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 22
+      }
+    },
+    "PATCH /companies/merge": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 1,
+        "conflicts": 0,
+        "rejected": 46
+      }
+    },
+    "PATCH /companies/restore": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 5
+      },
+      "fuzzing": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 37
+      }
+    },
+    "DELETE /companies": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 6,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "fuzzing": {
+        "accepted": 29,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 11
+      }
+    },
+    "POST /batch/companies": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 10,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 70
+      },
+      "fuzzing": {
+        "accepted": 21,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 7
+      }
+    },
+    "GET /companies/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 7,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 3
+      },
+      "fuzzing": {
+        "accepted": 29,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      }
+    },
+    "PATCH /companies/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 9,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 70
+      },
+      "fuzzing": {
+        "accepted": 28,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 19
+      }
+    },
+    "PATCH /companies/{id}/restore": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 7,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "fuzzing": {
+        "accepted": 31,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 9
+      }
+    },
+    "DELETE /companies/{id}": {
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 27,
+        "conflicts": 0,
+        "rejected": 7
+      }
+    }
+  },
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}
