@@ -1,0 +1,92 @@
+[
+  {
+    "id": "P5-00",
+    "desc": "GET, key đủ quyền (đối chứng)",
+    "status": 200,
+    "expect": 200,
+    "verdict": "MATCH",
+    "msg": "",
+    "size": ""
+  },
+  {
+    "id": "P5-01",
+    "desc": "GET, không key",
+    "status": 403,
+    "expect": 401,
+    "verdict": "DIFF",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "size": ""
+  },
+  {
+    "id": "P5-02",
+    "desc": "GET, key sai",
+    "status": 401,
+    "expect": 401,
+    "verdict": "MATCH",
+    "msg": "UNAUTHENTICATED: Token invalid.",
+    "size": ""
+  },
+  {
+    "id": "P5-03",
+    "desc": "GET, scheme Basic",
+    "status": 403,
+    "expect": 401,
+    "verdict": "DIFF",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "size": ""
+  },
+  {
+    "id": "P5-04",
+    "desc": "GET, Bearer rỗng",
+    "status": 403,
+    "expect": 401,
+    "verdict": "DIFF",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "size": ""
+  },
+  {
+    "id": "P5-05",
+    "desc": "POST, không key",
+    "status": 403,
+    "expect": 401,
+    "verdict": "DIFF",
+    "msg": "FORBIDDEN_EXCEPTION: Missing authentication token",
+    "size": ""
+  },
+  {
+    "id": "P5-06a",
+    "desc": "GET /open-api/core, không key",
+    "status": 200,
+    "expect": null,
+    "verdict": "OBSERVE",
+    "msg": "1 đường dẫn",
+    "size": 5157
+  },
+  {
+    "id": "P5-06b",
+    "desc": "GET /open-api/core, có key",
+    "status": 200,
+    "expect": null,
+    "verdict": "OBSERVE",
+    "msg": "322 đường dẫn",
+    "size": 988112
+  },
+  {
+    "id": "P5-07",
+    "desc": "GET, key chỉ đọc",
+    "status": 200,
+    "expect": 200,
+    "verdict": "MATCH",
+    "msg": "",
+    "size": ""
+  },
+  {
+    "id": "P5-08",
+    "desc": "POST, key chỉ đọc",
+    "status": 201,
+    "expect": 403,
+    "verdict": "DIFF",
+    "msg": "",
+    "size": ""
+  }
+]

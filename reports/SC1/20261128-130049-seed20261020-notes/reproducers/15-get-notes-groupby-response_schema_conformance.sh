@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Reproducer tự sinh bởi scripts/summarize.py (Schemathesis 4.x). Chạy: export TWENTY_API_KEY=... && bash 15-get-notes-groupby-response_schema_conformance.sh
+# Operation : GET /notes/groupBy
+# Check     : response_schema_conformance  (JsonSchemaError, mức high)
+# Seed      : 20261020   Phase: coverage   Số lần gặp: 10
+# [{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:19:09.896Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:19:11.036Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:46.300Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:47.425Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:47.489Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:48.608Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:48.676Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:49.805Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:49.876Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:51.109Z"],"records":[]},{"countNotEmptyId":"1","groupByDimensionValues":["2026-10-19T13:21:51.486Z"],"records":[]},{"countNotEmptyId":"30","groupByDimensionValues":["2026-11-28T06:02:22.261Z"],"records":[]}] is not of type "object"
+# 
+# Validated against the response schema for status code 200.
+# 
+# Schema:
+# 
+#     {
+#         "type": "object",
+#         "properties": {
+#             "data": {
+#                 "type": "object",
+#                 "properties": {
+#                     "notesGroupBy": {
+#                         "type": "array",
+#                         "items": {
+#                             "type": "object",
+#                             "properties": {
+#                                 "groupByDimensionValues": {
+#                                     "type": "array",
+#                                     "description": "Array of values representing ...
+#                                     "items": {
+#                                         "type": "string"
+#                                     }
+#                                 },
+#                                 "records": {
+#         // Output truncated...
+#     }
+# 
+# Value:
+# 
+#     [
+#         {
+#             "countNotEmptyId": "1",
+#             "groupByDimensionValues": [
+#                 "2026-10-19T13:19:09.896Z"
+#             ],
+#             "records": []
+#         },
+#         {
+#             "countNotEmptyId": "1",
+#             "groupByDimensionValues": [
+#                 "2026-10-19T13:19:11.036Z"
+#             ],
+#             "records": []
+#         },
+#         {
+#             "countNotEmptyId": "1",
+#             "groupByDimensionValues": [
+#                 "2026-10-19T13:21:46.300Z"
+#         // Output truncated...
+#     ]
+
+curl -sS -i \
+  -X GET \
+  'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&limit=60&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true' \
+  -H "Authorization: Bearer $TWENTY_API_KEY"

@@ -1,0 +1,40 @@
+{
+  "openapi": "3.0.3",
+  "info": {"title": "MOCK Twenty Core (selftest)", "version": "mock"},
+  "servers": [{"url": "http://localhost:3001/rest/"}],
+  "components": {
+    "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}},
+    "schemas": {
+      "Company": {"type": "object", "properties": {
+        "id": {"type": "string", "format": "uuid"},
+        "name": {"type": "string"},
+        "employees": {"type": "integer", "nullable": true}
+      }},
+      "CompanyForResponse": {"type": "object", "properties": {"id": {"type": "string"}, "name": {"type": "string"}}},
+      "CompanyInput": {"type": "object", "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 100},
+        "employees": {"type": "integer", "minimum": 0, "maximum": 1000000}
+      }}
+    }
+  },
+  "security": [{"bearerAuth": []}],
+  "paths": {
+    "/companies": {
+      "get": {"operationId": "FindManyCompanies", "parameters": [
+          {"name": "limit", "in": "query", "schema": {"type": "integer", "minimum": 0, "maximum": 200, "default": 60}}],
+        "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"type": "object",
+          "required": ["data"], "properties": {"data": {"type": "object"}, "totalCount": {"type": "integer"}}}}}},
+          "400": {"description": "bad"}, "401": {"description": "unauth"}}},
+      "post": {"operationId": "CreateOneCompany",
+        "requestBody": {"required": true, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/CompanyInput"}}}},
+        "responses": {"201": {"description": "created", "content": {"application/json": {"schema": {"type": "object",
+          "required": ["data"], "properties": {"data": {"type": "object"}}}}}},
+          "400": {"description": "bad"}, "401": {"description": "unauth"}}}
+    },
+    "/companies/{id}": {
+      "get": {"operationId": "FindOneCompany", "parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string", "format": "uuid"}}],
+        "responses": {"200": {"description": "ok", "content": {"application/json": {"schema": {"type": "object", "required": ["data"], "properties": {"data": {"type": "object"}}}}}},
+          "400": {"description": "bad"}, "401": {"description": "unauth"}, "404": {"description": "nf"}}}
+    }
+  }
+}

@@ -1,0 +1,521 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /notes": 77,
+      "DELETE /notes/{id}": 27,
+      "GET /notes": 114,
+      "GET /notes/groupBy": 136,
+      "GET /notes/{id}": 87,
+      "PATCH /notes": 163,
+      "PATCH /notes/merge": 113,
+      "PATCH /notes/restore": 90,
+      "PATCH /notes/{id}": 162,
+      "PATCH /notes/{id}/restore": 89,
+      "POST /batch/notes": 182,
+      "POST /notes": 173,
+      "POST /notes/duplicates": 187
+    },
+    "unique_failures": [
+      "DELETE /notes/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /notes/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /notes|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /notes|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /notes|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/groupBy|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /notes/groupBy|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /notes/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/groupBy|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /notes/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /notes/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/{id}|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /notes|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /notes|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /notes|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /notes|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/merge|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /notes/merge|positive_data_acceptance|RejectedPositiveData|8",
+      "PATCH /notes/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/merge|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /notes/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /notes/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /notes/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /notes/{id}/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /notes/{id}/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /notes/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/{id}/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /notes/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /notes/{id}|positive_data_acceptance|RejectedPositiveData|5",
+      "PATCH /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /notes|positive_data_acceptance|RejectedPositiveData|3",
+      "PATCH /notes|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/notes|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /batch/notes|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/notes|positive_data_acceptance|RejectedPositiveData|1",
+      "POST /batch/notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/notes|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /notes/duplicates|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /notes/duplicates|positive_data_acceptance|RejectedPositiveData|5",
+      "POST /notes/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes/duplicates|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /notes|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /notes|positive_data_acceptance|RejectedPositiveData|2",
+      "POST /notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes|unsupported_method|UnsupportedMethodResponse|1"
+    ],
+    "codes": {
+      "200": 264,
+      "201": 50,
+      "204": 8,
+      "400": 1226,
+      "401": 11,
+      "403": 21,
+      "404": 20
+    }
+  },
+  "tested": [
+    "DELETE /notes",
+    "DELETE /notes/{id}",
+    "GET /notes",
+    "GET /notes/groupBy",
+    "GET /notes/{id}",
+    "PATCH /notes",
+    "PATCH /notes/merge",
+    "PATCH /notes/restore",
+    "PATCH /notes/{id}",
+    "PATCH /notes/{id}/restore",
+    "POST /batch/notes",
+    "POST /notes",
+    "POST /notes/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1600,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 262.2346903999569,
+  "checks": {
+    "allow_header_conformance": {
+      "success": 1578,
+      "failure": 0
+    },
+    "content_type_conformance": {
+      "success": 1508,
+      "failure": 0
+    },
+    "ensure_resource_availability": {
+      "success": 1508,
+      "failure": 0
+    },
+    "ignored_auth": {
+      "success": 1508,
+      "failure": 0
+    },
+    "max_response_time": {
+      "success": 1578,
+      "failure": 0
+    },
+    "missing_required_header": {
+      "success": 1565,
+      "failure": 13
+    },
+    "negative_data_rejection": {
+      "success": 1495,
+      "failure": 13
+    },
+    "not_a_server_error": {
+      "success": 1578,
+      "failure": 0
+    },
+    "object_level_authorization": {
+      "success": 1578,
+      "failure": 0
+    },
+    "positive_data_acceptance": {
+      "success": 1019,
+      "failure": 489
+    },
+    "response_headers_conformance": {
+      "success": 1508,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1277,
+      "failure": 798
+    },
+    "status_code_conformance": {
+      "success": 1379,
+      "failure": 129
+    },
+    "unsupported_method": {
+      "success": 1539,
+      "failure": 39
+    },
+    "use_after_free": {
+      "success": 1508,
+      "failure": 0
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /notes",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /notes",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 9
+    },
+    {
+      "operation": "DELETE /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /notes/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /notes/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 9
+    },
+    {
+      "operation": "DELETE /notes/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 4
+    },
+    {
+      "operation": "GET /notes",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "GET /notes",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 26
+    },
+    {
+      "operation": "GET /notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 176
+    },
+    {
+      "operation": "GET /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 60
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 116
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 23
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 102
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /notes",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 48
+    },
+    {
+      "operation": "PATCH /notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 96
+    },
+    {
+      "operation": "PATCH /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/merge",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/merge",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 50
+    },
+    {
+      "operation": "PATCH /notes/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/merge",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 54
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 4
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /notes/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 52
+    },
+    {
+      "operation": "PATCH /notes/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 84
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 14
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 150
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 4
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 5
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 51
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 36
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "POST /notes",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 5
+    },
+    {
+      "operation": "POST /notes",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 40
+    },
+    {
+      "operation": "POST /notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 140
+    },
+    {
+      "operation": "POST /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 3
+    },
+    {
+      "operation": "POST /notes/duplicates",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes/duplicates",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 53
+    },
+    {
+      "operation": "POST /notes/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes/duplicates",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    }
+  ]
+}

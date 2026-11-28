@@ -1,0 +1,2306 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from C:\kiem
+ thu\twenty-k05-main\schema\core.openapi.json (in 1.48s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       13 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Examples (in 8.39s)
+
+     ❌ 12 failed  ⏭   1 skipped
+
+ ❌  Coverage (in 868.86s)
+
+     ❌ 13 failed
+
+ ❌  Fuzzing (in 225.97s)
+
+     ❌ 13 failed
+
+=================================== FAILURES ===================================
+______________________________ DELETE /companies _______________________________
+1. Test Case ID: C6zB0A
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Object company doesn't have any \"emails\" field."]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?soft_delete=false&filter=and%28emails.primaryEmail%5Beq%5D%3Afoo99%40example.com%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29'
+
+    st replay C6zB0A
+
+2. Test Case ID: bRSBpu
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies?filter=and%28createdAt%5Bgte%5D%3A%222023-01-01%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29&soft_delete=true'
+
+    st replay bRSBpu
+
+3. Test Case ID: dD3X9X
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became integer)
+
+[200] OK:
+
+    `{"data":{"deleteCompanies":[]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?soft_delete=-15406416&filter=createdAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22'
+
+    st replay dD3X9X
+
+____________________________ DELETE /companies/{id} ____________________________
+1. Test Case ID: 1EqpBu
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies/e9061a45-6983-765c-faac-f4503bdbd65c?soft_delete=true'
+
+    st replay 1EqpBu
+
+2. Test Case ID: hlV93i
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'e9061a45-6983-765c-faac-f4503bdbd65c' is not a valid UUID"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/e9061a45-6983-765c-faac-f4503bdbd65c?soft_delete=false'
+
+    st replay hlV93i
+
+3. Test Case ID: prTUUA
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/2989ade3-62a9-3fea-9188-c77414a4fa60?soft_delete=G%C2%86%C2%A9%F4%81%80%A8'
+
+    st replay prTUUA
+
+________________________________ GET /companies ________________________________
+1. Test Case ID: pDrpCO
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=60&depth=1&order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&filter=name%5Blike%5D%3A%22%25value%25%22&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay pDrpCO
+
+2. Test Case ID: MdZfdV
+
+- Response violates schema (8 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"b5ffb04d-93ec-4b20-9d04-4b62692d9dcf","createdAt":"2026-10-19T13:29:51.013Z","updatedAt":"2026-11-28T05:07:44.889Z","deletedAt":null,"name":"K05-PROBE-de22ec68-179","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[] // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?depth=0&ending_before='
+
+    st replay MdZfdV
+
+3. Test Case ID: Y2UZeA
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"0041d5d3-f1dd-47e7-af44-2910863912ef","createdAt":"2026-10-19T13:29:51.013Z","updatedAt":"2026-11-28T05:07:44.889Z","deletedAt":null,"name":"K05-PROBE-dfff47fc-112","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[] // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=201'
+
+    st replay Y2UZeA
+
+4. Test Case ID: 53csmj
+
+- Response violates schema (10 violations)
+
+    null is not of type "array"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/avatarFile:
+
+        {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "fileId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "extension": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            // Output truncated...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"0041d5d3-f1dd-47e7-af44-2910863912ef","createdAt":"2026-10-19T13:29:51.013Z","updatedAt":"2026-11-28T05:07:44.889Z","deletedAt":null,"name":"K05-PROBE-dfff47fc-112","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[] // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay 53csmj
+
+5. Test Case ID: cCQLzU
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies?order_by=createdAt&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&limit=60&depth=0&fields=id%2Cname&starting_after=&ending_before='
+
+    st replay cCQLzU
+
+____________________________ GET /companies/groupBy ____________________________
+1. Test Case ID: nXIHdW
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid order_by query parameter - should be a valid array of objects - ex: [{\"firstField\": \"AscNullsFirst\"}, {\"secondField\": {\"subField\": \"DescNullsLast\"}}, {\"aggregate\": {\"aggregateField\": \"DescNullsLast\"}}, {dateField: {\"orderBy\": \"AscNullsFirst\", \"granularity\": \"DAY\"}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?limit=60&include_records_sample=false&group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=name%5Blike%5D%3A%22%25value%25%22&order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&aggregate=%5B%22countNotEmptyId%22%2C+%22sumAmount%22%5D&order_by_for_records=createdAt'
+
+    st replay nXIHdW
+
+2. Test Case ID: ov4Df1
+
+- Response violates schema
+
+    [{"countNotEmptyId":"198","groupByDimensionValues":["2026-11-28T05:07:44.889Z"],"records":[]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "companiesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "countNotEmptyId": "198",
+                "groupByDimensionValues": [
+                    "2026-11-28T05:07:44.889Z"
+                ],
+                "records": []
+            }
+        ]
+
+[200] OK:
+
+    `[{"countNotEmptyId":"198","groupByDimensionValues":["2026-11-28T05:07:44.889Z"],"records":[]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&limit=60&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true'
+
+    st replay ov4Df1
+
+3. Test Case ID: VMi0tE
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt'
+
+    st replay VMi0tE
+
+_____________________________ GET /companies/{id} ______________________________
+1. Test Case ID: s7gy9Q
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay s7gy9Q
+
+2. Test Case ID: IFUBpN
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname'
+
+    st replay IFUBpN
+
+3. Test Case ID: evB7wc
+
+- Response violates schema (6 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"company":{"id":"5eb110bf-c7a0-4969-bad3-07a1c1caa636","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:16:44.547Z","deletedAt":null,"name":"K05-Company-023","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-023.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Ha Noi","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl" // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/5eb110bf-c7a0-4969-bad3-07a1c1caa636?depth=0'
+
+    st replay evB7wc
+
+4. Test Case ID: OCpVNX
+
+- Missing header not rejected
+
+    Got 200 when missing required 'Authorization' header, expected 401
+
+[200] OK:
+
+    `{"data":{"company":{"id":"5eb110bf-c7a0-4969-bad3-07a1c1caa636","name":"K05-Company-023"}}}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/5eb110bf-c7a0-4969-bad3-07a1c1caa636?depth=0&fields=id%2Cname'
+
+    st replay OCpVNX
+
+5. Test Case ID: TB7wTM
+
+- Response violates schema
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"company":{"id":"5eb110bf-c7a0-4969-bad3-07a1c1caa636","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:24:04.660Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amountMicro // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' http://localhost:3001/rest/companies/5eb110bf-c7a0-4969-bad3-07a1c1caa636
+
+    st replay TB7wTM
+
+6. Test Case ID: pDt3SW
+
+- Response violates schema (10 violations)
+
+    null is not of type "array"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/avatarFile:
+
+        {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "fileId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "extension": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            // Output truncated...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"company":{"id":"6b749cbe-4abf-41d1-8ef3-eae6764cdd27","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:24:04.660Z","deletedAt":null,"name":"K05-Company-000","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-000.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Nang","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/6b749cbe-4abf-41d1-8ef3-eae6764cdd27?depth=1'
+
+    st replay pDt3SW
+
+_______________________________ PATCH /companies _______________________________
+1. Test Case ID: XQN5fy
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies?depth=1&fields=id%2Cname%2Cemails%2Ccompany&filter=and%28name%5Blike%5D%3A%22%25value%25%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29'
+
+    st replay XQN5fy
+
+2. Test Case ID: Xa5evr
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&filter=and%28createdAt%5Bgte%5D%3A%222023-01-01%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29'
+
+    st replay Xa5evr
+
+3. Test Case ID: VzAguX
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - accountOwnerId: Incorrect type
+
+[200] OK:
+
+    `{"data":{"updateCompanies":[]}}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&filter=and%28and%28createdAt%5Bgte%5D%3A%222023-01-01%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29'
+
+    st replay VzAguX
+
+4. Test Case ID: wv05xc
+
+- Response violates schema (10 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateCompanies":[{"id":"abb94b3b-e711-48f3-86ab-2957ec302599","createdAt":"2026-11-28T05:18:54.642Z","updatedAt":"2026-11-28T05:23:18.236Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"address": {"addressStreet2": "", "addressCountry": "", "addressCity": ""}, "position": 0.0, "updatedBy": {}}' 'http://localhost:3001/rest/companies?jg%C2%B2p%17%24%C2%84%C2%A5%7BK%C2%BA%C3%BD5=&%13%3B=259&%13%3B=null&%1C%C2%90+%F2%88%A4%AC%F3%A1%95%B8%1A%C2%B1%5C%C2%B1%C3%8B%C3%B4%C2%A2f%2C%2A9%C2%9B%C3%93w%C2%A1%C3%8A%3D=none&%1C%C2%90+%F2%88%A4%AC%F3%A1%95%B8%1A%C2%B1%5C%C2%B1%C3%8B%C3%B4%C2%A2f%2C%2A9%C2%9B%C3%93w%C2%A1%C3%8A%3D=%C2%A0%C2%B3%F3%80%89%B5%C3%A4&=null&depth=1&%C3%BF=none&%C3%BF=%C2%A0%C2%B3%F3%80%89%B5%C3%A4&filter=and%28createdAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T05%3A07%3A39.000Z%22%29'
+
+    st replay wv05xc
+
+____________________________ PATCH /companies/merge ____________________________
+1. Test Case ID: lG8TFQ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay lG8TFQ
+
+2. Test Case ID: gOgVj9
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=0&fields=id%2Cname'
+
+    st replay gOgVj9
+
+___________________________ PATCH /companies/restore ___________________________
+1. Test Case ID: mBZqT6
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/restore?depth=1&filter=name%5Blike%5D%3A%22%25value%25%22&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay mBZqT6
+
+2. Test Case ID: bQYQx6
+
+- Response violates schema (8 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreCompanies":[{"id":"25dcf18f-9d76-448f-9392-17cb4562c941","createdAt":"2026-10-19T13:21:26.457Z","updatedAt":"2026-11-28T05:16:38.804Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"a // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22'
+
+    st replay bQYQx6
+
+3. Test Case ID: naeMzP
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname'
+
+    st replay naeMzP
+
+____________________________ PATCH /companies/{id} _____________________________
+1. Test Case ID: Lavj7C
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay Lavj7C
+
+2. Test Case ID: AcgnXG
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&fields=id%2Cname'
+
+    st replay AcgnXG
+
+3. Test Case ID: fcOpJX
+
+- Missing header not rejected
+
+    Got 400 when missing required 'Authorization' header, expected 401
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["insert or update on table \"company\" violates foreign key constraint \"FK_abe91dff1e48d77edca339f387c\""]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies/b83d077c-6139-4bfc-b777-e8fa28233c30?depth=0&fields=id%2Cname'
+
+    st replay fcOpJX
+
+4. Test Case ID: sALc1K
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - accountOwnerId: Incorrect type
+
+[200] OK:
+
+    `{"data":{"updateCompany":{"id":"5eb110bf-c7a0-4969-bad3-07a1c1caa636","name":""}}}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}' 'http://localhost:3001/rest/companies/5eb110bf-c7a0-4969-bad3-07a1c1caa636?depth=0&fields=id%2Cname'
+
+    st replay sALc1K
+
+5. Test Case ID: zbMsP4
+
+- Response violates schema (5 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateCompany":{"id":"b83d077c-6139-4bfc-b777-e8fa28233c30","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:25:15.964Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amoun // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' http://localhost:3001/rest/companies/b83d077c-6139-4bfc-b777-e8fa28233c30
+
+    st replay zbMsP4
+
+________________________ PATCH /companies/{id}/restore _________________________
+1. Test Case ID: 3TJzUE
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay 3TJzUE
+
+2. Test Case ID: vhsn3P
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&fields=id%2Cname'
+
+    st replay vhsn3P
+
+3. Test Case ID: Mjy30M
+
+- Response violates schema (15 violations)
+
+    null is not of type "array"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/avatarFile:
+
+        {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "fileId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "extension": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            // Output truncated...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreCompany":{"id":"b83d077c-6139-4bfc-b777-e8fa28233c30","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:22:17.205Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":0,"addressLng":0},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue":{"amou // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/b83d077c-6139-4bfc-b777-e8fa28233c30/restore?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay Mjy30M
+
+4. Test Case ID: 404RjQ
+
+- Response violates schema (2 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreCompany":{"id":"04f75f30-de31-4f4e-865b-439816f73d22","createdAt":"2026-11-28T05:07:35.627Z","updatedAt":"2026-11-28T05:22:17.278Z","deletedAt":null,"name":"K05-Company-020","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-020.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Hue","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLink // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/04f75f30-de31-4f4e-865b-439816f73d22/restore?depth=0'
+
+    st replay 404RjQ
+
+5. Test Case ID: lK2Uo8
+
+- Missing header not rejected
+
+    Got 200 when missing required 'Authorization' header, expected 401
+
+[200] OK:
+
+    `{"data":{"restoreCompany":{"id":"04f75f30-de31-4f4e-865b-439816f73d22","name":"K05-Company-020"}}}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/04f75f30-de31-4f4e-865b-439816f73d22/restore?depth=0&fields=id%2Cname'
+
+    st replay lK2Uo8
+
+____________________________ POST /batch/companies _____________________________
+1. Test Case ID: FkWaTO
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[]' 'http://localhost:3001/rest/batch/companies?depth=1&upsert=false&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay FkWaTO
+
+2. Test Case ID: nJWBVP
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay nJWBVP
+
+3. Test Case ID: Qpo4iA
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - array with invalid items: accountOwnerId: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createCompanies":[{"id":"544faf87-4241-4c80-bbb3-e4fc49c31030","name":""}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}]' 'http://localhost:3001/rest/batch/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay Qpo4iA
+
+_______________________________ POST /companies ________________________________
+1. Test Case ID: Kug3g1
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/companies?depth=1&upsert=false&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay Kug3g1
+
+2. Test Case ID: RyFmWE
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay RyFmWE
+
+3. Test Case ID: Qdw2AS
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - accountOwnerId: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createCompany":{"id":"c1a0ccca-b6e8-4890-97a4-af6d6d080279","name":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": null}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay Qdw2AS
+
+__________________________ POST /companies/duplicates __________________________
+1. Test Case ID: 9tt9Lh
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'company': emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=1&fields=id%2Cname%2Cemails%2Ccompany'
+
+    st replay 9tt9Lh
+
+2. Test Case ID: mpV74d
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay mpV74d
+
+3. Test Case ID: J5Ab0q
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: in body - ids -> Array with invalid items: Incorrect type
+
+[200] OK:
+
+    `{"data":[]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": [null]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay J5Ab0q
+
+_____________________________ PUT /companies/{id} ______________________________
+1. Test Case ID: 8i669U
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"TypeError","messages":["Cannot read properties of undefined (reading 'position')"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/5eb110bf-c7a0-4969-bad3-07a1c1caa636?depth=0&fields=id%2Cname'
+
+    st replay 8i669U
+
+_________________________ PUT /companies/{id}/restore __________________________
+1. Test Case ID: QQfio4
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Query path '/rest/companies/04f75f30-de31-4f4e-865b-439816f73d22/restore' invalid. Valid examples: /rest/companies/id or /rest/companies or /rest/batch/companies"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/04f75f30-de31-4f4e-865b-439816f73d22/restore?depth=0&fields=id%2Cname'
+
+    st replay QQfio4
+
+____________________________ TRACE /batch/companies ____________________________
+1. Test Case ID: DTujme
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/batch/companies?depth=0&fields=id%2Cname&upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay DTujme
+
+_______________________________ TRACE /companies _______________________________
+1. Test Case ID: rgyeWU
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies?depth=0&fields=id%2Cname&upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0&fields=id%2Cname&upsert=true'
+
+    st replay rgyeWU
+
+_________________________ TRACE /companies/duplicates __________________________
+1. Test Case ID: uPPRiY
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/duplicates?depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["3c8fad72-391d-4e91-9dae-b4536b9f82b7"]}' 'http://localhost:3001/rest/companies/duplicates?depth=0&fields=id%2Cname'
+
+    st replay uPPRiY
+
+___________________________ TRACE /companies/groupBy ___________________________
+1. Test Case ID: JPzkBN
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&filter=createdAt%5Bgte%5D%3A%222023-01-01%22&order_by=createdAt&limit=60&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&aggregate=%5B%22countNotEmptyId%22%5D&include_records_sample=true&order_by_for_records=createdAt'
+
+    st replay JPzkBN
+
+____________________________ TRACE /companies/merge ____________________________
+1. Test Case ID: HkXrcG
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/merge?depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["9073f47e-cef7-4a46-adf6-92aac3cd90e0"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=0&fields=id%2Cname'
+
+    st replay HkXrcG
+
+___________________________ TRACE /companies/restore ___________________________
+1. Test Case ID: msE8iV
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&depth=0&fields=id%2Cname'
+
+    st replay msE8iV
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 13/522
+  Tested: 13
+
+Test Phases:
+  ❌ Examples
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Response violates schema: 76
+  ❌ API accepted schema-violating request: 7
+  ❌ API rejected schema-compliant request: 13
+  ❌ Missing header not rejected: 13
+  ❌ Undocumented HTTP status code: 15
+  ❌ Unsupported methods: 8
+
+Test cases:
+  2435 generated, 56 found 132 unique failures, 22 skipped
+
+Reports:
+  - JUnit: C:\kiem thu\twenty-k05-main\reports\SC1\20261128-120704-seed20261020-companies\junit-20261128T120740Z.xml
+  - NDJSON: C:\kiem thu\twenty-k05-main\reports\SC1\20261128-120704-seed20261020-companies\ndjson-20261128T120740Z.ndjson
+  - JSON: C:\kiem thu\twenty-k05-main\reports\SC1\20261128-120704-seed20261020-companies\json-20261128T120740Z.json
+  - HTML: C:\kiem thu\twenty-k05-main\reports\SC1\20261128-120704-seed20261020-companies\html-20261128T120740Z\index.html
+
+Seed: not used in the deterministic mode
+
+=========================== 132 failures in 1103.43s ===========================

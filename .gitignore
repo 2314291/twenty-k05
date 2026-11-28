@@ -15,3 +15,6 @@ reports/**/*.raw
 
 # Cache của Schemathesis
 .schemathesis/
+
+# Snapshot DB dùng cho reset (chứa dữ liệu workspace và API key): KHÔNG commit
+env/snapshot/

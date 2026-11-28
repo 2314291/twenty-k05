@@ -105,6 +105,22 @@ Ngoài ảnh nên quay video 1–2 phút (đăng nhập, tạo Company, chạy `
 
 Sau `down -v` phải tạo lại tài khoản, workspace và **API key mới**; key cũ không dùng được.
 
+### Reset nhanh về trạng thái ban đầu (dùng trước mỗi lần chạy test)
+
+Không dùng `down -v` giữa các lần chạy test. Dùng `scripts/reset_env.py`: khôi phục DB từ một bản chụp (snapshot), xoá cache Redis, bật lại Twenty, seed lại.
+
+| Việc | Lệnh (ở gốc repo) |
+|---|---|
+| Chụp snapshot, **một lần**, sau khi đã tạo workspace và API key (và role/key chỉ đọc cho SC5) | `python scripts/reset_env.py --snapshot` |
+| Reset + seed 30 bản ghi mỗi object | `python scripts/reset_env.py` (hoặc `bash scripts/reset-env.sh`) |
+| Chỉ khôi phục, không seed | `python scripts/reset_env.py --no-seed` |
+
+- Snapshot nằm ở `env/snapshot/` và **không commit** (chứa dữ liệu workspace và API key; đã có trong `.gitignore`). Mỗi máy tự chụp snapshot của mình.
+- Key chỉ đọc cho SC5: tạo role chỉ bật quyền xem 5 object, rồi tạo API key và **chọn đúng role đó ở ô Role** (mặc định có thể là Admin). Chỉ người dùng đăng nhập mới đổi được role của key; API key gọi `assignRoleToApiKey` nhận `FORBIDDEN`. `kiem_thu_sc5.py` thử ghi bằng key chỉ đọc và dừng nếu ghi được.
+- Thứ gì tạo bằng tay (workspace, API key, role) phải có **trước** khi chụp. Nếu tạo sau: KHÔNG chạy reset (reset sẽ xoá luôn thứ vừa tạo); thay vào đó dọn dữ liệu seed bằng `python scripts/seed.py --cleanup`, kiểm tra số bản ghi về 5/5/6/0/0, rồi chạy `reset_env.py --snapshot`.
+- Kiểm tra idempotent: chạy reset hai lần liên tiếp, bảng "Số bản ghi sau reset" phải giống hệt (bằng chứng: `evidence/reset-env-20261125.txt`).
+- Workspace mới của Twenty có sẵn dữ liệu mẫu (5 công ty, 5 người, 6 cơ hội), nên sau seed 30 sẽ là 35/35/36/30/30.
+
 ## 9. Sự cố đã gặp
 
 | Sự cố | Cách xử lý |

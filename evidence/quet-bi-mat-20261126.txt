@@ -1,0 +1,21 @@
+Bằng chứng: quét bí mật trong toàn bộ lịch sử Git (Phần H, việc "giữ .env ngoài Git, không lộ key")
+Người làm: Tuấn. Ngày: 26/11/2026. Phạm vi: mọi nhánh trên GitHub 2314291/twenty-k05 (git fetch --all), 39 commit.
+
+1) Token JWT (API key của Twenty bắt đầu bằng eyJ, gồm 3 phần cách nhau bởi dấu chấm)
+   git log --all -p | grep -o -E 'eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}' | sort -u | wc -l
+   => 0
+
+2) File .env từng được commit (ở bất kỳ thư mục nào)
+   git log --all --name-only --format= | grep -E '(^|/)\.env$' | sort -u
+   => (không có dòng nào)
+
+3) Biến bí mật có giá trị thật
+   git log --all -p | grep -E '^\+.*(ENCRYPTION_KEY|PG_DATABASE_PASSWORD)=' | sort -u
+   => +ENCRYPTION_KEY=thay_bang_chuoi_ngau_nhien
+   => +PG_DATABASE_PASSWORD=doi_mat_khau_manh_khong_ky_tu_dac_biet
+   Cả hai là giá trị mẫu trong env/.env.example, không phải bí mật thật.
+   Dòng TWENTY_API_KEY="mock-key-123" nằm trong một script thử nghiệm với server giả, không phải key thật.
+
+Kết luận: không có API key hay bí mật thật nào trong lịch sử Git.
+Cơ chế giữ an toàn: .gitignore loại .env và env/snapshot/; các script che key bằng <REDACTED> trước khi ghi báo cáo (k05_common.redact_text).
+Nếu lỡ lộ key: thu hồi key trong Settings → APIs trước tiên (xoá khỏi commit sau không đủ, vì lịch sử Git vẫn giữ bản cũ), rồi mới dọn lịch sử.

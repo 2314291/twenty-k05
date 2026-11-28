@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites errors="0" failures="13" skipped="0" tests="13" time="250.453874">
+  <testsuite name="schemathesis" hostname="DESKTOP-20SHIVM" errors="0" failures="13" skipped="0" tests="13" time="250.453874">
+    <testcase name="POST /notes" time="18.354304">
+      <failure type="failure">1. Test Case ID: 8tEsPO
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=1&amp;upsert=false&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: b84dbR
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createNote":{"id":"cbe7813c-c940-40e5-b832-72c31d232751","createdAt":"2026-11-28T08:38:00.613Z","updatedAt":"2026-11-28T08:38:00.613Z","deletedAt":null,"position":-41,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"searchVector":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?upsert=false&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: GLicJ1
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createNote":{"id":"bccf35c0-e33b-4041-ab8c-1c512fa14ba9","createdAt":"2026-11-28T08:38:00.724Z","updatedAt":"2026-11-28T08:38:00.724Z","deletedAt":null,"position":-42,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"searchVector":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?upsert=null&amp;upsert=null'
+
+3. Test Case ID: RCAI9Y
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true'
+
+4. Test Case ID: dfUhhg
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true'</failure>
+    </testcase>
+    <testcase name="POST /notes/duplicates" time="24.203276">
+      <failure type="failure">1. Test Case ID: qRROfJ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"data": [{}], "ids": []}' 'http://localhost:3001/rest/notes/duplicates?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: QR4icE
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["eceaf543-082f-42e2-b371-8f61bce5b8c6"]}' 'http://localhost:3001/rest/notes/duplicates?depth=0&amp;fields=id%2Cname'
+
+2. Test Case ID: iLrPJE
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/notes/duplicates?depth=0&amp;fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["eceaf543-082f-42e2-b371-8f61bce5b8c6"]}' 'http://localhost:3001/rest/notes/duplicates?depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="GET /notes" time="23.182804">
+      <failure type="failure">1. Test Case ID: 3CEYRc
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?limit=60&amp;depth=1&amp;order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&amp;filter=name%5Blike%5D%3A%22%25value%25%22&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: OHMfqU
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"notes":[{"id":"03d33fb0-5a75-4697-9679-4a5f39611f59","createdAt":"2026-10-19T13:21:49.876Z","updatedAt":"2026-11-28T06:03:00.315Z","deletedAt":null,"position":-8,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05","context":{}},"searchVector":""},{"id":"0895bb6b-f8ee-4d62-aacd-deeea13433b7","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?depth=0&amp;ending_before='
+
+2. Test Case ID: 2W6Nz2
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"notes":[{"id":"03d33fb0-5a75-4697-9679-4a5f39611f59","createdAt":"2026-10-19T13:21:49.876Z","updatedAt":"2026-11-28T06:03:00.315Z","deletedAt":null,"position":-8,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05","context":{}},"searchVector":""},{"id":"0895bb6b-f8ee-4d62-aacd-deeea13433b7","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?limit=201'
+
+3. Test Case ID: CZN7iH
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/notes?order_by=createdAt&amp;filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;limit=60&amp;depth=0&amp;fields=id%2Cname&amp;starting_after=&amp;ending_before='</failure>
+    </testcase>
+    <testcase name="GET /notes/groupBy" time="6.832159">
+      <failure type="failure">1. Test Case ID: qDn14c
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid order_by query parameter - should be a valid array of objects - ex: [{\"firstField\": \"AscNullsFirst\"}, {\"secondField\": {\"subField\": \"DescNullsLast\"}}, {\"aggregate\": {\"aggregateField\": \"DescNullsLast\"}}, {dateField: {\"orderBy\": \"AscNullsFirst\", \"granularity\": \"DAY\"}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/groupBy?limit=60&amp;include_records_sample=false&amp;group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;filter=name%5Blike%5D%3A%22%25value%25%22&amp;order_by=id%5BAscNullsFirst%5D%2CcreatedAt%5BDescNullsLast%5D&amp;aggregate=%5B%22countNotEmptyId%22%2C+%22sumAmount%22%5D&amp;order_by_for_records=createdAt'</failure>
+      <failure type="failure">1. Test Case ID: w9yluO
+
+- Response violates schema
+
+    [{"countNotEmptyId":"11","groupByDimensionValues":["2026-11-28T06:03:00.315Z"],"records":[]},{"countNotEmptyId":"30","groupByDimensionValues":["2026-11-28T08:37:52.659Z"],"records":[]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "notesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "countNotEmptyId": "11",
+                "groupByDimensionValues": [
+                    "2026-11-28T06:03:00.315Z"
+                ],
+                "records": []
+            },
+            {
+                "countNotEmptyId": "30",
+                "groupByDimensionValues": [
+                    "2026-11-28T08:37:52.659Z"
+                ],
+                "records": []
+            }
+        ]
+
+[200] OK:
+
+    `[{"countNotEmptyId":"11","groupByDimensionValues":["2026-11-28T06:03:00.315Z"],"records":[]},{"countNotEmptyId":"30","groupByDimensionValues":["2026-11-28T08:37:52.659Z"],"records":[]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;limit=60&amp;aggregate=%5B%22countNotEmptyId%22%5D&amp;include_records_sample=true'
+
+2. Test Case ID: qawZTy
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;order_by=createdAt&amp;limit=60&amp;view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&amp;aggregate=%5B%22countNotEmptyId%22%5D&amp;include_records_sample=true&amp;order_by_for_records=createdAt'
+
+3. Test Case ID: KOIwLy
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;order_by=createdAt&amp;limit=60&amp;view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&amp;aggregate=%5B%22countNotEmptyId%22%5D&amp;include_records_sample=true&amp;order_by_for_records=createdAt","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;order_by=createdAt&amp;limit=60&amp;view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&amp;aggregate=%5B%22countNotEmptyId%22%5D&amp;include_records_sample=true&amp;order_by_for_records=createdAt'</failure>
+    </testcase>
+    <testcase name="PATCH /notes" time="27.977546">
+      <failure type="failure">1. Test Case ID: Gen90n
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany&amp;filter=and%28name%5Blike%5D%3A%22%25value%25%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%29'</failure>
+      <failure type="failure">1. Test Case ID: SkEDuo
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=0&amp;fields=id%2Cname&amp;filter=and%28createdAt%5Bgte%5D%3A%222023-01-01%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%29'</failure>
+      <failure type="failure">1. Test Case ID: Ch2jTg
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateNotes":[{"id":"fdaa4a70-6fd5-4173-a1a4-e7a86e956b58","createdAt":"2026-11-28T08:39:02.238Z","updatedAt":"2026-11-28T08:39:49.009Z","deletedAt":null,"position":-59,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"searchVector":""},{"id":"f31a3e55-3953-457d-9d7b-7100e2a08a2a","createdAt":"2026-11-28T08:39:03.376Z","up // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?filter=and%28createdAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%29'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/merge" time="22.025175">
+      <failure type="failure">1. Test Case ID: ubxfkD
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["134c5655-8a98-461b-9781-0d27a81d3418"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/notes/merge?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: tAtuWs
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["134c5655-8a98-461b-9781-0d27a81d3418"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/notes/merge?depth=0&amp;fields=id%2Cname'
+
+2. Test Case ID: PIRmhC
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/notes/merge?depth=0&amp;fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"ids": ["134c5655-8a98-461b-9781-0d27a81d3418"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/notes/merge?depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/restore" time="13.473842">
+      <failure type="failure">1. Test Case ID: 2TP4O8
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/restore?depth=1&amp;filter=name%5Blike%5D%3A%22%25value%25%22&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: Fy2RDx
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreNotes":[{"id":"455f1220-4e59-49b9-81ec-df77c0de5051","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T08:38:31.815Z","deletedAt":null,"position":-39,"title":"K05-Note-028","bodyV2":{"blocknote":"[{\"id\":\"6e13fb84-2774-4065-926c-87f71e8f2b5f\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 028\",\"styles\":{}}],\"children\":[]}]","markdown":"G // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22'
+
+2. Test Case ID: Ekoykc
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/notes/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;depth=0&amp;fields=id%2Cname'
+
+3. Test Case ID: b8P3nG
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/notes/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;depth=0&amp;fields=id%2Cname","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/restore?filter=createdAt%5Bgte%5D%3A%222023-01-01%22&amp;depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="DELETE /notes" time="24.812709">
+      <failure type="failure">1. Test Case ID: 2qU8jZ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Object note doesn't have any \"name\" field."]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?soft_delete=false&amp;filter=and%28name%5Blike%5D%3A%22%25value%25%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%29'</failure>
+      <failure type="failure">1. Test Case ID: Whaut3
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/notes?filter=and%28createdAt%5Bgte%5D%3A%222023-01-01%22%2CcreatedAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22%29&amp;soft_delete=true'</failure>
+      <failure type="failure">1. Test Case ID: rbbYGF
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became string)
+
+[200] OK:
+
+    `{"data":{"deleteNotes":[]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?filter=createdAt%5Bgte%5D%3A%222026-11-28T08%3A37%3A54.000Z%22&amp;soft_delete=%F1%93%8D%8E%F2%8E%B2%ADw%C2%BA1%F3%A4%9D%9E%C3%AAZ%C3%B9%C3%AC'</failure>
+    </testcase>
+    <testcase name="POST /batch/notes" time="23.291443">
+      <failure type="failure">1. Test Case ID: l8bUCO
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?depth=1&amp;upsert=false&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: Tu1JgN
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createNotes":[{"id":"55807d9f-bd2f-45e2-87d0-47ff20d68e1f","createdAt":"2026-11-28T08:38:38.798Z","updatedAt":"2026-11-28T08:38:38.798Z","deletedAt":null,"position":-41,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"searchVector":""}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?upsert=false&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: bnIvpn
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createNotes":[{"id":"60146d58-bd16-4e69-8f36-63665d424558","createdAt":"2026-11-28T08:38:39.995Z","updatedAt":"2026-11-28T08:38:39.995Z","deletedAt":null,"position":-42,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"k05-tien-2","context":{}},"searchVector":""}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?upsert=null&amp;upsert=null'
+
+3. Test Case ID: d8qn19
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true'
+
+4. Test Case ID: QUuSvK
+
+- Unsupported methods
+
+    Unsupported method TRACE returned 404, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[404] Not Found:
+
+    `{"message":"Cannot TRACE /rest/batch/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true","error":"Not Found","statusCode":404}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?depth=0&amp;fields=id%2Cname&amp;upsert=true'</failure>
+    </testcase>
+    <testcase name="GET /notes/{id}" time="18.866764">
+      <failure type="failure">1. Test Case ID: ir6NvQ
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: oyBrP7
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: f3Jpxp
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"note":{"id":"6e6fda5e-b7a9-4b7b-a860-7dd37e668c55","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T08:38:31.815Z","deletedAt":null,"position":-34,"title":"K05-Note-023","bodyV2":{"blocknote":"[{\"id\":\"693d68fb-321a-4f40-8fe6-6bae24f7fbe8\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 023\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi chú mẫ // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55?depth=0'
+
+3. Test Case ID: epaZz8
+
+- Missing header not rejected
+
+    Got 400 when missing required 'Authorization' header, expected 401
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55?depth=0&amp;fields=id%2Cname'
+
+4. Test Case ID: OmaOtu
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55?depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/{id}" time="20.835647">
+      <failure type="failure">1. Test Case ID: MkHV67
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: TZTAlA
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateNote":{"id":"6e6fda5e-b7a9-4b7b-a860-7dd37e668c55","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T08:38:50.564Z","deletedAt":null,"position":-34,"title":"K05-Note-023","bodyV2":{"blocknote":"[{\"id\":\"693d68fb-321a-4f40-8fe6-6bae24f7fbe8\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 023\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi  // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55?depth=1&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: MTaWzR
+
+- Missing header not rejected
+
+    Got 400 when missing required 'Authorization' header, expected 401
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55?depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/{id}/restore" time="24.473926">
+      <failure type="failure">1. Test Case ID: NWmCXB
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name, emails, company"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&amp;fields=id%2Cname%2Cemails%2Ccompany'</failure>
+      <failure type="failure">1. Test Case ID: rgVuJ8
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950/restore?depth=1&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: WeHrYd
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreNote":{"id":"6e6fda5e-b7a9-4b7b-a860-7dd37e668c55","createdAt":"2026-11-28T08:37:52.659Z","updatedAt":"2026-11-28T08:38:56.216Z","deletedAt":null,"position":-34,"title":"K05-Note-023","bodyV2":{"blocknote":"[{\"id\":\"693d68fb-321a-4f40-8fe6-6bae24f7fbe8\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 023\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55/restore?depth=0'
+
+3. Test Case ID: IFwSQv
+
+- Missing header not rejected
+
+    Got 400 when missing required 'Authorization' header, expected 401
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'fields' parameter invalid. Unknown or unreadable fields on 'note': name"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55/restore?depth=0&amp;fields=id%2Cname'
+
+4. Test Case ID: Y2AMgY
+
+- Unsupported methods
+
+    Unsupported method PUT returned 400, expected 405 Method Not Allowed
+
+    Return 405 for methods not listed in the OpenAPI spec
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Query path '/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55/restore' invalid. Valid examples: /rest/companies/id or /rest/companies or /rest/batch/companies"]}`
+
+Reproduce with:
+
+    curl -X PUT -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/6e6fda5e-b7a9-4b7b-a860-7dd37e668c55/restore?depth=0&amp;fields=id%2Cname'</failure>
+    </testcase>
+    <testcase name="DELETE /notes/{id}" time="2.124280">
+      <failure type="failure">1. Test Case ID: SToKzU
+
+- Missing header not rejected
+
+    Got 403 when missing required 'Authorization' header, expected 401
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/notes/333f7cec-8cb4-d2bd-c744-7cd8c4656e45?soft_delete=true'
+
+2. Test Case ID: Snq4ut
+
+- API rejected schema-compliant request
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["'333f7cec-8cb4-d2bd-c744-7cd8c4656e45' is not a valid UUID"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/333f7cec-8cb4-d2bd-c744-7cd8c4656e45?soft_delete=false'</failure>
+      <failure type="failure">1. Test Case ID: JPBUdS
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' http://localhost:3001/rest/notes/736ae8fb-d1c4-43d7-a9f2-d7560e2b0950</failure>
+    </testcase>
+  </testsuite>
+</testsuites>
