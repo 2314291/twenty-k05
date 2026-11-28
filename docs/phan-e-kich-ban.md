@@ -51,7 +51,7 @@ Ngoài phạm vi: GraphQL, metadata API, giao diện web.
 
 | Mã | Nội dung | Kỹ thuật | Bất biến | Object | Người chạy | Công cụ |
 |---|---|---|---|---|---|---|
-| SC1 | Quét 13 operation với dữ liệu theo schema | Kiểm thử dựa trên schema | I1–I7 | Cả 5 | Quang | Schemathesis `run_k05.py SC1` |
+| SC1 | Quét 13 operation với dữ liệu theo schema | Kiểm thử dựa trên schema | I1–I7 | Cả 5 | Tiến (harness của Quang) | Schemathesis `run_k05.py SC1` |
 | RED | Ca đỏ cố ý: schema sửa sai một trường | Kiểm chứng bộ test | I3 | Companies | Quang | `run_k05.py SC1 --schema` bản sửa |
 | SC2 | Dữ liệu sai | Kiểm thử âm, phân vùng tương đương | I1–I4 | Cả 5 | Thuận | Schemathesis `run_k05.py SC2` + ca tay P2 |
 | SC3 | Phân trang, lọc, sắp xếp | Giá trị biên, kiểm thử âm | I1–I3 | Companies, People, Opportunities (Trung); Notes, Tasks (Tiến) | Trung, Tiến | `kiem_thu_sc3_sc4_sc6.py`, `kiem_thu_tien_sc3_sc4.py` |
@@ -59,18 +59,19 @@ Ngoài phạm vi: GraphQL, metadata API, giao diện web.
 | SC5 | Xác thực, 4 loại key | Phân vùng tương đương trên đầu vào `Authorization` | I1, I2, I6 | Cả 5 | Tuấn | `kiem_thu_sc5.py` + ca tay P5 |
 | SC6 | Chuỗi vòng đời bản ghi | Kiểm thử theo trạng thái | I1, I2, I8 | Cả 5 | Trung | `kiem_thu_sc3_sc4_sc6.py --only sc6 --objects all` |
 
-## E.3. SC1 và ca đỏ (Quang)
+## E.3. SC1 (Tiến chạy bằng harness của Quang) và ca đỏ (Quang)
 
 | Mục | Nội dung |
 |---|---|
 | Mục tiêu | Gọi mọi operation với dữ liệu đúng và sai, tìm chỗ hành vi lệch schema |
 | Phạm vi | 13 operation mỗi object: `POST /batch/{obj}`; `GET`, `POST`, `DELETE`, `PATCH /{obj}`; `POST /{obj}/duplicates`; `GET /{obj}/groupBy`; `PATCH /{obj}/merge`; `PATCH /{obj}/restore`; `GET`, `DELETE`, `PATCH /{obj}/{id}`; `PATCH /{obj}/{id}/restore` |
 | Điều kiện đầu | Twenty chạy; key đủ quyền; reset dữ liệu trước mỗi object |
-| Input | Schemathesis sinh: `--mode all`, `--phases examples,coverage,fuzzing`, `--max-examples 50`, `--checks all`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto` |
+| Input | Schemathesis sinh: `--mode all`, `--phases examples,coverage,fuzzing`, `--max-examples 50`, `--checks all`, `--seed 20261020`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto` |
 | Lệnh | `python scripts/run_k05.py SC1 --object all --reset` |
 | Kỳ vọng | I1 đến I7 không bị vi phạm; mọi vi phạm được tái hiện bằng `curl` và phân loại |
-| Đầu ra | `reports/SC1/<thời điểm>/summary.md`, `REPRODUCERS.md`, báo cáo JSON/JUnit/HTML |
-| Rủi ro | Phase `examples` có bộ lọc khớp mọi bản ghi; `DELETE /{obj}` hoặc `PATCH /{obj}` hàng loạt có thể xoá hoặc sửa toàn bộ dữ liệu. Hook chặn thao tác hàng loạt và reset trước mỗi lần chạy. Check `unsupported_method` gửi `DELETE /{obj}/groupBy`: máy chủ hiểu thành xoá hàng loạt và xoá vĩnh viễn mọi bản ghi khớp `filter` (D-11); hook hiện chưa chặn đường dẫn này, nên kết quả các ca theo id sau đó bị lệch (404) |
+| Đầu ra | Mỗi object một thư mục `reports/SC1/<thời điểm>-seed20261020-<obj>/`: `summary.md`, `summary.json`, `REPRODUCERS.md`, báo cáo JSON/JUnit/HTML; tổng hợp 5 object bằng `python scripts/thong_ke.py` ra `reports/thong-ke.md` |
+| Rủi ro | Phase `examples` có bộ lọc khớp mọi bản ghi; `DELETE /{obj}` hoặc `PATCH /{obj}` hàng loạt có thể xoá hoặc sửa toàn bộ dữ liệu. Check `unsupported_method` gửi `DELETE` tới `/{obj}/groupBy`, `/duplicates`, `/merge`: máy chủ hiểu thành xoá hàng loạt và xoá vĩnh viễn mọi bản ghi khớp `filter` (D-11). Xử lý: hook `k05_hooks.py` chặn ghi hàng loạt qua `/{obj}`, `/groupBy`, `/duplicates`, `/merge`, `/batch` (sửa ngày 28/11/2026), và `--reset` trước mỗi object |
+| Ngoại lệ ngưỡng 50 ca | `DELETE /{obj}/{id}` chỉ có 2 đầu vào (`id`, `soft_delete`) nên Schemathesis cạn cách sinh khác nhau sớm (26–40 ca ở Companies, People, Opportunities); giống ngoại lệ đã kiểm chứng ở SC2 (E.4). 12/13 operation còn lại của mỗi object đạt ≥ 50 ca |
 
 **Ca đỏ (RED):** tạo bản sao schema, đổi `CompanyForResponse.name` từ `string` sang `integer` (không sửa schema gốc), chạy SC1 trên bản sao.
 Kỳ vọng: I3 đỏ ở các operation trả Company; lần chạy với schema gốc không có lỗi đó. Ca này chứng minh bộ test bắt được lệch schema thật.
@@ -250,7 +251,7 @@ Dữ liệu tạo và trường sửa của từng object (mỗi object sửa m�
 | SC2 | I1–I4 | D-01, D-02, D-03, D-07, D-08, D-09, D-10 |
 | SC3 | I1–I3 | D-01, D-03 |
 | SC4 | I1–I4, I9 | D-04, D-05 |
-| SC5 | I1, I2, I6 | D-02, D-12 |
+| SC5 | I1, I2, I6 | D-02, D-12 (ghi bằng key chỉ đọc trả 400 `PERMISSION_DENIED` thay vì 403; ca P5-08) |
 | SC6 | I1, I2, I8 | D-03, D-06 |
 
 Số test case và kết quả từng kịch bản, theo object: xem Phần G. Bảng test case chi tiết của SC3, SC4, SC6 kèm căn cứ đối chiếu và bằng chứng:
