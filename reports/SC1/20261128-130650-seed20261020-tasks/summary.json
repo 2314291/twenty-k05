@@ -1,0 +1,521 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /tasks": 77,
+      "DELETE /tasks/{id}": 64,
+      "GET /tasks": 114,
+      "GET /tasks/groupBy": 136,
+      "GET /tasks/{id}": 87,
+      "PATCH /tasks": 186,
+      "PATCH /tasks/merge": 113,
+      "PATCH /tasks/restore": 90,
+      "PATCH /tasks/{id}": 185,
+      "PATCH /tasks/{id}/restore": 89,
+      "POST /batch/tasks": 205,
+      "POST /tasks": 196,
+      "POST /tasks/duplicates": 210
+    },
+    "unique_failures": [
+      "DELETE /tasks/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /tasks/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /tasks|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /tasks|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks/groupBy|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /tasks/groupBy|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /tasks/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks/groupBy|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /tasks/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /tasks/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /tasks/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks/{id}|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /tasks|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /tasks|negative_data_rejection|AcceptedNegativeData|1",
+      "GET /tasks|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /tasks|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/merge|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /tasks/merge|positive_data_acceptance|RejectedPositiveData|4",
+      "PATCH /tasks/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/merge|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /tasks/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /tasks/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /tasks/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /tasks/{id}/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /tasks/{id}/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /tasks/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks/{id}/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /tasks/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /tasks/{id}|positive_data_acceptance|RejectedPositiveData|3",
+      "PATCH /tasks/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /tasks|positive_data_acceptance|RejectedPositiveData|8",
+      "PATCH /tasks|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/tasks|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /batch/tasks|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/tasks|positive_data_acceptance|RejectedPositiveData|1",
+      "POST /batch/tasks|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/tasks|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/tasks|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /tasks/duplicates|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /tasks/duplicates|positive_data_acceptance|RejectedPositiveData|8",
+      "POST /tasks/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /tasks/duplicates|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /tasks|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /tasks|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /tasks|positive_data_acceptance|RejectedPositiveData|8",
+      "POST /tasks|response_schema_conformance|JsonSchemaError|1",
+      "POST /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "POST /tasks|unsupported_method|UnsupportedMethodResponse|1"
+    ],
+    "codes": {
+      "200": 271,
+      "201": 50,
+      "204": 8,
+      "400": 1344,
+      "401": 11,
+      "403": 21,
+      "404": 47
+    }
+  },
+  "tested": [
+    "DELETE /tasks",
+    "DELETE /tasks/{id}",
+    "GET /tasks",
+    "GET /tasks/groupBy",
+    "GET /tasks/{id}",
+    "PATCH /tasks",
+    "PATCH /tasks/merge",
+    "PATCH /tasks/restore",
+    "PATCH /tasks/{id}",
+    "PATCH /tasks/{id}/restore",
+    "POST /batch/tasks",
+    "POST /tasks",
+    "POST /tasks/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1752,
+  "ops_ge_50": 13,
+  "five_xx": 0,
+  "running_time": 274.7707199000288,
+  "checks": {
+    "allow_header_conformance": {
+      "success": 1730,
+      "failure": 0
+    },
+    "content_type_conformance": {
+      "success": 1660,
+      "failure": 0
+    },
+    "ensure_resource_availability": {
+      "success": 1660,
+      "failure": 0
+    },
+    "ignored_auth": {
+      "success": 1660,
+      "failure": 0
+    },
+    "max_response_time": {
+      "success": 1730,
+      "failure": 0
+    },
+    "missing_required_header": {
+      "success": 1717,
+      "failure": 13
+    },
+    "negative_data_rejection": {
+      "success": 1649,
+      "failure": 11
+    },
+    "not_a_server_error": {
+      "success": 1730,
+      "failure": 0
+    },
+    "object_level_authorization": {
+      "success": 1730,
+      "failure": 0
+    },
+    "positive_data_acceptance": {
+      "success": 1121,
+      "failure": 539
+    },
+    "response_headers_conformance": {
+      "success": 1660,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1439,
+      "failure": 1080
+    },
+    "status_code_conformance": {
+      "success": 1504,
+      "failure": 156
+    },
+    "unsupported_method": {
+      "success": 1691,
+      "failure": 39
+    },
+    "use_after_free": {
+      "success": 1660,
+      "failure": 0
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /tasks",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /tasks",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 11
+    },
+    {
+      "operation": "DELETE /tasks",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /tasks/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /tasks/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 15
+    },
+    {
+      "operation": "DELETE /tasks/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 30
+    },
+    {
+      "operation": "GET /tasks",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 35
+    },
+    {
+      "operation": "GET /tasks",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 224
+    },
+    {
+      "operation": "GET /tasks",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks/groupBy",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks/groupBy",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 64
+    },
+    {
+      "operation": "GET /tasks/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /tasks/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 116
+    },
+    {
+      "operation": "GET /tasks/groupBy",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "GET /tasks/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 20
+    },
+    {
+      "operation": "GET /tasks/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 132
+    },
+    {
+      "operation": "GET /tasks/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /tasks/{id}",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /tasks",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 66
+    },
+    {
+      "operation": "PATCH /tasks",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 138
+    },
+    {
+      "operation": "PATCH /tasks",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/merge",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/merge",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 19
+    },
+    {
+      "operation": "PATCH /tasks/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/merge",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /tasks/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 57
+    },
+    {
+      "operation": "PATCH /tasks/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /tasks/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /tasks/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 52
+    },
+    {
+      "operation": "PATCH /tasks/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 130
+    },
+    {
+      "operation": "PATCH /tasks/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/{id}/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /tasks/{id}/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 14
+    },
+    {
+      "operation": "PATCH /tasks/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 164
+    },
+    {
+      "operation": "PATCH /tasks/{id}/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 4
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 5
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 65
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 56
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/tasks",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 5
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 62
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 220
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /tasks",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 3
+    },
+    {
+      "operation": "POST /tasks/duplicates",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /tasks/duplicates",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 59
+    },
+    {
+      "operation": "POST /tasks/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /tasks/duplicates",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    }
+  ]
+}

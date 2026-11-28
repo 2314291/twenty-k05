@@ -1,0 +1,542 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /people": 77,
+      "DELETE /people/{id}": 26,
+      "GET /people": 114,
+      "GET /people/groupBy": 136,
+      "GET /people/{id}": 87,
+      "PATCH /people": 343,
+      "PATCH /people/merge": 113,
+      "PATCH /people/restore": 90,
+      "PATCH /people/{id}": 342,
+      "PATCH /people/{id}/restore": 89,
+      "POST /batch/people": 362,
+      "POST /people": 353,
+      "POST /people/duplicates": 367
+    },
+    "unique_failures": [
+      "DELETE /people/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /people/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /people|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /people|negative_data_rejection|AcceptedNegativeData|2",
+      "DELETE /people|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /people|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/groupBy|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /people/groupBy|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /people/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /people/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/groupBy|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /people/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /people/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /people/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/{id}|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /people|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /people|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /people|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /people|response_schema_conformance|JsonSchemaError|2",
+      "GET /people|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/merge|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /people/merge|positive_data_acceptance|RejectedPositiveData|6",
+      "PATCH /people/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/merge|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /people/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /people/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /people/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /people/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /people/{id}/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /people/{id}/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /people/{id}/restore|response_schema_conformance|JsonSchemaError|2",
+      "PATCH /people/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/{id}/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /people/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /people/{id}|negative_data_rejection|AcceptedNegativeData|31",
+      "PATCH /people/{id}|positive_data_acceptance|RejectedPositiveData|7",
+      "PATCH /people/{id}|response_schema_conformance|JsonSchemaError|2",
+      "PATCH /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /people|negative_data_rejection|AcceptedNegativeData|32",
+      "PATCH /people|positive_data_acceptance|RejectedPositiveData|7",
+      "PATCH /people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/people|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /batch/people|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/people|positive_data_acceptance|RejectedPositiveData|1",
+      "POST /batch/people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/people|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /people/duplicates|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /people/duplicates|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /people/duplicates|positive_data_acceptance|RejectedPositiveData|5",
+      "POST /people/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people/duplicates|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /people|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /people|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /people|positive_data_acceptance|RejectedPositiveData|6",
+      "POST /people|response_schema_conformance|JsonSchemaError|1",
+      "POST /people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people|unsupported_method|UnsupportedMethodResponse|1"
+    ],
+    "codes": {
+      "200": 610,
+      "201": 58,
+      "204": 8,
+      "400": 1760,
+      "401": 11,
+      "403": 21,
+      "404": 31
+    }
+  },
+  "tested": [
+    "DELETE /people",
+    "DELETE /people/{id}",
+    "GET /people",
+    "GET /people/groupBy",
+    "GET /people/{id}",
+    "PATCH /people",
+    "PATCH /people/merge",
+    "PATCH /people/restore",
+    "PATCH /people/{id}",
+    "PATCH /people/{id}/restore",
+    "POST /batch/people",
+    "POST /people",
+    "POST /people/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 2499,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 1150.8912120999303,
+  "checks": {
+    "allow_header_conformance": {
+      "success": 2477,
+      "failure": 0
+    },
+    "content_type_conformance": {
+      "success": 2407,
+      "failure": 0
+    },
+    "ensure_resource_availability": {
+      "success": 2407,
+      "failure": 0
+    },
+    "ignored_auth": {
+      "success": 2407,
+      "failure": 0
+    },
+    "max_response_time": {
+      "success": 2477,
+      "failure": 0
+    },
+    "missing_required_header": {
+      "success": 2464,
+      "failure": 13
+    },
+    "negative_data_rejection": {
+      "success": 2272,
+      "failure": 135
+    },
+    "not_a_server_error": {
+      "success": 2477,
+      "failure": 0
+    },
+    "object_level_authorization": {
+      "success": 2477,
+      "failure": 0
+    },
+    "positive_data_acceptance": {
+      "success": 1905,
+      "failure": 502
+    },
+    "response_headers_conformance": {
+      "success": 2407,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 2255,
+      "failure": 604
+    },
+    "status_code_conformance": {
+      "success": 2267,
+      "failure": 140
+    },
+    "unsupported_method": {
+      "success": 2438,
+      "failure": 39
+    },
+    "use_after_free": {
+      "success": 2407,
+      "failure": 0
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /people",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 6
+    },
+    {
+      "operation": "DELETE /people",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 10
+    },
+    {
+      "operation": "DELETE /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /people/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /people/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 11
+    },
+    {
+      "operation": "DELETE /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "GET /people",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 4
+    },
+    {
+      "operation": "GET /people",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 12
+    },
+    {
+      "operation": "GET /people",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 190
+    },
+    {
+      "operation": "GET /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 68
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 116
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 7
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 132
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 5
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /people",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 60
+    },
+    {
+      "operation": "PATCH /people",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 27
+    },
+    {
+      "operation": "PATCH /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/merge",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/merge",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 43
+    },
+    {
+      "operation": "PATCH /people/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /people/merge",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 29
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 7
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 59
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 24
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 133
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 4
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 5
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 129
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 4
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 4
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 3
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 83
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "POST /people",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "POST /people",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 94
+    },
+    {
+      "operation": "POST /people",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 3
+    },
+    {
+      "operation": "POST /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /people",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 3
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 89
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    }
+  ]
+}
