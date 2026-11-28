@@ -1,0 +1,82 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from schema/core.openapi.json (in 1.10s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       1 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Coverage (in 0.82s)
+
+     ❌ 1 failed
+
+ ❌  Fuzzing (in 0.50s)
+
+     ❌ 1 failed
+
+=================================== FAILURES ===================================
+____________________________ DELETE /companies/{id} ____________________________
+1. Test Case ID: 18vV3Y
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies/0?soft_delete=2'
+
+    st replay 18vV3Y
+
+2. Test Case ID: 5A9BY6
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?soft_delete=false&X%C2%B5=false&X%C2%B5=%C2%A2%F3%95%BE%A9%C2%8D&X%C2%B5=%F3%A8%91%B8%C3%8D%F4%88%98%96%F1%A0%9E%BF%F3%92%A2%8Cf%18%C3%87%C3%B8%C2%9F%F3%9A%AA%9E%5C%C3%8E%C2%91'
+
+    st replay 5A9BY6
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 1/522
+  Tested: 1
+
+Test Phases:
+  ⏭  Examples (disabled)
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Undocumented HTTP status code: 2
+
+Test cases:
+  18 generated, 2 found 2 unique failures
+
+Reports:
+  - JSON: reports\SC2-delete-id\nondet-2\json-20261126T213704Z.json
+
+Seed: 20261020
+
+============================= 2 failures in 1.80s ==============================

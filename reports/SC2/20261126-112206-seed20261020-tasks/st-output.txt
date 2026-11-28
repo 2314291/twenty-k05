@@ -1,0 +1,1480 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from D:\KiemThu\k05-harness\schema\core.openapi.json
+ (in 1.20s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       13 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Coverage (in 34.69s)
+
+     ❌ 13 failed
+
+ ❌  Fuzzing (in 142.99s)
+
+     ✅  6 passed  ❌  7 failed
+
+=================================== FAILURES ===================================
+________________________________ DELETE /tasks _________________________________
+1. Test Case ID: CFy3iD
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/tasks?soft_delete=2&filter=createdAt%5Bgte%5D%3A%222026-11-26T04%3A23%3A37.000Z%22'
+
+    st replay CFy3iD
+
+2. Test Case ID: nbhOXh
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became string)
+
+[200] OK:
+
+    `{"data":{"deleteTasks":[]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks?soft_delete=%F3%BE%9B%B2%C3%98%C2%84%C2%8D%C3%BE8%C3%92%C2%B2%C2%A5i%00%11%C3%BA%C2%9B%C2%89%F2%AE%90%97k&filter=createdAt%5Bgte%5D%3A%222026-11-26T04%3A23%3A37.000Z%22'
+
+    st replay nbhOXh
+
+______________________________ DELETE /tasks/{id} ______________________________
+1. Test Case ID: jOI99c
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/tasks/0?soft_delete=2'
+
+    st replay jOI99c
+
+2. Test Case ID: RaPliX
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became integer)
+
+[200] OK:
+
+    `{"data":{"deleteTask":{"id":"ab187122-7370-4178-a0a5-313a90ef891a"}}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/ab187122-7370-4178-a0a5-313a90ef891a?soft_delete=-36213'
+
+    st replay RaPliX
+
+3. Test Case ID: hNB4hC
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?soft_delete=false'
+
+    st replay hNB4hC
+
+__________________________________ GET /tasks __________________________________
+1. Test Case ID: Fmg4Fw
+
+- Response violates schema (6 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/dueAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"tasks":[{"id":"1cd2d785-124a-4329-8e6a-bae438b4dfbf","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:23:36.457Z","deletedAt":null,"position":-13,"title":"K05-Task-013","bodyV2":{"blocknote":"[{\"id\":\"4dda46ea-b0d9-4e38-9766-008dacfc7d8c\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu K0 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks?limit=60&x-schemathesis-unknown-property=42'
+
+    st replay Fmg4Fw
+
+2. Test Case ID: YcnoEP
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"tasks":[{"id":"1cd2d785-124a-4329-8e6a-bae438b4dfbf","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:23:36.457Z","deletedAt":null,"position":-13,"title":"K05-Task-013","bodyV2":{"blocknote":"[{\"id\":\"4dda46ea-b0d9-4e38-9766-008dacfc7d8c\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu K0 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks?limit=201'
+
+    st replay YcnoEP
+
+3. Test Case ID: Tvu77e
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"tasks":[{"id":"1cd2d785-124a-4329-8e6a-bae438b4dfbf","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:23:36.457Z","deletedAt":null,"position":-13,"title":"K05-Task-013","bodyV2":{"blocknote":"[{\"id\":\"4dda46ea-b0d9-4e38-9766-008dacfc7d8c\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu K0 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay Tvu77e
+
+4. Test Case ID: 9NKdkK
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/tasks?limit=0.5&depth=0.5'
+
+    st replay 9NKdkK
+
+______________________________ GET /tasks/groupBy ______________________________
+1. Test Case ID: OVrw7C
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid group_by query parameter - should be a valid array of objects - ex: [{\"firstField\": true}, {\"secondField\": {\"subField\": true}}, {\"dateField\": {\"granularity\": 'DAY'}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/groupBy?group_by=&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&x-schemathesis-unknown-property=42'
+
+    st replay OVrw7C
+
+2. Test Case ID: 1NTewH
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=2'
+
+    st replay 1NTewH
+
+3. Test Case ID: HLpfE4
+
+- Response violates schema
+
+    [{"groupByDimensionValues":["2026-11-26T04:23:36.457Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.499Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.564Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.643Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.725Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.811Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.865Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.940Z"]},{"groupByDimensionValues":["2026-11-26T04:23:43.044Z"]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "tasksGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T04:23:36.457Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T04:23:42.499Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T04:23:42.564Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T04:23:42.643Z"
+            // Output truncated...
+        ]
+
+[200] OK:
+
+    `[{"groupByDimensionValues":["2026-11-26T04:23:36.457Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.499Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.564Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.643Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.725Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.811Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.865Z"]},{"groupByDimensionValues":["2026-11-26T04:23:42.940Z"]},{"groupByDimensionValues":["2026-11-26T04:23:43.044Z"]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=null&include_records_sample=null'
+
+    st replay HLpfE4
+
+_______________________________ GET /tasks/{id} ________________________________
+1. Test Case ID: rRJSID
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/tasks/0?depth=0.5'
+
+    st replay rRJSID
+
+2. Test Case ID: nmsbQ6
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?=%C2%86%3EnQ%10o&%5E%F2%8A%9A%B0%2Cn%1C%5C%C3%B9%F3%BC%9A%BA%C3%9B%F2%B1%A6%8B%C2%9D%C3%BA%F3%B4%81%BF%24q%C3%A9=true&%C2%99=7&E%F2%A3%AB%9C%C3%BF%C2%A7%C2%89%C3%A6%14%03=%60+%C2%AE%C2%AC%7Cg%C3%97&h%3D%C3%B4%7F%0A%F2%9F%86%95=%C3%86%C2%A4%C2%BB%C2%9C%F1%90%BE%A0%C2%A8%C2%9D%C3%92%18%F4%82%AF%86%C2%98%C3%B9&h%3D%C3%B4%7F%0A%F2%9F%86%95=Y%C2%8A%0E%F3%A5%B3%88%C3%9E%2A%C3%BB'
+
+    st replay nmsbQ6
+
+3. Test Case ID: JbkZ7c
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"task":{"id":"1cd2d785-124a-4329-8e6a-bae438b4dfbf","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:23:36.457Z","deletedAt":null,"position":-13,"title":"K05-Task-013","bodyV2":{"blocknote":"[{\"id\":\"4dda46ea-b0d9-4e38-9766-008dacfc7d8c\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu K05  // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' http://localhost:3001/rest/tasks/1cd2d785-124a-4329-8e6a-bae438b4dfbf
+
+    st replay JbkZ7c
+
+4. Test Case ID: 3giTLX
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"task":{"id":"1cd2d785-124a-4329-8e6a-bae438b4dfbf","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:23:36.457Z","deletedAt":null,"position":-13,"title":"K05-Task-013","bodyV2":{"blocknote":"[{\"id\":\"4dda46ea-b0d9-4e38-9766-008dacfc7d8c\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu K05  // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/1cd2d785-124a-4329-8e6a-bae438b4dfbf?depth=1'
+
+    st replay 3giTLX
+
+_________________________________ PATCH /tasks _________________________________
+1. Test Case ID: WpnBgS
+
+- Response violates schema (6 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/dueAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateTasks":[{"id":"d9e3d4d1-9b47-4ca2-a5ef-b5e87f7d928d","createdAt":"2026-11-26T04:23:42.499Z","updatedAt":"2026-11-26T04:23:55.587Z","deletedAt":null,"position":-30,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null},{"id":"90cc9602-1309-4480-a66b-d698b3601ecc","createdA // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?x-schemathesis-unknown-property=42&filter=createdAt%5Bgte%5D%3A%222026-11-26T04%3A23%3A37.000Z%22'
+
+    st replay WpnBgS
+
+2. Test Case ID: oVjEde
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?depth=0.5&filter=createdAt%5Bgte%5D%3A%222026-11-26T04%3A23%3A37.000Z%22'
+
+    st replay oVjEde
+
+______________________________ PATCH /tasks/merge ______________________________
+1. Test Case ID: PC4p0i
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["7710b9d3-61cc-41f0-a900-e33f306f4ffb"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/tasks/merge?depth=0.5'
+
+    st replay PC4p0i
+
+_____________________________ PATCH /tasks/restore _____________________________
+1. Test Case ID: LTVlHV
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/tasks/restore?depth=0.5'
+
+    st replay LTVlHV
+
+______________________________ PATCH /tasks/{id} _______________________________
+1. Test Case ID: sTptDg
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks/0?depth=0.5'
+
+    st replay sTptDg
+
+2. Test Case ID: VbSgJQ
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateTask":{"id":"ab187122-7370-4178-a0a5-313a90ef891a","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:26:01.208Z","deletedAt":null,"position":-3,"title":"K05-Task-003","bodyV2":{"blocknote":"[{\"id\":\"18625ffc-11a2-49e8-a080-e93089c12f40\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 003\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫu // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO", "assigneeId": null}' http://localhost:3001/rest/tasks/ab187122-7370-4178-a0a5-313a90ef891a
+
+    st replay VbSgJQ
+
+3. Test Case ID: 24YBpR
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateTask":{"id":"96dcdeee-8dc6-47dd-b446-4000092b9504","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:26:01.332Z","deletedAt":null,"position":-26,"title":"K05-Task-026","bodyV2":{"blocknote":"[{\"id\":\"47e53273-7ee4-4fa6-9ef9-427115b29803\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 026\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc mẫ // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO", "assigneeId": null}' 'http://localhost:3001/rest/tasks/96dcdeee-8dc6-47dd-b446-4000092b9504?depth=1'
+
+    st replay 24YBpR
+
+__________________________ PATCH /tasks/{id}/restore ___________________________
+1. Test Case ID: bf1jYu
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/tasks/0/restore?depth=0.5'
+
+    st replay bf1jYu
+
+2. Test Case ID: htm0NR
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreTask":{"id":"7c31d47c-a668-4d38-b892-cbeb3cc8f23b","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:26:17.020Z","deletedAt":null,"position":-24,"title":"K05-Task-024","bodyV2":{"blocknote":"[{\"id\":\"0daf1e76-5b3e-4d3c-acaf-df8c15ec3305\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 024\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc m // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' http://localhost:3001/rest/tasks/7c31d47c-a668-4d38-b892-cbeb3cc8f23b/restore
+
+    st replay htm0NR
+
+3. Test Case ID: Ojg0ki
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/373bf221-5a67-59ea-99ce-8cfd8e09b24c/restore?%C2%9B%C3%A2%243%F2%87%BA%AD%0Ca%C3%89%C2%8C%C2%92%F0%99%B6%9EU=g%C2%B6%C2%8F%C3%8D%C2%AFr%5Ef%C2%92&%C2%9B%C3%A2%243%F2%87%BA%AD%0Ca%C3%89%C2%8C%C2%92%F0%99%B6%9EU=-4.9897155582342885e-279&%C2%9B%C3%A2%243%F2%87%BA%AD%0Ca%C3%89%C2%8C%C2%92%F0%99%B6%9EU=%F1%8B%84%A57m&%C3%BA%C3%B6%C2%98%C2%B4%C2%8F%C3%A4%00%F1%B4%B1%AC=%C3%B5%C2%82L%F2%95%85%9D%C3%A2%C3%9F&%C2%AD~%EF%B5%99%C3%9D%C2%A8%C2%9F8b%C2%90%04%C2%98%17=E%5B'
+
+    st replay Ojg0ki
+
+4. Test Case ID: LVCozI
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreTask":{"id":"7c31d47c-a668-4d38-b892-cbeb3cc8f23b","createdAt":"2026-11-26T04:23:36.457Z","updatedAt":"2026-11-26T04:26:28.533Z","deletedAt":null,"position":-24,"title":"K05-Task-024","bodyV2":{"blocknote":"[{\"id\":\"0daf1e76-5b3e-4d3c-acaf-df8c15ec3305\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Việc mẫu K05 số 024\",\"styles\":{}}],\"children\":[]}]","markdown":"Việc m // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/tasks/7c31d47c-a668-4d38-b892-cbeb3cc8f23b/restore?depth=1'
+
+    st replay LVCozI
+
+______________________________ POST /batch/tasks _______________________________
+1. Test Case ID: DhJSqj
+
+- Response violates schema (6 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/dueAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createTasks":[{"id":"1c453801-df21-4693-bfd0-e59c9ebf123b","createdAt":"2026-11-26T04:24:02.376Z","updatedAt":"2026-11-26T04:24:02.376Z","deletedAt":null,"position":-30,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"status": "TODO"}]' 'http://localhost:3001/rest/batch/tasks?upsert=false&x-schemathesis-unknown-property=42'
+
+    st replay DhJSqj
+
+2. Test Case ID: seseiK
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createTasks":[{"id":"b4545fb4-24a5-4bce-ab7f-ca58a1fded25","createdAt":"2026-11-26T04:24:02.461Z","updatedAt":"2026-11-26T04:24:02.461Z","deletedAt":null,"position":-31,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"status": "TODO"}]' 'http://localhost:3001/rest/batch/tasks?upsert=null&upsert=null'
+
+    st replay seseiK
+
+3. Test Case ID: QjSyuQ
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createTasks":[{"id":"67cc4fe9-c3db-45f7-bdb0-c927ebf43897","createdAt":"2026-11-26T04:24:04.030Z","updatedAt":"2026-11-26T04:24:04.030Z","deletedAt":null,"position":-37,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null,"assignee":null,"attachments":[],"taskTargets":[]}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{"status": "TODO"}]' 'http://localhost:3001/rest/batch/tasks?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay QjSyuQ
+
+4. Test Case ID: 4NEKnN
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{"status": "TODO"}]' 'http://localhost:3001/rest/batch/tasks?depth=0.5&upsert=2'
+
+    st replay 4NEKnN
+
+_________________________________ POST /tasks __________________________________
+1. Test Case ID: T3E57m
+
+- Response violates schema (6 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assigneeId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/dueAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Task due date"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createTask":{"id":"d9e3d4d1-9b47-4ca2-a5ef-b5e87f7d928d","createdAt":"2026-11-26T04:23:42.499Z","updatedAt":"2026-11-26T04:23:42.499Z","deletedAt":null,"position":-30,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?upsert=false&x-schemathesis-unknown-property=42'
+
+    st replay T3E57m
+
+2. Test Case ID: XpYA8h
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createTask":{"id":"90cc9602-1309-4480-a66b-d698b3601ecc","createdAt":"2026-11-26T04:23:42.564Z","updatedAt":"2026-11-26T04:23:42.564Z","deletedAt":null,"position":-31,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?upsert=null&upsert=null'
+
+    st replay XpYA8h
+
+3. Test Case ID: AqNkl4
+
+- Response violates schema (2 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/TaskForResponse/properties/assignee:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Task assignee"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createTask":{"id":"e1769e2c-efb2-46e8-a10d-50b64c37b2f3","createdAt":"2026-11-26T04:23:43.044Z","updatedAt":"2026-11-26T04:23:43.044Z","deletedAt":null,"position":-37,"title":"","bodyV2":{"blocknote":null,"markdown":""},"dueAt":null,"status":"TODO","createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"","assigneeId":null,"assignee":null,"attachments":[],"taskTargets":[]}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay AqNkl4
+
+4. Test Case ID: uzDdJh
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"status": "TODO"}' 'http://localhost:3001/rest/tasks?depth=0.5&upsert=2'
+
+    st replay uzDdJh
+
+____________________________ POST /tasks/duplicates ____________________________
+1. Test Case ID: INjMmu
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["5a9421f5-548b-435b-bae8-393cc16dbefd"]}' 'http://localhost:3001/rest/tasks/duplicates?depth=0.5'
+
+    st replay INjMmu
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 13/522
+  Tested: 13
+
+Test Phases:
+  ⏭  Examples (disabled)
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Response violates schema: 49
+  ❌ API accepted schema-violating request: 5
+  ❌ Undocumented HTTP status code: 17
+
+Test cases:
+  1282 generated, 36 found 71 unique failures
+
+Reports:
+  - JUnit: D:\KiemThu\k05-harness\reports\SC2\20261126-112206-seed20261020-tasks\junit-20261126T112338Z.xml
+  - NDJSON: D:\KiemThu\k05-harness\reports\SC2\20261126-112206-seed20261020-tasks\ndjson-20261126T112338Z.ndjson
+  - JSON: D:\KiemThu\k05-harness\reports\SC2\20261126-112206-seed20261020-tasks\json-20261126T112338Z.json
+  - HTML: D:\KiemThu\k05-harness\reports\SC2\20261126-112206-seed20261020-tasks\html-20261126T112338Z\index.html
+
+Seed: not used in the deterministic mode
+
+============================ 71 failures in 178.26s ============================

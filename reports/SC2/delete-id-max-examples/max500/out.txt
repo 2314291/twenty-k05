@@ -1,0 +1,82 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from schema/core.openapi.json (in 1.77s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       1 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Coverage (in 1.06s)
+
+     ❌ 1 failed
+
+ ❌  Fuzzing (in 0.44s)
+
+     ❌ 1 failed
+
+=================================== FAILURES ===================================
+____________________________ DELETE /companies/{id} ____________________________
+1. Test Case ID: oDRO2V
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies/0?soft_delete=2'
+
+    st replay oDRO2V
+
+2. Test Case ID: mlek3x
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?soft_delete=false'
+
+    st replay mlek3x
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 1/522
+  Tested: 1
+
+Test Phases:
+  ⏭  Examples (disabled)
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Undocumented HTTP status code: 2
+
+Test cases:
+  17 generated, 2 found 2 unique failures
+
+Reports:
+  - JSON: reports\SC2-delete-id\max500\json-20261126T213635Z.json
+
+Seed: not used in the deterministic mode
+
+============================= 2 failures in 2.06s ==============================

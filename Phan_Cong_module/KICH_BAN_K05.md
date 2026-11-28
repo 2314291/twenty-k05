@@ -129,7 +129,7 @@ Ngoại lệ ngưỡng 50 ca: `DELETE /{obj}/{id}` chỉ có 14–21 ca ở cả
 | `--max-examples 500` | 17 |
 | `--max-examples 50`, bỏ `--generation-deterministic` (2 lần) | 17, 18 |
 
-Kết luận: đây là giới hạn của không gian input, không phải của cấu hình. Nhóm ghi nhận operation này là ngoại lệ của tiêu chí "≥ 50 ca mỗi operation"; 12/13 operation còn lại của mỗi object đều đạt.
+Bằng chứng: `reports/SC2/delete-id-max-examples/`. Kết luận: đây là giới hạn của không gian input, không phải của cấu hình. Nhóm ghi nhận operation này là ngoại lệ của tiêu chí "≥ 50 ca mỗi operation"; 12/13 operation còn lại của mỗi object đều đạt.
 
 Các nhóm lỗi gom lại thành 6 vấn đề, giống nhau ở cả 5 object:
 

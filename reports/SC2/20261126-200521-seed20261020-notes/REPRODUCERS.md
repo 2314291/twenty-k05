@@ -1,0 +1,28 @@
+# Reproducer
+
+- `reproducers/01-delete-notes-negative_data_rejection.sh` — DELETE /notes — negative_data_rejection
+- `reproducers/02-delete-notes-status_code_conformance.sh` — DELETE /notes — status_code_conformance
+- `reproducers/03-delete-notes-id-negative_data_rejection.sh` — DELETE /notes/{id} — negative_data_rejection
+- `reproducers/04-delete-notes-id-status_code_conformance.sh` — DELETE /notes/{id} — status_code_conformance
+- `reproducers/05-get-notes-negative_data_rejection.sh` — GET /notes — negative_data_rejection
+- `reproducers/06-get-notes-response_schema_conformance.sh` — GET /notes — response_schema_conformance
+- `reproducers/07-get-notes-status_code_conformance.sh` — GET /notes — status_code_conformance
+- `reproducers/08-get-notes-groupby-response_schema_conformance.sh` — GET /notes/groupBy — response_schema_conformance
+- `reproducers/09-get-notes-groupby-status_code_conformance.sh` — GET /notes/groupBy — status_code_conformance
+- `reproducers/10-get-notes-id-response_schema_conformance.sh` — GET /notes/{id} — response_schema_conformance
+- `reproducers/11-get-notes-id-status_code_conformance.sh` — GET /notes/{id} — status_code_conformance
+- `reproducers/12-patch-notes-response_schema_conformance.sh` — PATCH /notes — response_schema_conformance
+- `reproducers/13-patch-notes-status_code_conformance.sh` — PATCH /notes — status_code_conformance
+- `reproducers/14-patch-notes-merge-status_code_conformance.sh` — PATCH /notes/merge — status_code_conformance
+- `reproducers/15-patch-notes-restore-status_code_conformance.sh` — PATCH /notes/restore — status_code_conformance
+- `reproducers/16-patch-notes-id-response_schema_conformance.sh` — PATCH /notes/{id} — response_schema_conformance
+- `reproducers/17-patch-notes-id-status_code_conformance.sh` — PATCH /notes/{id} — status_code_conformance
+- `reproducers/18-patch-notes-id-restore-response_schema_conformance.sh` — PATCH /notes/{id}/restore — response_schema_conformance
+- `reproducers/19-patch-notes-id-restore-status_code_conformance.sh` — PATCH /notes/{id}/restore — status_code_conformance
+- `reproducers/20-post-batch-notes-negative_data_rejection.sh` — POST /batch/notes — negative_data_rejection
+- `reproducers/21-post-batch-notes-response_schema_conformance.sh` — POST /batch/notes — response_schema_conformance
+- `reproducers/22-post-batch-notes-status_code_conformance.sh` — POST /batch/notes — status_code_conformance
+- `reproducers/23-post-notes-negative_data_rejection.sh` — POST /notes — negative_data_rejection
+- `reproducers/24-post-notes-response_schema_conformance.sh` — POST /notes — response_schema_conformance
+- `reproducers/25-post-notes-status_code_conformance.sh` — POST /notes — status_code_conformance
+- `reproducers/26-post-notes-duplicates-status_code_conformance.sh` — POST /notes/duplicates — status_code_conformance

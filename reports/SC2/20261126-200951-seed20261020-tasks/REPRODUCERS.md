@@ -1,0 +1,28 @@
+# Reproducer
+
+- `reproducers/01-delete-tasks-negative_data_rejection.sh` — DELETE /tasks — negative_data_rejection
+- `reproducers/02-delete-tasks-status_code_conformance.sh` — DELETE /tasks — status_code_conformance
+- `reproducers/03-delete-tasks-id-negative_data_rejection.sh` — DELETE /tasks/{id} — negative_data_rejection
+- `reproducers/04-delete-tasks-id-status_code_conformance.sh` — DELETE /tasks/{id} — status_code_conformance
+- `reproducers/05-get-tasks-negative_data_rejection.sh` — GET /tasks — negative_data_rejection
+- `reproducers/06-get-tasks-response_schema_conformance.sh` — GET /tasks — response_schema_conformance
+- `reproducers/07-get-tasks-status_code_conformance.sh` — GET /tasks — status_code_conformance
+- `reproducers/08-get-tasks-groupby-response_schema_conformance.sh` — GET /tasks/groupBy — response_schema_conformance
+- `reproducers/09-get-tasks-groupby-status_code_conformance.sh` — GET /tasks/groupBy — status_code_conformance
+- `reproducers/10-get-tasks-id-response_schema_conformance.sh` — GET /tasks/{id} — response_schema_conformance
+- `reproducers/11-get-tasks-id-status_code_conformance.sh` — GET /tasks/{id} — status_code_conformance
+- `reproducers/12-patch-tasks-response_schema_conformance.sh` — PATCH /tasks — response_schema_conformance
+- `reproducers/13-patch-tasks-status_code_conformance.sh` — PATCH /tasks — status_code_conformance
+- `reproducers/14-patch-tasks-merge-status_code_conformance.sh` — PATCH /tasks/merge — status_code_conformance
+- `reproducers/15-patch-tasks-restore-status_code_conformance.sh` — PATCH /tasks/restore — status_code_conformance
+- `reproducers/16-patch-tasks-id-response_schema_conformance.sh` — PATCH /tasks/{id} — response_schema_conformance
+- `reproducers/17-patch-tasks-id-status_code_conformance.sh` — PATCH /tasks/{id} — status_code_conformance
+- `reproducers/18-patch-tasks-id-restore-response_schema_conformance.sh` — PATCH /tasks/{id}/restore — response_schema_conformance
+- `reproducers/19-patch-tasks-id-restore-status_code_conformance.sh` — PATCH /tasks/{id}/restore — status_code_conformance
+- `reproducers/20-post-batch-tasks-negative_data_rejection.sh` — POST /batch/tasks — negative_data_rejection
+- `reproducers/21-post-batch-tasks-response_schema_conformance.sh` — POST /batch/tasks — response_schema_conformance
+- `reproducers/22-post-batch-tasks-status_code_conformance.sh` — POST /batch/tasks — status_code_conformance
+- `reproducers/23-post-tasks-negative_data_rejection.sh` — POST /tasks — negative_data_rejection
+- `reproducers/24-post-tasks-response_schema_conformance.sh` — POST /tasks — response_schema_conformance
+- `reproducers/25-post-tasks-status_code_conformance.sh` — POST /tasks — status_code_conformance
+- `reproducers/26-post-tasks-duplicates-status_code_conformance.sh` — POST /tasks/duplicates — status_code_conformance
