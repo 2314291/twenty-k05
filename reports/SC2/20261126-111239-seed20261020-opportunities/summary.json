@@ -1,0 +1,65 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /opportunities": 57,
+      "DELETE /opportunities/{id}": 14,
+      "GET /opportunities": 79,
+      "GET /opportunities/groupBy": 97,
+      "GET /opportunities/{id}": 68,
+      "PATCH /opportunities": 142,
+      "PATCH /opportunities/merge": 95,
+      "PATCH /opportunities/restore": 65,
+      "PATCH /opportunities/{id}": 147,
+      "PATCH /opportunities/{id}/restore": 70,
+      "POST /batch/opportunities": 171,
+      "POST /opportunities": 163,
+      "POST /opportunities/duplicates": 170
+    },
+    "unique_failures": [
+      "DELETE /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /opportunities|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /opportunities/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/{id}|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /opportunities|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/{id}/restore|response_schema_conformance|JsonSchemaError|2",
+      "PATCH /opportunities/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 203,
+      "201": 27,
+      "204": 8,
+      "400": 1062,
+      "403": 13,
+      "404": 25
+    }
+  },
+  "tested": [
+    "DELETE /opportunities",
+    "DELETE /opportunities/{id}",
+    "GET /opportunities",
+    "GET /opportunities/groupBy",
+    "GET /opportunities/{id}",
+    "PATCH /opportunities",
+    "PATCH /opportunities/merge",
+    "PATCH /opportunities/restore",
+    "PATCH /opportunities/{id}",
+    "PATCH /opportunities/{id}/restore",
+    "POST /batch/opportunities",
+    "POST /opportunities",
+    "POST /opportunities/duplicates"
+  ],
+  "schema_operations": 13
+}

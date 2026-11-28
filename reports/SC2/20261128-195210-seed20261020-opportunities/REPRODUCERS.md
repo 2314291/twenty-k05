@@ -1,0 +1,21 @@
+# Reproducer
+
+- `reproducers/01-delete-opportunities-negative_data_rejection.sh` — DELETE /opportunities — negative_data_rejection
+- `reproducers/02-delete-opportunities-status_code_conformance.sh` — DELETE /opportunities — status_code_conformance
+- `reproducers/03-delete-opportunities-id-status_code_conformance.sh` — DELETE /opportunities/{id} — status_code_conformance
+- `reproducers/04-get-opportunities-negative_data_rejection.sh` — GET /opportunities — negative_data_rejection
+- `reproducers/05-get-opportunities-response_schema_conformance.sh` — GET /opportunities — response_schema_conformance
+- `reproducers/06-get-opportunities-status_code_conformance.sh` — GET /opportunities — status_code_conformance
+- `reproducers/07-get-opportunities-groupby-response_schema_conformance.sh` — GET /opportunities/groupBy — response_schema_conformance
+- `reproducers/08-get-opportunities-groupby-status_code_conformance.sh` — GET /opportunities/groupBy — status_code_conformance
+- `reproducers/09-get-opportunities-id-response_schema_conformance.sh` — GET /opportunities/{id} — response_schema_conformance
+- `reproducers/10-get-opportunities-id-status_code_conformance.sh` — GET /opportunities/{id} — status_code_conformance
+- `reproducers/11-patch-opportunities-status_code_conformance.sh` — PATCH /opportunities — status_code_conformance
+- `reproducers/12-patch-opportunities-merge-status_code_conformance.sh` — PATCH /opportunities/merge — status_code_conformance
+- `reproducers/13-patch-opportunities-restore-status_code_conformance.sh` — PATCH /opportunities/restore — status_code_conformance
+- `reproducers/14-patch-opportunities-id-status_code_conformance.sh` — PATCH /opportunities/{id} — status_code_conformance
+- `reproducers/15-patch-opportunities-id-restore-response_schema_conformance.sh` — PATCH /opportunities/{id}/restore — response_schema_conformance
+- `reproducers/16-patch-opportunities-id-restore-status_code_conformance.sh` — PATCH /opportunities/{id}/restore — status_code_conformance
+- `reproducers/17-post-batch-opportunities-status_code_conformance.sh` — POST /batch/opportunities — status_code_conformance
+- `reproducers/18-post-opportunities-status_code_conformance.sh` — POST /opportunities — status_code_conformance
+- `reproducers/19-post-opportunities-duplicates-status_code_conformance.sh` — POST /opportunities/duplicates — status_code_conformance

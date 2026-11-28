@@ -120,7 +120,20 @@ Ca tay P2 (kiểm chứng các nhóm lỗi Schemathesis báo, làm trên Compani
 | Notes | 13/13 | 1195 | 0 | 26 | 100% |
 | Tasks | 13/13 | 1282 | 0 | 26 | 100% |
 
-Ngoại lệ ngưỡng 50 ca: `DELETE /{obj}/{id}` chỉ có 14–21 ca ở cả 5 object. Operation này chỉ có 2 đầu vào (`id` trên đường dẫn, `soft_delete` trên query), nên số cách làm sai **khác nhau** bị cạn sớm; Schemathesis bỏ ca trùng nên dừng ở khoảng 17 ca dù cho phép nhiều hơn. Đã kiểm chứng ngày 26/11/2026 trên `DELETE /companies/{id}` (chạy riêng bằng `--include-name 'DELETE /companies/{id}'`, cùng cấu hình SC2):
+**Kết quả chạy chính thức 28/11/2026** (harness trên `develop`, PR #20; `run_k05.py SC2 --object all --reset`, 2 lần):
+
+| Object | Operation | Test case lần 1 / lần 2 | 5xx | Nhóm lỗi | Tái lập (lần 2) |
+|---|---|---|---|---|---|
+| Companies | 13/13 | 1845 / 1817 | 0 | 22 | 100% |
+| People | 13/13 | 1871 / 1871 | 0 | 22 | 100% |
+| Opportunities | 13/13 | 1385 / 1385 | 0 | 19 | 100% |
+| Notes | 13/13 | 1197 / 1201 | 0 | 24 | 100% |
+| Tasks | 13/13 | 1325 / 1325 | 0 | 24 | 100% |
+| **Tổng** | **65/65** | **7623 / 7599** | **0** | **111** | **100%** |
+
+Chỉ `DELETE /{obj}/{id}` thay đổi số ca giữa hai lần (23–61), vì hook mới cho Schemathesis thấy id seed thật trong response và đổi chúng thành id giả khi xoá; chi tiết và đối chiếu với lần 26/11 ở `reports/SC2/TONG_HOP_SC2.md`. Không có nhóm lỗi mới; 5 nhóm của lần 26/11 không còn xuất hiện vì hook mới không để request chạm bản ghi seed.
+
+Ngoại lệ ngưỡng 50 ca: ở lần chạy thử 26/11, `DELETE /{obj}/{id}` chỉ có 14–21 ca ở cả 5 object (lần chính thức 28/11: 23–61 ca, People và Notes vẫn dưới 50). Operation này chỉ có 2 đầu vào (`id` trên đường dẫn, `soft_delete` trên query), nên số cách làm sai **khác nhau** bị cạn sớm; Schemathesis bỏ ca trùng nên dừng ở khoảng 17 ca dù cho phép nhiều hơn. Đã kiểm chứng ngày 26/11/2026 trên `DELETE /companies/{id}` (chạy riêng bằng `--include-name 'DELETE /companies/{id}'`, cùng cấu hình SC2):
 
 | Cấu hình | Test case |
 |---|---|
@@ -129,7 +142,7 @@ Ngoại lệ ngưỡng 50 ca: `DELETE /{obj}/{id}` chỉ có 14–21 ca ở cả
 | `--max-examples 500` | 17 |
 | `--max-examples 50`, bỏ `--generation-deterministic` (2 lần) | 17, 18 |
 
-Kết luận: đây là giới hạn của không gian input, không phải của cấu hình. Nhóm ghi nhận operation này là ngoại lệ của tiêu chí "≥ 50 ca mỗi operation"; 12/13 operation còn lại của mỗi object đều đạt.
+Bằng chứng: `reports/SC2/delete-id-max-examples/`. Kết luận: đây là giới hạn của không gian input, không phải của cấu hình. Nhóm ghi nhận operation này là ngoại lệ của tiêu chí "≥ 50 ca mỗi operation"; 12/13 operation còn lại của mỗi object đều đạt.
 
 Các nhóm lỗi gom lại thành 6 vấn đề, giống nhau ở cả 5 object:
 

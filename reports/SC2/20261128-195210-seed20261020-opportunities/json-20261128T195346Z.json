@@ -1,0 +1,112 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run D:\\KiemThu\\twenty-k05\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks negative_data_rejection,not_a_server_error,status_code_conformance,response_schema_conformance --mode negative --phases coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?(opportunities)(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir D:\\KiemThu\\twenty-k05\\reports\\SC2\\20261128-195210-seed20261020-opportunities",
+  "seed": 20261020,
+  "started_at": "2026-11-28T12:53:48.777525+00:00",
+  "running_time": 203.8924534000107,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 1385,
+    "with_failures": 27,
+    "unique_failures": 51,
+    "without_checks": 0,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 31,
+      "operations": [
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 2,
+      "operations": [
+        "DELETE /opportunities",
+        "GET /opportunities"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 18,
+      "operations": [
+        "DELETE /opportunities",
+        "DELETE /opportunities/{id}",
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities",
+        "PATCH /opportunities/merge",
+        "PATCH /opportunities/restore",
+        "PATCH /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore",
+        "POST /batch/opportunities",
+        "POST /opportunities",
+        "POST /opportunities/duplicates"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {},
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

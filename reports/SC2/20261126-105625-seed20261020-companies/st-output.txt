@@ -1,0 +1,1230 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from D:\KiemThu\k05-harness\schema\core.openapi.json
+ (in 2.79s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       13 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Coverage (in 71.18s)
+
+     ❌ 13 failed
+
+ ❌  Fuzzing (in 110.06s)
+
+     ✅  5 passed  ❌  8 failed
+
+=================================== FAILURES ===================================
+______________________________ DELETE /companies _______________________________
+1. Test Case ID: 95Fj63
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies?soft_delete=2&filter=createdAt%5Bgte%5D%3A%222026-11-26T03%3A57%3A01.000Z%22'
+
+    st replay 95Fj63
+
+2. Test Case ID: GZYNpo
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became string)
+
+[200] OK:
+
+    `{"data":{"deleteCompanies":[]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?soft_delete=%F3%8B%9E%B8%F2%BC%BC%AB%C3%84%C2%9B&filter=createdAt%5Bgte%5D%3A%222026-11-26T03%3A57%3A01.000Z%22'
+
+    st replay GZYNpo
+
+____________________________ DELETE /companies/{id} ____________________________
+1. Test Case ID: TBfsWo
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/companies/0?soft_delete=2'
+
+    st replay TBfsWo
+
+2. Test Case ID: jfnLkn
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' http://localhost:3001/rest/companies/9bb4a98e-40b5-46d4-b6b8-d43857240fdf
+
+    st replay jfnLkn
+
+________________________________ GET /companies ________________________________
+1. Test Case ID: l1hUTJ
+
+- Response violates schema (8 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"00a6a06f-b8d7-4709-888f-773259278319","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:56:58.192Z","deletedAt":null,"name":"K05-Company-015","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-015.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Nang","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLink // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=60&x-schemathesis-unknown-property=42'
+
+    st replay l1hUTJ
+
+2. Test Case ID: TiNwji
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"00a6a06f-b8d7-4709-888f-773259278319","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:56:58.192Z","deletedAt":null,"name":"K05-Company-015","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-015.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Nang","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLink // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?limit=201'
+
+    st replay TiNwji
+
+3. Test Case ID: 1HRQOD
+
+- Response violates schema (10 violations)
+
+    null is not of type "array"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/avatarFile:
+
+        {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "fileId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "extension": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                }
+            // Output truncated...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/PersonForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Your team member responsible for managing the company acc...
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"companies":[{"id":"00a6a06f-b8d7-4709-888f-773259278319","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:56:58.192Z","deletedAt":null,"name":"K05-Company-015","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-015.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Nang","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLink // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay 1HRQOD
+
+4. Test Case ID: TBf66M
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies?limit=0.5&depth=0.5'
+
+    st replay TBf66M
+
+____________________________ GET /companies/groupBy ____________________________
+1. Test Case ID: 5V3GuA
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid group_by query parameter - should be a valid array of objects - ex: [{\"firstField\": true}, {\"secondField\": {\"subField\": true}}, {\"dateField\": {\"granularity\": 'DAY'}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&x-schemathesis-unknown-property=42'
+
+    st replay 5V3GuA
+
+2. Test Case ID: 3g202g
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=2'
+
+    st replay 3g202g
+
+3. Test Case ID: jjL55X
+
+- Response violates schema
+
+    [{"groupByDimensionValues":["2026-11-25T15:59:25.475Z"]},{"groupByDimensionValues":["2026-11-26T03:56:58.192Z"]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "companiesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "groupByDimensionValues": [
+                    "2026-11-25T15:59:25.475Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T03:56:58.192Z"
+                ]
+            }
+        ]
+
+[200] OK:
+
+    `[{"groupByDimensionValues":["2026-11-25T15:59:25.475Z"]},{"groupByDimensionValues":["2026-11-26T03:56:58.192Z"]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=null&include_records_sample=null'
+
+    st replay jjL55X
+
+_____________________________ GET /companies/{id} ______________________________
+1. Test Case ID: IVp54L
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/companies/0?depth=0.5'
+
+    st replay IVp54L
+
+2. Test Case ID: TodOkF
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?=%C2%AA%F2%9C%8F%92%C3%A0%C3%98%0C%14&=%3A%C2%8B%C3%B8%F2%BB%B4%AD%29%0D&%F2%A6%A1%9E%C3%AB%F0%9F%88%B5%C2%B9%3F%C2%BD%0B%F3%8F%AA%99%C3%BA%F1%A7%B2%99%C2%B4%C3%9F%F2%BC%92%8B%C3%BDp=false&%F2%A6%A1%9E%C3%AB%F0%9F%88%B5%C2%B9%3F%C2%BD%0B%F3%8F%AA%99%C3%BA%F1%A7%B2%99%C2%B4%C3%9F%F2%BC%92%8B%C3%BDp=989&%C3%B9e%17%C3%87%C3%BC%F3%80%9D%B2%C3%87%11%12%1AY%C3%BFWj%F1%A4%9B%AD%F3%94%82%BA%06=%C3%89%1E%03%C3%8Ag%02%C2%84%C2%81%C3%A3%28&~%EE%A6%B2%C3%96%C3%B9%F1%90%8B%99%F1%98%84%BD%60%C3%AF=&M%C3%BFsa%F3%AA%A5%90%F2%B7%97%8A%7D%7B%01u%C3%A8%F3%84%B1%84%15Qh=&%C3%BF%C3%B0%C3%A9='
+
+    st replay TodOkF
+
+3. Test Case ID: WXcLRP
+
+- Response violates schema (6 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"company":{"id":"baa94f2a-aed1-4079-a547-08ccb702a5de","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:56:58.192Z","deletedAt":null,"name":"K05-Company-013","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-013.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Lat","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl" // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' http://localhost:3001/rest/companies/baa94f2a-aed1-4079-a547-08ccb702a5de
+
+    st replay WXcLRP
+
+_______________________________ PATCH /companies _______________________________
+1. Test Case ID: Dubhoe
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0.5&filter=createdAt%5Bgte%5D%3A%222026-11-26T03%3A57%3A01.000Z%22'
+
+    st replay Dubhoe
+
+____________________________ PATCH /companies/merge ____________________________
+1. Test Case ID: WdPmsR
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["4e99fe50-b3b7-432e-9035-90fb403a0925"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/companies/merge?depth=0.5'
+
+    st replay WdPmsR
+
+___________________________ PATCH /companies/restore ___________________________
+1. Test Case ID: urmg2D
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/companies/restore?depth=0.5'
+
+    st replay urmg2D
+
+____________________________ PATCH /companies/{id} _____________________________
+1. Test Case ID: hl2PXX
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies/0?depth=0.5'
+
+    st replay hl2PXX
+
+2. Test Case ID: 1iLdFm
+
+- Response violates schema (6 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateCompany":{"id":"baa94f2a-aed1-4079-a547-08ccb702a5de","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:59:25.990Z","deletedAt":null,"name":"K05-Company-013","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-013.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Lat","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLi // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' http://localhost:3001/rest/companies/baa94f2a-aed1-4079-a547-08ccb702a5de
+
+    st replay 1iLdFm
+
+________________________ PATCH /companies/{id}/restore _________________________
+1. Test Case ID: XYLRS1
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/companies/0/restore?depth=0.5'
+
+    st replay XYLRS1
+
+2. Test Case ID: 4YaoFk
+
+- Response violates schema (6 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreCompany":{"id":"baa94f2a-aed1-4079-a547-08ccb702a5de","createdAt":"2026-11-26T03:56:58.192Z","updatedAt":"2026-11-26T03:59:42.740Z","deletedAt":null,"name":"K05-Company-013","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-013.example.com","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"Da Lat","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryL // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/baa94f2a-aed1-4079-a547-08ccb702a5de/restore?%C2%A5=false&%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%A4%E0%A5%8D%E0%A4%B0+%E0%A4%B0%E0%A5%8D%E0%A4%9A+%E0%A4%95%E0%A5%83%E0%A4%95%E0%A5%83+%E0%A4%A1%E0%A5%8D%E0%A4%A1+%E0%A4%A8%E0%A5%8D%E0%A4%B9%E0%A5%83%E0%A5%87+%D8%A5%D9%84%D8%A7+%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87=%F0%AE%B0%A5%C3%87&%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%A4%E0%A5%8D%E0%A4%B0+%E0%A4%B0%E0%A5%8D%E0%A4%9A+%E0%A4%95%E0%A5%83%E0%A4%95%E0%A5%83+%E0%A4%A1%E0%A5%8D%E0%A4%A1+%E0%A4%A8%E0%A5%8D%E0%A4%B9%E0%A5%83%E0%A5%87+%D8%A5%D9%84%D8%A7+%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87=&%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%AA%E0%A4%A8%E0%A5%8D%E0%A4%B9+%E0%A4%A4%E0%A5%8D%E0%A4%B0+%E0%A4%B0%E0%A5%8D%E0%A4%9A+%E0%A4%95%E0%A5%83%E0%A4%95%E0%A5%83+%E0%A4%A1%E0%A5%8D%E0%A4%A1+%E0%A4%A8%E0%A5%8D%E0%A4%B9%E0%A5%83%E0%A5%87+%D8%A5%D9%84%D8%A7+%D8%A8%D8%B3%D9%85+%D8%A7%D9%84%D9%84%D9%87=9496&W%24%C2%A5%C2%A4%C2%86%F4%8F%B7%B5y%1B=%03%3E&W%24%C2%A5%C2%A4%C2%86%F4%8F%B7%B5y%1B=&W%24%C2%A5%C2%A4%C2%86%F4%8F%B7%B5y%1B=%02%E3%9C%8E%C2%92%EC%90%9C%C3%BA&=null&=false&%C2%A5%C3%A8%C3%9A=0&%C2%A5%C3%A8%C3%9A=%F1%9A%88%B9%05%1B%F3%94%9E%B2&%C2%A5%C3%A8%C3%9A=%7F%F3%98%BD%84%C2%AAz3'
+
+    st replay 4YaoFk
+
+3. Test Case ID: fQXQP1
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/companies/e5ef08fa-f1cb-416a-92d7-682d9cb8580f/restore?%02%C3%B2%F2%A2%A4%B8%C2%98%C3%92%C3%9D=%F1%90%BA%BA&%02%C3%B2%F2%A2%A4%B8%C2%98%C3%92%C3%9D=&%02%C3%B2%F2%A2%A4%B8%C2%98%C3%92%C3%9D=%0E&%C2%A9%F3%AA%A9%8D%C2%8F%F2%8B%BE%8B%C2%BEw6%C3%8B%F4%80%AE%97%7B%C3%90=&%C3%8A%F1%AC%B1%A4=null'
+
+    st replay fQXQP1
+
+____________________________ POST /batch/companies _____________________________
+1. Test Case ID: BiZe7A
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/companies?depth=0.5&upsert=2'
+
+    st replay BiZe7A
+
+2. Test Case ID: IxQDL0
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - violates `type` at /properties/upsert (was boolean, became integer)
+
+[201] Created:
+
+    `{"data":{"createCompanies":[]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[]' 'http://localhost:3001/rest/batch/companies?upsert=-1'
+
+    st replay IxQDL0
+
+3. Test Case ID: 6NTOou
+
+- Response violates schema (8 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLat:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/address/properties/addressLng:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/accountOwnerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/annualRevenue/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/CompanyForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createCompanies":[{"id":"bb133554-8752-410a-b9de-757e3e3ec247","createdAt":"2026-11-26T03:58:58.083Z","updatedAt":"2026-11-26T03:58:58.083Z","deletedAt":null,"name":"","domainName":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"address":{"addressStreet1":"","addressStreet2":"","addressCity":"","addressPostcode":"","addressState":"","addressCountry":"","addressLat":null,"addressLng":null},"linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"annualRevenue // Output truncated...`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/companies?upsert=-1'
+
+    st replay 6NTOou
+
+_______________________________ POST /companies ________________________________
+1. Test Case ID: 8K2Kyq
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"name": "", "domainName": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "address": {"addressStreet1": "", "addressStreet2": "", "addressCity": "", "addressPostcode": "", "addressState": "", "addressCountry": "", "addressLat": 0, "addressLng": 0}, "linkedinLink": {"primaryLinkLabel": "", "primaryLinkUrl": "", "secondaryLinks": []}, "annualRevenue": {"amountMicros": 0, "currencyCode": ""}, "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "accountOwnerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/companies?depth=0.5&upsert=2'
+
+    st replay 8K2Kyq
+
+__________________________ POST /companies/duplicates __________________________
+1. Test Case ID: PhNfjp
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["564136b0-ceae-4373-a83d-3c76a3fa2e7c"]}' 'http://localhost:3001/rest/companies/duplicates?depth=0.5'
+
+    st replay PhNfjp
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 13/522
+  Tested: 13
+
+Test Phases:
+  ⏭  Examples (disabled)
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Response violates schema: 45
+  ❌ API accepted schema-violating request: 3
+  ❌ Undocumented HTTP status code: 17
+
+Test cases:
+  1801 generated, 27 found 65 unique failures
+
+Reports:
+  - JUnit: D:\KiemThu\k05-harness\reports\SC2\20261126-105625-seed20261020-companies\junit-20261126T105703Z.xml
+  - NDJSON: D:\KiemThu\k05-harness\reports\SC2\20261126-105625-seed20261020-companies\ndjson-20261126T105703Z.ndjson
+  - JSON: D:\KiemThu\k05-harness\reports\SC2\20261126-105625-seed20261020-companies\json-20261126T105703Z.json
+  - HTML: D:\KiemThu\k05-harness\reports\SC2\20261126-105625-seed20261020-companies\html-20261126T105703Z\index.html
+
+Seed: not used in the deterministic mode
+
+============================ 65 failures in 182.25s ============================

@@ -1,0 +1,203 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /opportunities": 57,
+      "DELETE /opportunities/{id}": 61,
+      "GET /opportunities": 79,
+      "GET /opportunities/groupBy": 97,
+      "GET /opportunities/{id}": 68,
+      "PATCH /opportunities": 142,
+      "PATCH /opportunities/merge": 95,
+      "PATCH /opportunities/restore": 65,
+      "PATCH /opportunities/{id}": 147,
+      "PATCH /opportunities/{id}/restore": 70,
+      "POST /batch/opportunities": 171,
+      "POST /opportunities": 163,
+      "POST /opportunities/duplicates": 170
+    },
+    "unique_failures": [
+      "DELETE /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /opportunities|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /opportunities/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/{id}|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /opportunities|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/{id}/restore|response_schema_conformance|JsonSchemaError|2",
+      "PATCH /opportunities/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 205,
+      "201": 27,
+      "204": 8,
+      "400": 1105,
+      "403": 13,
+      "404": 27
+    }
+  },
+  "tested": [
+    "DELETE /opportunities",
+    "DELETE /opportunities/{id}",
+    "GET /opportunities",
+    "GET /opportunities/groupBy",
+    "GET /opportunities/{id}",
+    "PATCH /opportunities",
+    "PATCH /opportunities/merge",
+    "PATCH /opportunities/restore",
+    "PATCH /opportunities/{id}",
+    "PATCH /opportunities/{id}/restore",
+    "POST /batch/opportunities",
+    "POST /opportunities",
+    "POST /opportunities/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1385,
+  "ops_ge_50": 13,
+  "five_xx": 0,
+  "running_time": 201.37830169999506,
+  "checks": {
+    "negative_data_rejection": {
+      "success": 1274,
+      "failure": 41
+    },
+    "not_a_server_error": {
+      "success": 1385,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1214,
+      "failure": 536
+    },
+    "status_code_conformance": {
+      "success": 1213,
+      "failure": 102
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 39
+    },
+    {
+      "operation": "DELETE /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 4
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 278
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 79
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 132
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 116
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 3
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    }
+  ]
+}

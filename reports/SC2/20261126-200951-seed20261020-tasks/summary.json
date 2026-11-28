@@ -1,0 +1,72 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /tasks": 57,
+      "DELETE /tasks/{id}": 18,
+      "GET /tasks": 79,
+      "GET /tasks/groupBy": 97,
+      "GET /tasks/{id}": 68,
+      "PATCH /tasks": 130,
+      "PATCH /tasks/merge": 95,
+      "PATCH /tasks/restore": 65,
+      "PATCH /tasks/{id}": 135,
+      "PATCH /tasks/{id}/restore": 70,
+      "POST /batch/tasks": 159,
+      "POST /tasks": 151,
+      "POST /tasks/duplicates": 158
+    },
+    "unique_failures": [
+      "DELETE /tasks/{id}|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /tasks|negative_data_rejection|AcceptedNegativeData|2",
+      "DELETE /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /tasks|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /tasks|response_schema_conformance|JsonSchemaError|1",
+      "GET /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /tasks|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /tasks|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/tasks|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/tasks|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/tasks|status_code_conformance|UndefinedStatusCode|1",
+      "POST /tasks/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /tasks|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /tasks|response_schema_conformance|JsonSchemaError|1",
+      "POST /tasks|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 173,
+      "201": 43,
+      "204": 8,
+      "400": 1016,
+      "403": 13,
+      "404": 29
+    }
+  },
+  "tested": [
+    "DELETE /tasks",
+    "DELETE /tasks/{id}",
+    "GET /tasks",
+    "GET /tasks/groupBy",
+    "GET /tasks/{id}",
+    "PATCH /tasks",
+    "PATCH /tasks/merge",
+    "PATCH /tasks/restore",
+    "PATCH /tasks/{id}",
+    "PATCH /tasks/{id}/restore",
+    "POST /batch/tasks",
+    "POST /tasks",
+    "POST /tasks/duplicates"
+  ],
+  "schema_operations": 13
+}

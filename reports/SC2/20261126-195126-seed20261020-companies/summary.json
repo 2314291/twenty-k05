@@ -1,0 +1,68 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /companies": 57,
+      "DELETE /companies/{id}": 17,
+      "GET /companies": 79,
+      "GET /companies/groupBy": 97,
+      "GET /companies/{id}": 68,
+      "PATCH /companies": 234,
+      "PATCH /companies/merge": 95,
+      "PATCH /companies/restore": 65,
+      "PATCH /companies/{id}": 239,
+      "PATCH /companies/{id}/restore": 70,
+      "POST /batch/companies": 263,
+      "POST /companies": 255,
+      "POST /companies/duplicates": 262
+    },
+    "unique_failures": [
+      "DELETE /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /companies|negative_data_rejection|AcceptedNegativeData|3",
+      "DELETE /companies|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies|negative_data_rejection|AcceptedNegativeData|1",
+      "GET /companies|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /companies/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/companies|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/companies|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 202,
+      "201": 21,
+      "204": 8,
+      "400": 1536,
+      "403": 13,
+      "404": 21
+    }
+  },
+  "tested": [
+    "DELETE /companies",
+    "DELETE /companies/{id}",
+    "GET /companies",
+    "GET /companies/groupBy",
+    "GET /companies/{id}",
+    "PATCH /companies",
+    "PATCH /companies/merge",
+    "PATCH /companies/restore",
+    "PATCH /companies/{id}",
+    "PATCH /companies/{id}/restore",
+    "POST /batch/companies",
+    "POST /companies",
+    "POST /companies/duplicates"
+  ],
+  "schema_operations": 13
+}

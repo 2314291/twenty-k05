@@ -1,0 +1,47 @@
+{
+  "scenario": "SC2",
+  "object": "opportunities",
+  "path_regex": "^/(batch/)?(opportunities)(/|$)",
+  "variant": "valid",
+  "seed": 20261020,
+  "schema": "schema\\core.openapi.json",
+  "url": "http://localhost:3001/rest",
+  "reset": true,
+  "seed_count": 30,
+  "seed_manifest": {
+    "companies": 30,
+    "people": 30,
+    "opportunities": 30,
+    "notes": 30,
+    "tasks": 30
+  },
+  "run_start_utc": "2026-11-28T12:53:43.000Z",
+  "run_start_source": "giờ máy chạy test",
+  "hooks": true,
+  "protect_data": true,
+  "real_ids": true,
+  "command": "C:\\Python314\\Scripts\\st.exe run D:\\KiemThu\\twenty-k05\\schema\\core.openapi.json --url http://localhost:3001/rest -H 'Authorization: Bearer <KEY>' --checks negative_data_rejection,not_a_server_error,status_code_conformance,response_schema_conformance --mode negative --phases coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?(opportunities)(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir D:\\KiemThu\\twenty-k05\\reports\\SC2\\20261128-195210-seed20261020-opportunities",
+  "seed_after": {
+    "companies": [
+      30,
+      30
+    ],
+    "people": [
+      30,
+      30
+    ],
+    "opportunities": [
+      30,
+      30
+    ],
+    "notes": [
+      30,
+      30
+    ],
+    "tasks": [
+      30,
+      30
+    ]
+  },
+  "seed_lost": false
+}

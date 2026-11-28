@@ -1,0 +1,78 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run schema/core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks negative_data_rejection,not_a_server_error,status_code_conformance,response_schema_conformance --mode negative --phases coverage,fuzzing --max-examples 500 --seed 20261020 --generation-deterministic --include-name DELETE /companies/{id} --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json --report-dir reports/SC2-delete-id/max500",
+  "seed": 20261020,
+  "started_at": "2026-11-26T14:36:39.358710+00:00",
+  "running_time": 2.0646118000004208,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 1,
+    "tested": 1,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 17,
+    "with_failures": 2,
+    "unique_failures": 2,
+    "without_checks": 0,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 2,
+      "operations": [
+        "DELETE /companies/{id}"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {},
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

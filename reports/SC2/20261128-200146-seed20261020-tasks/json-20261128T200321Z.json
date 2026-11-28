@@ -1,0 +1,117 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run D:\\KiemThu\\twenty-k05\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks negative_data_rejection,not_a_server_error,status_code_conformance,response_schema_conformance --mode negative --phases coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?(tasks)(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir D:\\KiemThu\\twenty-k05\\reports\\SC2\\20261128-200146-seed20261020-tasks",
+  "seed": 20261020,
+  "started_at": "2026-11-28T13:03:25.248181+00:00",
+  "running_time": 193.20542909999494,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 1325,
+    "with_failures": 34,
+    "unique_failures": 62,
+    "without_checks": 0,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 41,
+      "operations": [
+        "GET /tasks",
+        "GET /tasks/groupBy",
+        "GET /tasks/{id}",
+        "PATCH /tasks/{id}",
+        "PATCH /tasks/{id}/restore",
+        "POST /batch/tasks",
+        "POST /tasks"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 4,
+      "operations": [
+        "DELETE /tasks",
+        "GET /tasks",
+        "POST /batch/tasks",
+        "POST /tasks"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 17,
+      "operations": [
+        "DELETE /tasks",
+        "DELETE /tasks/{id}",
+        "GET /tasks",
+        "GET /tasks/groupBy",
+        "GET /tasks/{id}",
+        "PATCH /tasks",
+        "PATCH /tasks/merge",
+        "PATCH /tasks/restore",
+        "PATCH /tasks/{id}",
+        "PATCH /tasks/{id}/restore",
+        "POST /batch/tasks",
+        "POST /tasks",
+        "POST /tasks/duplicates"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {},
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

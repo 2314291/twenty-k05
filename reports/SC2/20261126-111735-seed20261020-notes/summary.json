@@ -1,0 +1,72 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /notes": 57,
+      "DELETE /notes/{id}": 21,
+      "GET /notes": 79,
+      "GET /notes/groupBy": 97,
+      "GET /notes/{id}": 68,
+      "PATCH /notes": 112,
+      "PATCH /notes/merge": 95,
+      "PATCH /notes/restore": 65,
+      "PATCH /notes/{id}": 117,
+      "PATCH /notes/{id}/restore": 70,
+      "POST /batch/notes": 141,
+      "POST /notes": 133,
+      "POST /notes/duplicates": 140
+    },
+    "unique_failures": [
+      "DELETE /notes/{id}|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /notes|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /notes|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/notes|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /notes|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 199,
+      "201": 36,
+      "204": 8,
+      "400": 911,
+      "403": 13,
+      "404": 28
+    }
+  },
+  "tested": [
+    "DELETE /notes",
+    "DELETE /notes/{id}",
+    "GET /notes",
+    "GET /notes/groupBy",
+    "GET /notes/{id}",
+    "PATCH /notes",
+    "PATCH /notes/merge",
+    "PATCH /notes/restore",
+    "PATCH /notes/{id}",
+    "PATCH /notes/{id}/restore",
+    "POST /batch/notes",
+    "POST /notes",
+    "POST /notes/duplicates"
+  ],
+  "schema_operations": 13
+}

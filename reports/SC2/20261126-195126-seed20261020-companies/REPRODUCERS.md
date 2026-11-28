@@ -1,0 +1,24 @@
+# Reproducer
+
+- `reproducers/01-delete-companies-negative_data_rejection.sh` — DELETE /companies — negative_data_rejection
+- `reproducers/02-delete-companies-status_code_conformance.sh` — DELETE /companies — status_code_conformance
+- `reproducers/03-delete-companies-id-status_code_conformance.sh` — DELETE /companies/{id} — status_code_conformance
+- `reproducers/04-get-companies-negative_data_rejection.sh` — GET /companies — negative_data_rejection
+- `reproducers/05-get-companies-response_schema_conformance.sh` — GET /companies — response_schema_conformance
+- `reproducers/06-get-companies-status_code_conformance.sh` — GET /companies — status_code_conformance
+- `reproducers/07-get-companies-groupby-response_schema_conformance.sh` — GET /companies/groupBy — response_schema_conformance
+- `reproducers/08-get-companies-groupby-status_code_conformance.sh` — GET /companies/groupBy — status_code_conformance
+- `reproducers/09-get-companies-id-response_schema_conformance.sh` — GET /companies/{id} — response_schema_conformance
+- `reproducers/10-get-companies-id-status_code_conformance.sh` — GET /companies/{id} — status_code_conformance
+- `reproducers/11-patch-companies-status_code_conformance.sh` — PATCH /companies — status_code_conformance
+- `reproducers/12-patch-companies-merge-status_code_conformance.sh` — PATCH /companies/merge — status_code_conformance
+- `reproducers/13-patch-companies-restore-status_code_conformance.sh` — PATCH /companies/restore — status_code_conformance
+- `reproducers/14-patch-companies-id-response_schema_conformance.sh` — PATCH /companies/{id} — response_schema_conformance
+- `reproducers/15-patch-companies-id-status_code_conformance.sh` — PATCH /companies/{id} — status_code_conformance
+- `reproducers/16-patch-companies-id-restore-response_schema_conformance.sh` — PATCH /companies/{id}/restore — response_schema_conformance
+- `reproducers/17-patch-companies-id-restore-status_code_conformance.sh` — PATCH /companies/{id}/restore — status_code_conformance
+- `reproducers/18-post-batch-companies-negative_data_rejection.sh` — POST /batch/companies — negative_data_rejection
+- `reproducers/19-post-batch-companies-response_schema_conformance.sh` — POST /batch/companies — response_schema_conformance
+- `reproducers/20-post-batch-companies-status_code_conformance.sh` — POST /batch/companies — status_code_conformance
+- `reproducers/21-post-companies-status_code_conformance.sh` — POST /companies — status_code_conformance
+- `reproducers/22-post-companies-duplicates-status_code_conformance.sh` — POST /companies/duplicates — status_code_conformance

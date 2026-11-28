@@ -1,0 +1,224 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /people": 57,
+      "DELETE /people/{id}": 27,
+      "GET /people": 79,
+      "GET /people/groupBy": 97,
+      "GET /people/{id}": 68,
+      "PATCH /people": 246,
+      "PATCH /people/merge": 95,
+      "PATCH /people/restore": 65,
+      "PATCH /people/{id}": 251,
+      "PATCH /people/{id}/restore": 70,
+      "POST /batch/people": 275,
+      "POST /people": 267,
+      "POST /people/duplicates": 274
+    },
+    "unique_failures": [
+      "DELETE /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /people|negative_data_rejection|AcceptedNegativeData|3",
+      "DELETE /people|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /people/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/{id}|response_schema_conformance|JsonSchemaError|2",
+      "GET /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /people|response_schema_conformance|JsonSchemaError|2",
+      "GET /people|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /people/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/people|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/people|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 249,
+      "201": 16,
+      "204": 8,
+      "400": 1565,
+      "403": 13,
+      "404": 20
+    }
+  },
+  "tested": [
+    "DELETE /people",
+    "DELETE /people/{id}",
+    "GET /people",
+    "GET /people/groupBy",
+    "GET /people/{id}",
+    "PATCH /people",
+    "PATCH /people/merge",
+    "PATCH /people/restore",
+    "PATCH /people/{id}",
+    "PATCH /people/{id}/restore",
+    "POST /batch/people",
+    "POST /people",
+    "POST /people/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1871,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 205.42549399999552,
+  "checks": {
+    "negative_data_rejection": {
+      "success": 1770,
+      "failure": 31
+    },
+    "not_a_server_error": {
+      "success": 1871,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1676,
+      "failure": 526
+    },
+    "status_code_conformance": {
+      "success": 1706,
+      "failure": 95
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 13
+    },
+    {
+      "operation": "DELETE /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 3
+    },
+    {
+      "operation": "GET /people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "GET /people",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 202
+    },
+    {
+      "operation": "GET /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /people/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 79
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 113
+    },
+    {
+      "operation": "GET /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 100
+    },
+    {
+      "operation": "PATCH /people/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 96
+    },
+    {
+      "operation": "PATCH /people/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 3
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 16
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 5
+    },
+    {
+      "operation": "POST /batch/people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /people",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /people/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    }
+  ]
+}

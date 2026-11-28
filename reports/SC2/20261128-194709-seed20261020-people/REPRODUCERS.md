@@ -1,0 +1,24 @@
+# Reproducer
+
+- `reproducers/01-delete-people-negative_data_rejection.sh` — DELETE /people — negative_data_rejection
+- `reproducers/02-delete-people-status_code_conformance.sh` — DELETE /people — status_code_conformance
+- `reproducers/03-delete-people-id-status_code_conformance.sh` — DELETE /people/{id} — status_code_conformance
+- `reproducers/04-get-people-negative_data_rejection.sh` — GET /people — negative_data_rejection
+- `reproducers/05-get-people-response_schema_conformance.sh` — GET /people — response_schema_conformance
+- `reproducers/06-get-people-status_code_conformance.sh` — GET /people — status_code_conformance
+- `reproducers/07-get-people-groupby-response_schema_conformance.sh` — GET /people/groupBy — response_schema_conformance
+- `reproducers/08-get-people-groupby-status_code_conformance.sh` — GET /people/groupBy — status_code_conformance
+- `reproducers/09-get-people-id-response_schema_conformance.sh` — GET /people/{id} — response_schema_conformance
+- `reproducers/10-get-people-id-status_code_conformance.sh` — GET /people/{id} — status_code_conformance
+- `reproducers/11-patch-people-status_code_conformance.sh` — PATCH /people — status_code_conformance
+- `reproducers/12-patch-people-merge-status_code_conformance.sh` — PATCH /people/merge — status_code_conformance
+- `reproducers/13-patch-people-restore-status_code_conformance.sh` — PATCH /people/restore — status_code_conformance
+- `reproducers/14-patch-people-id-response_schema_conformance.sh` — PATCH /people/{id} — response_schema_conformance
+- `reproducers/15-patch-people-id-status_code_conformance.sh` — PATCH /people/{id} — status_code_conformance
+- `reproducers/16-patch-people-id-restore-response_schema_conformance.sh` — PATCH /people/{id}/restore — response_schema_conformance
+- `reproducers/17-patch-people-id-restore-status_code_conformance.sh` — PATCH /people/{id}/restore — status_code_conformance
+- `reproducers/18-post-batch-people-negative_data_rejection.sh` — POST /batch/people — negative_data_rejection
+- `reproducers/19-post-batch-people-response_schema_conformance.sh` — POST /batch/people — response_schema_conformance
+- `reproducers/20-post-batch-people-status_code_conformance.sh` — POST /batch/people — status_code_conformance
+- `reproducers/21-post-people-status_code_conformance.sh` — POST /people — status_code_conformance
+- `reproducers/22-post-people-duplicates-status_code_conformance.sh` — POST /people/duplicates — status_code_conformance

@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites errors="0" failures="13" skipped="0" tests="13" time="171.842647">
+  <testsuite name="schemathesis" hostname="LAPTOP-DMBVEKG1" errors="0" failures="13" skipped="0" tests="13" time="171.842647">
+    <testcase name="POST /notes" time="10.218954">
+      <failure type="failure">1. Test Case ID: d8hotV
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createNote":{"id":"d2386bf8-8a5b-4bd0-ad5f-2d552a51ce58","createdAt":"2026-11-26T13:06:59.010Z","updatedAt":"2026-11-26T13:06:59.010Z","deletedAt":null,"position":-61,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?upsert=false&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: OS8bD9
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createNote":{"id":"3f198cb8-1f37-4843-b0fa-385301f1a074","createdAt":"2026-11-26T13:06:59.138Z","updatedAt":"2026-11-26T13:06:59.138Z","deletedAt":null,"position":-62,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":""}}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?upsert=null&amp;upsert=null'
+
+3. Test Case ID: dNw1B5
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=0.5&amp;upsert=2'</failure>
+    </testcase>
+    <testcase name="POST /notes/duplicates" time="11.034971">
+      <failure type="failure">1. Test Case ID: 1bFJOT
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["0e51bece-648f-468d-a01b-4c86f963da04"]}' 'http://localhost:3001/rest/notes/duplicates?depth=0.5'</failure>
+    </testcase>
+    <testcase name="GET /notes" time="16.821131">
+      <failure type="failure">1. Test Case ID: xs6FyL
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"notes":[{"id":"01b07274-9928-46d2-862e-40c0f6fa88c7","createdAt":"2026-11-26T13:06:50.967Z","updatedAt":"2026-11-26T13:06:50.967Z","deletedAt":null,"position":-57,"title":"K05-Note-026","bodyV2":{"blocknote":"[{\"id\":\"f84051a5-0ca9-498b-89ae-1fea51e59e90\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 026\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi chú  // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?limit=60&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: leSwE7
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"notes":[{"id":"01b07274-9928-46d2-862e-40c0f6fa88c7","createdAt":"2026-11-26T13:06:50.967Z","updatedAt":"2026-11-26T13:06:50.967Z","deletedAt":null,"position":-57,"title":"K05-Note-026","bodyV2":{"blocknote":"[{\"id\":\"f84051a5-0ca9-498b-89ae-1fea51e59e90\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 026\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi chú  // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?limit=201'
+
+3. Test Case ID: jQPQiL
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/notes?limit=0.5&amp;depth=0.5'</failure>
+    </testcase>
+    <testcase name="GET /notes/groupBy" time="3.247010">
+      <failure type="failure">1. Test Case ID: ODxZgQ
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid group_by query parameter - should be a valid array of objects - ex: [{\"firstField\": true}, {\"secondField\": {\"subField\": true}}, {\"dateField\": {\"granularity\": 'DAY'}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/groupBy?group_by=&amp;view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: aSbzOB
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;limit=0.5&amp;view_id=0&amp;include_records_sample=2'
+
+3. Test Case ID: 2Y4iR7
+
+- Response violates schema
+
+    [{"groupByDimensionValues":["2026-11-26T04:20:49.160Z"]},{"groupByDimensionValues":["2026-11-26T13:06:50.967Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.010Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.138Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.184Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.227Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.307Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.388Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.466Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.558Z"]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "notesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T04:20:49.160Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T13:06:50.967Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T13:06:59.010Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-26T13:06:59.138Z"
+            // Output truncated...
+        ]
+
+[200] OK:
+
+    `[{"groupByDimensionValues":["2026-11-26T04:20:49.160Z"]},{"groupByDimensionValues":["2026-11-26T13:06:50.967Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.010Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.138Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.184Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.227Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.307Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.388Z"]},{"groupByDimensionValues":["2026-11-26T13:06:59.466Z"]},{"group // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&amp;limit=0.5&amp;view_id=0&amp;include_records_sample=null&amp;include_records_sample=null'</failure>
+    </testcase>
+    <testcase name="PATCH /notes" time="6.896101">
+      <failure type="failure">1. Test Case ID: p0uMuN
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateNotes":[{"id":"d2386bf8-8a5b-4bd0-ad5f-2d552a51ce58","createdAt":"2026-11-26T13:06:59.010Z","updatedAt":"2026-11-26T13:07:10.805Z","deletedAt":null,"position":-61,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":""},{"id":"3f198cb8-1f37-4843-b0fa-385301f1a074","createdAt":"2026-11-26T13:06:59.138Z","updatedAt":"2026 // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?x-schemathesis-unknown-property=42&amp;filter=createdAt%5Bgte%5D%3A%222026-11-26T13%3A06%3A52.000Z%22'
+
+2. Test Case ID: rZGxkL
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes?depth=0.5&amp;filter=createdAt%5Bgte%5D%3A%222026-11-26T13%3A06%3A52.000Z%22'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/merge" time="6.921927">
+      <failure type="failure">1. Test Case ID: CUomg0
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["d21bc276-8ee4-404e-a6f2-f6790e8821f5"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/notes/merge?depth=0.5'</failure>
+    </testcase>
+    <testcase name="PATCH /notes/restore" time="2.572264">
+      <failure type="failure">1. Test Case ID: 0bAOh9
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/notes/restore?depth=0.5'</failure>
+    </testcase>
+    <testcase name="DELETE /notes" time="25.230430">
+      <failure type="failure">1. Test Case ID: ExZmxL
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/notes?soft_delete=2&amp;filter=createdAt%5Bgte%5D%3A%222026-11-26T13%3A06%3A52.000Z%22'</failure>
+      <failure type="failure">1. Test Case ID: uzxe3E
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became integer)
+
+[200] OK:
+
+    `{"data":{"deleteNotes":[{"id":"77ede161-6fce-46db-88aa-ab781ec88640"},{"id":"3d65b068-75dd-4add-bf51-f1107594c505"},{"id":"23846bcf-22ab-49c7-9ebf-25195a3eecd0"},{"id":"6c7dbddd-4688-425d-9bf7-950e094baefd"},{"id":"439dabf4-167d-4b0d-8244-b44af79fffdc"},{"id":"b4ee9cf6-2ccf-4093-8f2e-733b290e1f89"},{"id":"57923512-329b-4795-9b7a-f09b1f4a66b5"},{"id":"86bf3133-f417-4f2c-83d5-fbae288a3455"}]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes?soft_delete=-531979&amp;filter=and%28createdAt%5Bgte%5D%3A%222026-11-26T13%3A06%3A52.000Z%22%2CcreatedAt%5Bgte%5D%3A%222026-11-26T13%3A06%3A52.000Z%22%29'</failure>
+    </testcase>
+    <testcase name="POST /batch/notes" time="22.981625">
+      <failure type="failure">1. Test Case ID: nu9had
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/bodyV2/properties/blocknote:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 201.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[201] Created:
+
+    `{"data":{"createNotes":[{"id":"77ede161-6fce-46db-88aa-ab781ec88640","createdAt":"2026-11-26T13:07:16.889Z","updatedAt":"2026-11-26T13:07:16.889Z","deletedAt":null,"position":-61,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":""}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?upsert=false&amp;x-schemathesis-unknown-property=42'
+
+2. Test Case ID: 7l9jI6
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `upsert` in query - upsert: Incorrect type
+
+[201] Created:
+
+    `{"data":{"createNotes":[{"id":"3d65b068-75dd-4add-bf51-f1107594c505","createdAt":"2026-11-26T13:07:16.963Z","updatedAt":"2026-11-26T13:07:16.963Z","deletedAt":null,"position":-62,"title":"","bodyV2":{"blocknote":null,"markdown":""},"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":""}]}}`
+
+Reproduce with:
+
+    curl -X POST -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?upsert=null&amp;upsert=null'
+
+3. Test Case ID: 0Sygpx
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{}]' 'http://localhost:3001/rest/batch/notes?depth=0.5&amp;upsert=2'</failure>
+    </testcase>
+    <testcase name="GET /notes/{id}" time="17.575228">
+      <failure type="failure">1. Test Case ID: z6SZ3w
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/notes/0?depth=0.5'</failure>
+      <failure type="failure">1. Test Case ID: l7uCjJ
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?%C3%85%5B%10%F1%BD%85%9B%C3%917aE%C3%84%C3%81E%F1%9C%90%93%F3%A0%99%91%C3%99=&amp;%7D=%C3%B4%C2%93%C2%9B%C2%99D&amp;%7D=%01%F0%B3%A4%B9%EC%83%AE%17%7D%C2%8C&amp;%7D=m'
+
+2. Test Case ID: HdquXL
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"note":{"id":"8591a09c-925f-4369-af18-67fefaa83a56","createdAt":"2026-11-26T13:06:50.967Z","updatedAt":"2026-11-26T13:06:50.967Z","deletedAt":null,"position":-44,"title":"K05-Note-013","bodyV2":{"blocknote":"[{\"id\":\"1726068a-00b8-4280-acf1-18f36b77fc25\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 013\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi chú mẫ // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' http://localhost:3001/rest/notes/8591a09c-925f-4369-af18-67fefaa83a56</failure>
+    </testcase>
+    <testcase name="PATCH /notes/{id}" time="22.495360">
+      <failure type="failure">1. Test Case ID: M3tBh6
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{}' 'http://localhost:3001/rest/notes/0?depth=0.5'</failure>
+      <failure type="failure">1. Test Case ID: QWfju3
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"updateNote":{"id":"19c3199f-3d14-47b0-9de3-9d98fe307caf","createdAt":"2026-11-26T13:06:50.967Z","updatedAt":"2026-11-26T13:09:06.077Z","deletedAt":null,"position":-53,"title":"K05-Note-022","bodyV2":{"blocknote":"[{\"id\":\"d7fc91bc-1a34-42ec-a8dd-b03c786749bd\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 022\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi  // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' http://localhost:3001/rest/notes/19c3199f-3d14-47b0-9de3-9d98fe307caf</failure>
+    </testcase>
+    <testcase name="PATCH /notes/{id}/restore" time="18.903100">
+      <failure type="failure">1. Test Case ID: DBF0xz
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/notes/0/restore?depth=0.5'</failure>
+      <failure type="failure">1. Test Case ID: I157yA
+
+- Response violates schema (3 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/NoteForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreNote":{"id":"7b481287-1ba7-4b82-a356-afe1e7ea7dcc","createdAt":"2026-11-26T13:06:50.967Z","updatedAt":"2026-11-26T13:09:24.454Z","deletedAt":null,"position":-34,"title":"K05-Note-003","bodyV2":{"blocknote":"[{\"id\":\"9c5b3f3e-60fd-4348-bad3-8622948dbb98\",\"type\":\"paragraph\",\"props\":{\"backgroundColor\":\"default\",\"textColor\":\"default\",\"textAlignment\":\"left\"},\"content\":[{\"type\":\"text\",\"text\":\"Ghi chú mẫu K05 số 003\",\"styles\":{}}],\"children\":[]}]","markdown":"Ghi // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/7b481287-1ba7-4b82-a356-afe1e7ea7dcc/restore?%C3%B97=&amp;%C3%B97=%F1%8E%88%8D&amp;%C3%B97=COM1&amp;.%F1%BB%83%93%C3%A8%C3%BF%C3%B6%C3%A3%28%C3%84=null&amp;%29=%C3%8F%F2%A6%88%AD%C2%80%F1%B6%BC%9F%C3%B6%23&amp;%29=%19U%F3%94%A6%BE&amp;%29=%C3%A2&amp;%C3%8E%C3%9C%C3%95%08%5B=&amp;%C3%8E%C3%9C%C3%95%08%5B=%C2%A7%C3%8C%C2%85t%C3%A3%C2%922%C3%9A%C3%98%C2%B6%C3%B7%C3%A3K%C2%AD%F2%B6%8B%A7%F3%AB%87%93%C3%B9&amp;%C3%8E%C3%9C%C3%95%08%5B=COM1'
+
+2. Test Case ID: rj3iL8
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/e5ef08fa-f1cb-416a-92d7-682d9cb8580f/restore?=null&amp;%C2%90%C2%BB-%07%C2%83=2.225073858507e-311'</failure>
+    </testcase>
+    <testcase name="DELETE /notes/{id}" time="6.944544">
+      <failure type="failure">1. Test Case ID: lyeq8r
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/notes/0?soft_delete=2'</failure>
+      <failure type="failure">1. Test Case ID: TCWzTE
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/e3e70682-c209-3cac-a29f-6fbed82c07cd?%E0%B8%81%E0%B8%B2=%C3%A7%F3%97%9E%B7%F0%AB%93%9A&amp;%F1%B2%BA%BA=%7B%7D&amp;%F1%B2%BA%BA=%7B%7D&amp;%F1%B2%BA%BA=%C2%9B%26_&amp;%F1%B2%BA%BA=null&amp;999999999999999999999999999999=true&amp;999999999999999999999999999999=252&amp;999999999999999999999999999999=-24'
+
+2. Test Case ID: v7nkOM
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became number)
+
+[200] OK:
+
+    `{"data":{"deleteNote":{"id":"cec49ceb-6ad2-4519-af17-f2ac593acf46"}}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/notes/cec49ceb-6ad2-4519-af17-f2ac593acf46?soft_delete=7.979853794753495e-243'</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

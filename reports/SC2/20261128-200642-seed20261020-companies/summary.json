@@ -1,0 +1,224 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /companies": 57,
+      "DELETE /companies/{id}": 33,
+      "GET /companies": 79,
+      "GET /companies/groupBy": 97,
+      "GET /companies/{id}": 68,
+      "PATCH /companies": 234,
+      "PATCH /companies/merge": 95,
+      "PATCH /companies/restore": 65,
+      "PATCH /companies/{id}": 239,
+      "PATCH /companies/{id}/restore": 70,
+      "POST /batch/companies": 263,
+      "POST /companies": 255,
+      "POST /companies/duplicates": 262
+    },
+    "unique_failures": [
+      "DELETE /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /companies|negative_data_rejection|AcceptedNegativeData|3",
+      "DELETE /companies|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies|negative_data_rejection|AcceptedNegativeData|1",
+      "GET /companies|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /companies/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/companies|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/companies|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 197,
+      "201": 21,
+      "204": 8,
+      "400": 1546,
+      "403": 13,
+      "404": 32
+    }
+  },
+  "tested": [
+    "DELETE /companies",
+    "DELETE /companies/{id}",
+    "GET /companies",
+    "GET /companies/groupBy",
+    "GET /companies/{id}",
+    "PATCH /companies",
+    "PATCH /companies/merge",
+    "PATCH /companies/restore",
+    "PATCH /companies/{id}",
+    "PATCH /companies/{id}/restore",
+    "POST /batch/companies",
+    "POST /companies",
+    "POST /companies/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1817,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 194.43787559999328,
+  "checks": {
+    "negative_data_rejection": {
+      "success": 1718,
+      "failure": 29
+    },
+    "not_a_server_error": {
+      "success": 1817,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1625,
+      "failure": 762
+    },
+    "status_code_conformance": {
+      "success": 1640,
+      "failure": 107
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 7
+    },
+    {
+      "operation": "DELETE /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 13
+    },
+    {
+      "operation": "GET /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 282
+    },
+    {
+      "operation": "GET /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 79
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 126
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 3
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 120
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 216
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 21
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 8
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /people": 57,
+      "DELETE /people/{id}": 18,
+      "GET /people": 79,
+      "GET /people/groupBy": 97,
+      "GET /people/{id}": 68,
+      "PATCH /people": 246,
+      "PATCH /people/merge": 95,
+      "PATCH /people/restore": 65,
+      "PATCH /people/{id}": 251,
+      "PATCH /people/{id}/restore": 70,
+      "POST /batch/people": 275,
+      "POST /people": 267,
+      "POST /people/duplicates": 274
+    },
+    "unique_failures": [
+      "DELETE /people/{id}|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /people|negative_data_rejection|AcceptedNegativeData|3",
+      "DELETE /people|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /people/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people/{id}|response_schema_conformance|JsonSchemaError|2",
+      "GET /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /people|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /people|response_schema_conformance|JsonSchemaError|2",
+      "GET /people|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /people/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /people/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/people|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/people|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/people|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /people|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 246,
+      "201": 16,
+      "204": 8,
+      "400": 1559,
+      "403": 13,
+      "404": 20
+    }
+  },
+  "tested": [
+    "DELETE /people",
+    "DELETE /people/{id}",
+    "GET /people",
+    "GET /people/groupBy",
+    "GET /people/{id}",
+    "PATCH /people",
+    "PATCH /people/merge",
+    "PATCH /people/restore",
+    "PATCH /people/{id}",
+    "PATCH /people/{id}/restore",
+    "POST /batch/people",
+    "POST /people",
+    "POST /people/duplicates"
+  ],
+  "schema_operations": 13
+}
