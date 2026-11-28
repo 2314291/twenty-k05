@@ -1,0 +1,270 @@
+[
+  {
+    "id": "S6-01",
+    "sc": "SC6",
+    "desc": "tạo bản ghi",
+    "request": "POST /companies",
+    "status": 201,
+    "expect": [
+      201
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 201,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-02",
+    "sc": "SC6",
+    "desc": "đọc lại",
+    "request": "GET /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "domainName.primaryLinkUrl = 'k05-sc6.example.com' (gửi kèm https://)",
+    "bug": ""
+  },
+  {
+    "id": "S6-03",
+    "sc": "SC6",
+    "desc": "sửa name",
+    "request": "PATCH /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-04",
+    "sc": "SC6",
+    "desc": "đọc sau sửa",
+    "request": "GET /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "name = 'K05-CB-SC6-sua', domainName.primaryLinkUrl giữ nguyên = True",
+    "bug": ""
+  },
+  {
+    "id": "S6-05",
+    "sc": "SC6",
+    "desc": "lọc theo id",
+    "request": "GET /companies?filter=id%5Beq%5D%3A258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "trả 1 bản ghi",
+    "bug": ""
+  },
+  {
+    "id": "S6-06",
+    "sc": "SC6",
+    "desc": "xoá (mặc định là xoá vĩnh viễn)",
+    "request": "DELETE /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-07",
+    "sc": "SC6",
+    "desc": "đọc sau xoá",
+    "request": "GET /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-08",
+    "sc": "SC6",
+    "desc": "xoá lần hai",
+    "request": "DELETE /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-09",
+    "sc": "SC6",
+    "desc": "sửa sau xoá",
+    "request": "PATCH /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-10",
+    "sc": "SC6",
+    "desc": "khôi phục sau xoá vĩnh viễn",
+    "request": "PATCH /companies/258ce2b0-c04a-44c4-b2f5-9e2a8528124d/restore",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-11",
+    "sc": "SC6",
+    "desc": "đọc người sau khi xoá công ty của họ",
+    "request": "GET /people/57ac0c2c-596d-40f1-a9c9-f05272030be0",
+    "status": 200,
+    "expect": null,
+    "verdict": "QUAN SÁT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "companyId = None",
+    "bug": ""
+  },
+  {
+    "id": "S6-12a",
+    "sc": "SC6",
+    "desc": "GET id không tồn tại",
+    "request": "GET /companies/00000000-0000-4000-8000-000000000000",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-12b",
+    "sc": "SC6",
+    "desc": "PATCH id không tồn tại",
+    "request": "PATCH /companies/00000000-0000-4000-8000-000000000000",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-12c",
+    "sc": "SC6",
+    "desc": "DELETE id không tồn tại",
+    "request": "DELETE /companies/00000000-0000-4000-8000-000000000000",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-13b",
+    "sc": "SC6",
+    "desc": "xoá mềm",
+    "request": "DELETE /companies/f64861ea-0670-456e-958a-4a601551e37b?soft_delete=true",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-13c",
+    "sc": "SC6",
+    "desc": "đọc sau xoá mềm",
+    "request": "GET /companies/f64861ea-0670-456e-958a-4a601551e37b",
+    "status": 404,
+    "expect": [
+      404
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 404,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-13d",
+    "sc": "SC6",
+    "desc": "khôi phục",
+    "request": "PATCH /companies/f64861ea-0670-456e-958a-4a601551e37b/restore",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  },
+  {
+    "id": "S6-13e",
+    "sc": "SC6",
+    "desc": "đọc sau khôi phục",
+    "request": "GET /companies/f64861ea-0670-456e-958a-4a601551e37b",
+    "status": 200,
+    "expect": [
+      200
+    ],
+    "verdict": "ĐẠT",
+    "manual_0211": 200,
+    "same_as_manual": "GIỐNG",
+    "note": "",
+    "bug": ""
+  }
+]
