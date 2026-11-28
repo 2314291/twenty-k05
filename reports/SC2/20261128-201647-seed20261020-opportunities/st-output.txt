@@ -1,0 +1,1195 @@
+Schemathesis v4.31.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from D:\KiemThu\twenty-k05\schema\core.openapi.json
+ (in 1.94s)
+
+     Base URL:         http://localhost:3001/rest
+     Specification:    Open API 3.1.1
+     Operations:       13 selected / 522 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Coverage (in 35.16s)
+
+     ❌ 13 failed
+
+ ❌  Fuzzing (in 165.49s)
+
+     ✅  6 passed  ❌  7 failed
+
+=================================== FAILURES ===================================
+____________________________ DELETE /opportunities _____________________________
+1. Test Case ID: 8N2WNO
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/opportunities?soft_delete=2&filter=createdAt%5Bgte%5D%3A%222026-11-28T13%3A18%3A18.000Z%22'
+
+    st replay 8N2WNO
+
+2. Test Case ID: KVvqXH
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `soft_delete` in query - violates `type` at /properties/soft_delete (was boolean, became integer)
+
+[200] OK:
+
+    `{"data":{"deleteOpportunities":[]}}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities?soft_delete=334&filter=createdAt%5Bgte%5D%3A%222026-11-28T13%3A18%3A18.000Z%22'
+
+    st replay KVvqXH
+
+__________________________ DELETE /opportunities/{id} __________________________
+1. Test Case ID: Hn5V0h
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X DELETE 'http://localhost:3001/rest/opportunities/0?soft_delete=2'
+
+    st replay Hn5V0h
+
+2. Test Case ID: rGugwz
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X DELETE -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?=&%C2%AB%C2%87%C3%BF%F3%AD%91%85%C2%A6=4%0C&%2C%F1%A4%95%84I%C2%90%F3%80%A0%A2%3B%C2%B5C%C2%A9%C2%AAc%F1%B9%BA%A6%C3%A3s%5CZ=%C3%93&%2C%F1%A4%95%84I%C2%90%F3%80%A0%A2%3B%C2%B5C%C2%A9%C2%AAc%F1%B9%BA%A6%C3%A3s%5CZ=null&%F1%84%97%BE%C2%8B=%C3%94N%F3%87%B6%AC%0Ctz%3Dk%3E&soft_delete=true&%C3%B9%C3%BB=&%C3%B9%C3%BB=%F3%9C%86%AA%F0%A1%8E%BB%12%F2%9C%8A%82%C3%A2%C3%98'
+
+    st replay rGugwz
+
+______________________________ GET /opportunities ______________________________
+1. Test Case ID: FLRhpV
+
+- Response violates schema (8 violations)
+
+    null is not of type "number"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/amount/properties/amountMicros:
+
+        {
+            "type": "number"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/amount/properties/currencyCode:
+
+        {
+            "type": "string"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/companyId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/pointOfContactId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"opportunities":[{"id":"04b8e126-2512-448f-8209-b51937c472b1","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:18:15.393Z","deletedAt":null,"name":"K05-Opportunity-027","amount":{"amountMicros":183000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"MEETING","position":-29,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'027':4 'k05 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities?limit=60&x-schemathesis-unknown-property=42'
+
+    st replay FLRhpV
+
+2. Test Case ID: wsG5d8
+
+- API accepted schema-violating request
+
+    Invalid data should have been rejected
+    Expected: 400, 401, 403, 404, 405, 406, 409, 415, 422, 428, 429, 5xx
+    Invalid component: parameter `limit` in query - limit: Value greater than maximum
+
+[200] OK:
+
+    `{"data":{"opportunities":[{"id":"04b8e126-2512-448f-8209-b51937c472b1","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:18:15.393Z","deletedAt":null,"name":"K05-Opportunity-027","amount":{"amountMicros":183000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"MEETING","position":-29,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'027':4 'k05 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities?limit=201'
+
+    st replay wsG5d8
+
+3. Test Case ID: bPTCP0
+
+- Response violates schema (6 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/company:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/CompanyForResponse"
+                }
+            ],
+            "description": "Opportunity company"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/pointOfContact:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/PersonForResponse"
+                }
+            ],
+            "description": "Opportunity point of contact"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    {"accountOwnerId":null,"address":{"addressCity":"Da Lat","addressCountry":"","addressLat":null,"addressLng":null,"addressPostcode":"","addressState":"","addressStreet1":"","addressStreet2":""},"annualRevenue":{"amountMicros":48000000,"currencyCode":"USD"},"createdAt":"2026-11-28T13:18:14.106Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-027.example.com","secondaryLinks":[]},"id":"3117a8a0-033f-453b-abcd-d6ac334c9c59","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":"K05-Company-027","position":-89,"searchVector":"'027':4 'company':3 'k05':2 'k05-company':1 'k05-company-027.example.com':5","updatedAt":"2026-11-28T13:18:14.106Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/company:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/CompanyForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity company"
+        }
+
+    Value:
+
+        {
+            "accountOwnerId": null,
+            "address": {
+                "addressCity": "Da Lat",
+                "addressCountry": "",
+                "addressLat": null,
+                "addressLng": null,
+                "addressPostcode": "",
+                "addressState": "",
+                "addressStreet1": "",
+                "addressStreet2": ""
+            },
+            "annualRevenue": {
+                "amountMicros": 48000000,
+                "currencyCode": "USD"
+            },
+            "createdAt": "2026-11-28T13:18:14.106Z",
+            "createdBy": {
+                "context": {},
+            // Output truncated...
+        }
+
+    {"avatarFile":null,"avatarUrl":"","companyId":"3117a8a0-033f-453b-abcd-d6ac334c9c59","createdAt":"2026-11-28T13:18:14.385Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"emails":{"additionalEmails":[],"primaryEmail":"k05.person027@example.com"},"id":"a09ed615-2b59-4f48-b373-4c5d3a432b41","jobTitle":"Tester","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":{"firstName":"K05Ho027","lastName":"K05Ten027"},"phones":{"additionalPhones":[],"primaryPhoneCallingCode":"","primaryPhoneCountryCode":"","primaryPhoneNumber":""},"position":-95,"searchVector":"'example.com':4 'k05.person027@example.com':3 'k05ho027':1 'k05ten027':2 'tester':5","updatedAt":"2026-11-28T13:18:14.385Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/pointOfContact:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/PersonForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity point of contact"
+        }
+
+    Value:
+
+        {
+            "avatarFile": null,
+            "avatarUrl": "",
+            "companyId": "3117a8a0-033f-453b-abcd-d6ac334c9c59",
+            "createdAt": "2026-11-28T13:18:14.385Z",
+            "createdBy": {
+                "context": {},
+                "name": "Vua",
+                "source": "API",
+                "workspaceMemberId": null
+            },
+            "deletedAt": null,
+            "emails": {
+                "additionalEmails": [],
+                "primaryEmail": "k05.person027@example.com"
+            },
+            "id": "a09ed615-2b59-4f48-b373-4c5d3a432b41",
+            "jobTitle": "Tester",
+            "linkedinLink": {
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{"data":{"opportunities":[{"id":"04b8e126-2512-448f-8209-b51937c472b1","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:18:15.393Z","deletedAt":null,"name":"K05-Opportunity-027","amount":{"amountMicros":183000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"MEETING","position":-29,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'027':4 'k05 // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities?depth=1&x-schemathesis-unknown-property=42'
+
+    st replay bPTCP0
+
+4. Test Case ID: Q3pAGJ
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/opportunities?limit=0.5&depth=0.5'
+
+    st replay Q3pAGJ
+
+__________________________ GET /opportunities/groupBy __________________________
+1. Test Case ID: eOZWqz
+
+- Undocumented HTTP status code
+
+    Received: 400
+    Documented: 200
+
+[400] Bad Request:
+
+    `{"statusCode":400,"error":"BadRequestException","messages":["Invalid group_by query parameter - should be a valid array of objects - ex: [{\"firstField\": true}, {\"secondField\": {\"subField\": true}}, {\"dateField\": {\"granularity\": 'DAY'}}]"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/groupBy?group_by=&view_id=e3e70682-c209-1cac-a29f-6fbed82c07cd&x-schemathesis-unknown-property=42'
+
+    st replay eOZWqz
+
+2. Test Case ID: MmXASh
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=2'
+
+    st replay MmXASh
+
+3. Test Case ID: Rdmekl
+
+- Response violates schema
+
+    [{"groupByDimensionValues":["2026-11-27T11:56:21.772Z"]},{"groupByDimensionValues":["2026-11-28T13:18:15.393Z"]},{"groupByDimensionValues":["2026-11-27T11:56:22.297Z"]}] is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema:
+
+        {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "opportunitiesGroupBy": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "groupByDimensionValues": {
+                                        "type": "array",
+                                        "description": "Array of values representing ...
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "records": {
+            // Output truncated...
+        }
+
+    Value:
+
+        [
+            {
+                "groupByDimensionValues": [
+                    "2026-11-27T11:56:21.772Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-28T13:18:15.393Z"
+                ]
+            },
+            {
+                "groupByDimensionValues": [
+                    "2026-11-27T11:56:22.297Z"
+                ]
+            }
+        ]
+
+[200] OK:
+
+    `[{"groupByDimensionValues":["2026-11-27T11:56:21.772Z"]},{"groupByDimensionValues":["2026-11-28T13:18:15.393Z"]},{"groupByDimensionValues":["2026-11-27T11:56:22.297Z"]}]`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/groupBy?group_by=%5B%7B%22updatedAt%22%3A+true%7D%5D&limit=0.5&view_id=0&include_records_sample=null&include_records_sample=null'
+
+    st replay Rdmekl
+
+___________________________ GET /opportunities/{id} ____________________________
+1. Test Case ID: kWL94g
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X GET 'http://localhost:3001/rest/opportunities/0?depth=0.5'
+
+    st replay kWL94g
+
+2. Test Case ID: X3LMxw
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/e5ef08fa-f1cb-416a-92d7-682d9cb8580f?%C2%A4=-127774866&1%C3%92%C3%84%C3%9E%02%40%F3%84%B5%ADs%C2%A9H%F4%8B%8A%9D%C2%9A=%C2%872%21%C2%BE%C2%8E%F0%B2%87%A1%C3%AF&1%C3%92%C3%84%C3%9E%02%40%F3%84%B5%ADs%C2%A9H%F4%8B%8A%9D%C2%9A=true&1%C3%92%C3%84%C3%9E%02%40%F3%84%B5%ADs%C2%A9H%F4%8B%8A%9D%C2%9A=%F0%A4%A1%A0%F1%A8%90%BE.%C2%BD%26'
+
+    st replay X3LMxw
+
+3. Test Case ID: fpHOWv
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"opportunity":{"id":"62126537-e71c-4e52-8165-6df999afeb87","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:18:15.393Z","deletedAt":null,"name":"K05-Opportunity-013","amount":{"amountMicros":206000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"PROPOSAL","position":-15,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'013':4 'k05': // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' http://localhost:3001/rest/opportunities/62126537-e71c-4e52-8165-6df999afeb87
+
+    st replay fpHOWv
+
+4. Test Case ID: Xk7Yk0
+
+- Response violates schema (4 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    {"accountOwnerId":null,"address":{"addressCity":"Da Lat","addressCountry":"","addressLat":null,"addressLng":null,"addressPostcode":"","addressState":"","addressStreet1":"","addressStreet2":""},"annualRevenue":{"amountMicros":761000000,"currencyCode":"USD"},"createdAt":"2026-11-28T13:18:14.106Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-013.example.com","secondaryLinks":[]},"id":"93802785-c448-41ac-84e2-c3789ec1c42b","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":"K05-Company-013","position":-75,"searchVector":"'013':4 'company':3 'k05':2 'k05-company':1 'k05-company-013.example.com':5","updatedAt":"2026-11-28T13:18:14.106Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/company:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/CompanyForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity company"
+        }
+
+    Value:
+
+        {
+            "accountOwnerId": null,
+            "address": {
+                "addressCity": "Da Lat",
+                "addressCountry": "",
+                "addressLat": null,
+                "addressLng": null,
+                "addressPostcode": "",
+                "addressState": "",
+                "addressStreet1": "",
+                "addressStreet2": ""
+            },
+            "annualRevenue": {
+                "amountMicros": 761000000,
+                "currencyCode": "USD"
+            },
+            "createdAt": "2026-11-28T13:18:14.106Z",
+            "createdBy": {
+                "context": {},
+            // Output truncated...
+        }
+
+    {"avatarFile":null,"avatarUrl":"","companyId":"93802785-c448-41ac-84e2-c3789ec1c42b","createdAt":"2026-11-28T13:18:14.385Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"emails":{"additionalEmails":[],"primaryEmail":"k05.person013@example.com"},"id":"25345a9d-dd16-4817-bb9e-4cbd3f8396df","jobTitle":"Tester","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":{"firstName":"K05Ho013","lastName":"K05Ten013"},"phones":{"additionalPhones":[],"primaryPhoneCallingCode":"","primaryPhoneCountryCode":"","primaryPhoneNumber":""},"position":-81,"searchVector":"'example.com':4 'k05.person013@example.com':3 'k05ho013':1 'k05ten013':2 'tester':5","updatedAt":"2026-11-28T13:18:14.385Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/pointOfContact:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/PersonForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity point of contact"
+        }
+
+    Value:
+
+        {
+            "avatarFile": null,
+            "avatarUrl": "",
+            "companyId": "93802785-c448-41ac-84e2-c3789ec1c42b",
+            "createdAt": "2026-11-28T13:18:14.385Z",
+            "createdBy": {
+                "context": {},
+                "name": "Vua",
+                "source": "API",
+                "workspaceMemberId": null
+            },
+            "deletedAt": null,
+            "emails": {
+                "additionalEmails": [],
+                "primaryEmail": "k05.person013@example.com"
+            },
+            "id": "25345a9d-dd16-4817-bb9e-4cbd3f8396df",
+            "jobTitle": "Tester",
+            "linkedinLink": {
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{"data":{"opportunity":{"id":"62126537-e71c-4e52-8165-6df999afeb87","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:18:15.393Z","deletedAt":null,"name":"K05-Opportunity-013","amount":{"amountMicros":206000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"PROPOSAL","position":-15,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'013':4 'k05': // Output truncated...`
+
+Reproduce with:
+
+    curl -X GET -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/62126537-e71c-4e52-8165-6df999afeb87?depth=1'
+
+    st replay Xk7Yk0
+
+_____________________________ PATCH /opportunities _____________________________
+1. Test Case ID: KeaGxq
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "amount": {"amountMicros": 0, "currencyCode": ""}, "closeDate": "2000-01-01T00:00:00Z", "stage": "NEW", "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "companyId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "pointOfContactId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "ownerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/opportunities?depth=0.5&filter=createdAt%5Bgte%5D%3A%222026-11-28T13%3A18%3A18.000Z%22'
+
+    st replay KeaGxq
+
+__________________________ PATCH /opportunities/merge __________________________
+1. Test Case ID: Vb7AN5
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"ids": ["dadebe80-7193-4e87-8d5c-9be644cf1822"], "conflictPriorityIndex": 0, "dryRun": false}' 'http://localhost:3001/rest/opportunities/merge?depth=0.5'
+
+    st replay Vb7AN5
+
+_________________________ PATCH /opportunities/restore _________________________
+1. Test Case ID: I9ZoMS
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/opportunities/restore?depth=0.5'
+
+    st replay I9ZoMS
+
+__________________________ PATCH /opportunities/{id} ___________________________
+1. Test Case ID: FJCn6l
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Content-Type: application/json' -d '{"name": "", "amount": {"amountMicros": 0, "currencyCode": ""}, "closeDate": "2000-01-01T00:00:00Z", "stage": "NEW", "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "companyId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "pointOfContactId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "ownerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/opportunities/0?depth=0.5'
+
+    st replay FJCn6l
+
+2. Test Case ID: MDmlo4
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"amount": {"amountMicros": 0.0}, "companyId": "93802785-c448-41ac-84e2-c3789ec1c42b", "pointOfContactId": "25345a9d-dd16-4817-bb9e-4cbd3f8396df"}' 'http://localhost:3001/rest/opportunities/14ddd9d0-7453-2030-8908-2d4f72c1a41d?depth=0&=null'
+
+    st replay MDmlo4
+
+______________________ PATCH /opportunities/{id}/restore _______________________
+1. Test Case ID: 1hXAN0
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X PATCH 'http://localhost:3001/rest/opportunities/0/restore?depth=0.5'
+
+    st replay 1hXAN0
+
+2. Test Case ID: vrY24r
+
+- Response violates schema (4 violations)
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/createdBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/deletedAt:
+
+        {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date when the record was deleted"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/ownerId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+    null is not of type "string"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/updatedBy/properties/workspaceMemberId:
+
+        {
+            "type": "string",
+            "format": "uuid"
+        }
+
+    Value:
+
+        null
+
+[200] OK:
+
+    `{"data":{"restoreOpportunity":{"id":"6fe7568d-4997-4ac5-81d6-83760876245d","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:21:27.615Z","deletedAt":null,"name":"K05-Opportunity-016","amount":{"amountMicros":345000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"SCREENING","position":-18,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'016': // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' http://localhost:3001/rest/opportunities/6fe7568d-4997-4ac5-81d6-83760876245d/restore
+
+    st replay vrY24r
+
+3. Test Case ID: idzT7P
+
+- Undocumented HTTP status code
+
+    Received: 404
+    Documented: 200, 400, 401
+
+[404] Not Found:
+
+    `{"statusCode":404,"error":"NotFoundException","messages":["Record not found"]}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/e5ef08fa-f1cb-416a-92d7-682d9cb8580f/restore?S%E5%BF%87%C2%9D=&%F0%9F%8F%BB=true&=null'
+
+    st replay idzT7P
+
+4. Test Case ID: e15EwQ
+
+- Response violates schema (4 violations)
+
+    null is not of type "object"
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "type": "object",
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    null is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/owner:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/WorkspaceMemberForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity owner"
+        }
+
+    Value:
+
+        null
+
+    {"accountOwnerId":null,"address":{"addressCity":"Ha Noi","addressCountry":"","addressLat":null,"addressLng":null,"addressPostcode":"","addressState":"","addressStreet1":"","addressStreet2":""},"annualRevenue":{"amountMicros":799000000,"currencyCode":"USD"},"createdAt":"2026-11-28T13:18:14.106Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"domainName":{"primaryLinkLabel":"","primaryLinkUrl":"k05-company-016.example.com","secondaryLinks":[]},"id":"9ac60ed8-cf6b-4458-b445-e77fc3322dae","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":"K05-Company-016","position":-78,"searchVector":"'016':4 'company':3 'k05':2 'k05-company':1 'k05-company-016.example.com':5","updatedAt":"2026-11-28T13:18:14.106Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/company:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/CompanyForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity company"
+        }
+
+    Value:
+
+        {
+            "accountOwnerId": null,
+            "address": {
+                "addressCity": "Ha Noi",
+                "addressCountry": "",
+                "addressLat": null,
+                "addressLng": null,
+                "addressPostcode": "",
+                "addressState": "",
+                "addressStreet1": "",
+                "addressStreet2": ""
+            },
+            "annualRevenue": {
+                "amountMicros": 799000000,
+                "currencyCode": "USD"
+            },
+            "createdAt": "2026-11-28T13:18:14.106Z",
+            "createdBy": {
+                "context": {},
+            // Output truncated...
+        }
+
+    {"avatarFile":null,"avatarUrl":"","companyId":"9ac60ed8-cf6b-4458-b445-e77fc3322dae","createdAt":"2026-11-28T13:18:14.385Z","createdBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null},"deletedAt":null,"emails":{"additionalEmails":[],"primaryEmail":"k05.person016@example.com"},"id":"7cfb2d6c-efcf-4b9e-b66c-b92342d366f4","jobTitle":"Tester","linkedinLink":{"primaryLinkLabel":"","primaryLinkUrl":"","secondaryLinks":[]},"name":{"firstName":"K05Ho016","lastName":"K05Ten016"},"phones":{"additionalPhones":[],"primaryPhoneCallingCode":"","primaryPhoneCountryCode":"","primaryPhoneNumber":""},"position":-84,"searchVector":"'example.com':4 'k05.person016@example.com':3 'k05ho016':1 'k05ten016':2 'tester':5","updatedAt":"2026-11-28T13:18:14.385Z","updatedBy":{"context":{},"name":"Vua","source":"API","workspaceMemberId":null}} is not valid under any of the schemas listed in the 'oneOf' keyword
+
+    Validated against the response schema for status code 200.
+
+    Schema at /components/schemas/OpportunityForResponse/properties/pointOfContact:
+
+        {
+            "oneOf": [
+                {
+                    "$ref": "#/components/schemas/PersonForResponse"
+                }
+            ],
+            "type": "object",
+            "description": "Opportunity point of contact"
+        }
+
+    Value:
+
+        {
+            "avatarFile": null,
+            "avatarUrl": "",
+            "companyId": "9ac60ed8-cf6b-4458-b445-e77fc3322dae",
+            "createdAt": "2026-11-28T13:18:14.385Z",
+            "createdBy": {
+                "context": {},
+                "name": "Vua",
+                "source": "API",
+                "workspaceMemberId": null
+            },
+            "deletedAt": null,
+            "emails": {
+                "additionalEmails": [],
+                "primaryEmail": "k05.person016@example.com"
+            },
+            "id": "7cfb2d6c-efcf-4b9e-b66c-b92342d366f4",
+            "jobTitle": "Tester",
+            "linkedinLink": {
+            // Output truncated...
+        }
+
+[200] OK:
+
+    `{"data":{"restoreOpportunity":{"id":"6fe7568d-4997-4ac5-81d6-83760876245d","createdAt":"2026-11-28T13:18:15.393Z","updatedAt":"2026-11-28T13:21:40.873Z","deletedAt":null,"name":"K05-Opportunity-016","amount":{"amountMicros":345000000,"currencyCode":"USD"},"closeDate":"2026-12-31T00:00:00.000Z","stage":"SCREENING","position":-18,"createdBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"updatedBy":{"source":"API","workspaceMemberId":null,"name":"Vua","context":{}},"searchVector":"'016': // Output truncated...`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' 'http://localhost:3001/rest/opportunities/6fe7568d-4997-4ac5-81d6-83760876245d/restore?depth=1'
+
+    st replay e15EwQ
+
+__________________________ POST /batch/opportunities ___________________________
+1. Test Case ID: Pmsrwd
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '[{"name": "", "amount": {"amountMicros": 0, "currencyCode": ""}, "closeDate": "2000-01-01T00:00:00Z", "stage": "NEW", "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "companyId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "pointOfContactId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "ownerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}]' 'http://localhost:3001/rest/batch/opportunities?depth=0.5&upsert=2'
+
+    st replay Pmsrwd
+
+_____________________________ POST /opportunities ______________________________
+1. Test Case ID: HNXT3p
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 201, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"name": "", "amount": {"amountMicros": 0, "currencyCode": ""}, "closeDate": "2000-01-01T00:00:00Z", "stage": "NEW", "position": 0, "createdBy": {"source": "EMAIL"}, "updatedBy": {"source": "EMAIL"}, "companyId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "pointOfContactId": "e3e70682-c209-1cac-a29f-6fbed82c07cd", "ownerId": "e3e70682-c209-1cac-a29f-6fbed82c07cd"}' 'http://localhost:3001/rest/opportunities?depth=0.5&upsert=2'
+
+    st replay HNXT3p
+
+________________________ POST /opportunities/duplicates ________________________
+1. Test Case ID: 3z9J4J
+
+- Undocumented HTTP status code
+
+    Received: 403
+    Documented: 200, 400, 401
+
+[403] Forbidden:
+
+    `{"statusCode":403,"messages":["Missing authentication token"],"error":"FORBIDDEN_EXCEPTION"}`
+
+Reproduce with:
+
+    curl -X POST -H 'Content-Type: application/json' -d '{"ids": ["f5cfd60a-fea4-46c0-ae7f-10f851f54ac5"]}' 'http://localhost:3001/rest/opportunities/duplicates?depth=0.5'
+
+    st replay 3z9J4J
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 13/522
+  Tested: 13
+
+Test Phases:
+  ⏭  Examples (disabled)
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (disabled)
+
+Failures:
+  ❌ Response violates schema: 31
+  ❌ API accepted schema-violating request: 2
+  ❌ Undocumented HTTP status code: 18
+
+Test cases:
+  1385 generated, 27 found 51 unique failures
+
+Reports:
+  - JUnit: D:\KiemThu\twenty-k05\reports\SC2\20261128-201647-seed20261020-opportunities\junit-20261128T201820Z.xml
+  - NDJSON: D:\KiemThu\twenty-k05\reports\SC2\20261128-201647-seed20261020-opportunities\ndjson-20261128T201820Z.ndjson
+  - JSON: D:\KiemThu\twenty-k05\reports\SC2\20261128-201647-seed20261020-opportunities\json-20261128T201820Z.json
+  - HTML: D:\KiemThu\twenty-k05\reports\SC2\20261128-201647-seed20261020-opportunities\html-20261128T201820Z\index.html
+
+Seed: not used in the deterministic mode
+
+============================ 51 failures in 201.38s ============================

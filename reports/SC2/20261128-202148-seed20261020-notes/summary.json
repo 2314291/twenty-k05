@@ -1,0 +1,238 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /notes": 57,
+      "DELETE /notes/{id}": 27,
+      "GET /notes": 79,
+      "GET /notes/groupBy": 97,
+      "GET /notes/{id}": 68,
+      "PATCH /notes": 112,
+      "PATCH /notes/merge": 95,
+      "PATCH /notes/restore": 65,
+      "PATCH /notes/{id}": 117,
+      "PATCH /notes/{id}/restore": 70,
+      "POST /batch/notes": 141,
+      "POST /notes": 133,
+      "POST /notes/duplicates": 140
+    },
+    "unique_failures": [
+      "DELETE /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /notes|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /notes|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /notes|response_schema_conformance|JsonSchemaError|1",
+      "GET /notes|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/{id}/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /notes/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/notes|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/notes|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /notes|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /notes|response_schema_conformance|JsonSchemaError|1",
+      "POST /notes|status_code_conformance|UndefinedStatusCode|1"
+    ],
+    "codes": {
+      "200": 196,
+      "201": 36,
+      "204": 8,
+      "400": 920,
+      "403": 13,
+      "404": 28
+    }
+  },
+  "tested": [
+    "DELETE /notes",
+    "DELETE /notes/{id}",
+    "GET /notes",
+    "GET /notes/groupBy",
+    "GET /notes/{id}",
+    "PATCH /notes",
+    "PATCH /notes/merge",
+    "PATCH /notes/restore",
+    "PATCH /notes/{id}",
+    "PATCH /notes/{id}/restore",
+    "POST /batch/notes",
+    "POST /notes",
+    "POST /notes/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1201,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 170.78648979999707,
+  "checks": {
+    "negative_data_rejection": {
+      "success": 1068,
+      "failure": 63
+    },
+    "not_a_server_error": {
+      "success": 1201,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 998,
+      "failure": 422
+    },
+    "status_code_conformance": {
+      "success": 1028,
+      "failure": 103
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 31
+    },
+    {
+      "operation": "DELETE /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /notes/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 6
+    },
+    {
+      "operation": "GET /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "GET /notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 104
+    },
+    {
+      "operation": "GET /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /notes/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 79
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 72
+    },
+    {
+      "operation": "GET /notes/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 7
+    },
+    {
+      "operation": "PATCH /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 81
+    },
+    {
+      "operation": "PATCH /notes/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 87
+    },
+    {
+      "operation": "PATCH /notes/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 25
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 36
+    },
+    {
+      "operation": "POST /batch/notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 5
+    },
+    {
+      "operation": "POST /notes",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 32
+    },
+    {
+      "operation": "POST /notes",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /notes/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run D:\\KiemThu\\twenty-k05\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks negative_data_rejection,not_a_server_error,status_code_conformance,response_schema_conformance --mode negative --phases coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?(companies)(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir D:\\KiemThu\\twenty-k05\\reports\\SC2\\20261128-200642-seed20261020-companies",
+  "seed": 20261020,
+  "started_at": "2026-11-28T13:08:21.420548+00:00",
+  "running_time": 194.43787559999328,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 1817,
+    "with_failures": 28,
+    "unique_failures": 66,
+    "without_checks": 0,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 45,
+      "operations": [
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore",
+        "POST /batch/companies"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 3,
+      "operations": [
+        "DELETE /companies",
+        "GET /companies",
+        "POST /batch/companies"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 18,
+      "operations": [
+        "DELETE /companies",
+        "DELETE /companies/{id}",
+        "GET /companies",
+        "GET /companies/groupBy",
+        "GET /companies/{id}",
+        "PATCH /companies",
+        "PATCH /companies/merge",
+        "PATCH /companies/restore",
+        "PATCH /companies/{id}",
+        "PATCH /companies/{id}/restore",
+        "POST /batch/companies",
+        "POST /companies",
+        "POST /companies/duplicates"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {},
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}
