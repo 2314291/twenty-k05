@@ -1,0 +1,433 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run C:\\kiem thu\\twenty-k05-main\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks all --mode all --phases examples,coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?people(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir C:\\kiem thu\\twenty-k05-main\\reports\\SC1\\20261128-122610-seed20261020-people",
+  "seed": 20261020,
+  "started_at": "2026-11-28T05:27:46.452169+00:00",
+  "running_time": 1150.8912120999303,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 2499,
+    "with_failures": 55,
+    "unique_failures": 99,
+    "without_checks": 22,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 42,
+      "operations": [
+        "GET /people",
+        "GET /people/groupBy",
+        "GET /people/{id}",
+        "PATCH /people/restore",
+        "PATCH /people/{id}",
+        "PATCH /people/{id}/restore",
+        "POST /people"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 7,
+      "operations": [
+        "DELETE /people",
+        "GET /people",
+        "PATCH /people",
+        "PATCH /people/{id}",
+        "POST /batch/people",
+        "POST /people",
+        "POST /people/duplicates"
+      ]
+    },
+    {
+      "type": "RejectedPositiveData",
+      "title": "API rejected schema-compliant request",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /people",
+        "DELETE /people/{id}",
+        "GET /people",
+        "GET /people/groupBy",
+        "GET /people/{id}",
+        "PATCH /people",
+        "PATCH /people/merge",
+        "PATCH /people/restore",
+        "PATCH /people/{id}",
+        "PATCH /people/{id}/restore",
+        "POST /batch/people",
+        "POST /people",
+        "POST /people/duplicates"
+      ]
+    },
+    {
+      "type": "MissingHeaderNotRejected",
+      "title": "Missing header not rejected",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /people",
+        "DELETE /people/{id}",
+        "GET /people",
+        "GET /people/groupBy",
+        "GET /people/{id}",
+        "PATCH /people",
+        "PATCH /people/merge",
+        "PATCH /people/restore",
+        "PATCH /people/{id}",
+        "PATCH /people/{id}/restore",
+        "POST /batch/people",
+        "POST /people",
+        "POST /people/duplicates"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 16,
+      "operations": [
+        "DELETE /people",
+        "DELETE /people/{id}",
+        "GET /people",
+        "GET /people/groupBy",
+        "GET /people/{id}",
+        "PATCH /people",
+        "PATCH /people/merge",
+        "PATCH /people/restore",
+        "PATCH /people/{id}",
+        "PATCH /people/{id}/restore",
+        "POST /batch/people",
+        "POST /people",
+        "POST /people/duplicates"
+      ]
+    },
+    {
+      "type": "UnsupportedMethodResponse",
+      "title": "Unsupported methods",
+      "severity": "medium",
+      "count": 8,
+      "operations": [
+        "PUT /people/{id}",
+        "PUT /people/{id}/restore",
+        "TRACE /batch/people",
+        "TRACE /people",
+        "TRACE /people/duplicates",
+        "TRACE /people/groupBy",
+        "TRACE /people/merge",
+        "TRACE /people/restore"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {
+    "POST /people": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 12,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 68
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 26
+      }
+    },
+    "POST /people/duplicates": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 6,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 75
+      },
+      "fuzzing": {
+        "accepted": 30,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 14
+      }
+    },
+    "GET /people": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 22,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "fuzzing": {
+        "accepted": 34,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 10
+      }
+    },
+    "GET /people/groupBy": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 11,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 18
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 48
+      }
+    },
+    "PATCH /people": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 77,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 5
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 21
+      }
+    },
+    "PATCH /people/merge": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 1,
+        "conflicts": 0,
+        "rejected": 33
+      }
+    },
+    "PATCH /people/restore": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 6,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "fuzzing": {
+        "accepted": 11,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 24
+      }
+    },
+    "DELETE /people": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 6,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "fuzzing": {
+        "accepted": 32,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      }
+    },
+    "POST /batch/people": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 13,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 68
+      },
+      "fuzzing": {
+        "accepted": 25,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 15
+      }
+    },
+    "GET /people/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 4,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 8,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 42,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 7
+      }
+    },
+    "PATCH /people/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 4,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 74,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      },
+      "fuzzing": {
+        "accepted": 30,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 20
+      }
+    },
+    "PATCH /people/{id}/restore": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 4,
+        "conflicts": 0,
+        "rejected": 0
+      },
+      "coverage": {
+        "accepted": 8,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 3
+      },
+      "fuzzing": {
+        "accepted": 37,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 5
+      }
+    },
+    "DELETE /people/{id}": {
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 1,
+        "conflicts": 0,
+        "rejected": 9
+      }
+    }
+  },
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

@@ -1,0 +1,432 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run C:\\kiem thu\\twenty-k05-main\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks all --mode all --phases examples,coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?opportunities(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir C:\\kiem thu\\twenty-k05-main\\reports\\SC1\\20261128-124700-seed20261020-opportunities",
+  "seed": 20261020,
+  "started_at": "2026-11-28T05:48:38.587918+00:00",
+  "running_time": 727.4900842000498,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 1853,
+    "with_failures": 54,
+    "unique_failures": 112,
+    "without_checks": 22,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 57,
+      "operations": [
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities/restore",
+        "PATCH /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore",
+        "POST /batch/opportunities"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 6,
+      "operations": [
+        "DELETE /opportunities",
+        "GET /opportunities",
+        "PATCH /opportunities",
+        "PATCH /opportunities/{id}",
+        "POST /batch/opportunities",
+        "POST /opportunities/duplicates"
+      ]
+    },
+    {
+      "type": "RejectedPositiveData",
+      "title": "API rejected schema-compliant request",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /opportunities",
+        "DELETE /opportunities/{id}",
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities",
+        "PATCH /opportunities/merge",
+        "PATCH /opportunities/restore",
+        "PATCH /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore",
+        "POST /batch/opportunities",
+        "POST /opportunities",
+        "POST /opportunities/duplicates"
+      ]
+    },
+    {
+      "type": "MissingHeaderNotRejected",
+      "title": "Missing header not rejected",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /opportunities",
+        "DELETE /opportunities/{id}",
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities",
+        "PATCH /opportunities/merge",
+        "PATCH /opportunities/restore",
+        "PATCH /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore",
+        "POST /batch/opportunities",
+        "POST /opportunities",
+        "POST /opportunities/duplicates"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 15,
+      "operations": [
+        "DELETE /opportunities",
+        "DELETE /opportunities/{id}",
+        "GET /opportunities",
+        "GET /opportunities/groupBy",
+        "GET /opportunities/{id}",
+        "PATCH /opportunities",
+        "PATCH /opportunities/merge",
+        "PATCH /opportunities/restore",
+        "PATCH /opportunities/{id}",
+        "PATCH /opportunities/{id}/restore",
+        "POST /batch/opportunities",
+        "POST /opportunities",
+        "POST /opportunities/duplicates"
+      ]
+    },
+    {
+      "type": "UnsupportedMethodResponse",
+      "title": "Unsupported methods",
+      "severity": "medium",
+      "count": 8,
+      "operations": [
+        "PUT /opportunities/{id}",
+        "PUT /opportunities/{id}/restore",
+        "TRACE /batch/opportunities",
+        "TRACE /opportunities",
+        "TRACE /opportunities/duplicates",
+        "TRACE /opportunities/groupBy",
+        "TRACE /opportunities/merge",
+        "TRACE /opportunities/restore"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {
+    "POST /opportunities": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 9,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 43
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 21
+      }
+    },
+    "POST /opportunities/duplicates": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 48
+      },
+      "fuzzing": {
+        "accepted": 23,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 23
+      }
+    },
+    "GET /opportunities": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 3
+      },
+      "coverage": {
+        "accepted": 21,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 19,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      }
+    },
+    "GET /opportunities/groupBy": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 11,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 18
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 43
+      }
+    },
+    "PATCH /opportunities": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 52,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 15
+      }
+    },
+    "PATCH /opportunities/merge": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 44
+      }
+    },
+    "PATCH /opportunities/restore": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 5
+      },
+      "fuzzing": {
+        "accepted": 12,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 28
+      }
+    },
+    "DELETE /opportunities": {
+      "examples": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 6,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "fuzzing": {
+        "accepted": 20,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      }
+    },
+    "POST /batch/opportunities": {
+      "examples": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 1
+      },
+      "coverage": {
+        "accepted": 10,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 43
+      },
+      "fuzzing": {
+        "accepted": 22,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 23
+      }
+    },
+    "GET /opportunities/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 7,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 3
+      },
+      "fuzzing": {
+        "accepted": 34,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 7
+      }
+    },
+    "PATCH /opportunities/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 14,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 38
+      },
+      "fuzzing": {
+        "accepted": 35,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 14
+      }
+    },
+    "PATCH /opportunities/{id}/restore": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 7,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "fuzzing": {
+        "accepted": 33,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 11
+      }
+    },
+    "DELETE /opportunities/{id}": {
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 11,
+        "conflicts": 0,
+        "rejected": 10
+      }
+    }
+  },
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

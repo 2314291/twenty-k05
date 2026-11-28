@@ -1,0 +1,431 @@
+{
+  "schemathesis_version": "4.31.1",
+  "command": "st run C:\\kiem thu\\twenty-k05-main\\schema\\core.openapi.json --url http://localhost:3001/rest -H Authorization: [Filtered] --checks all --mode all --phases examples,coverage,fuzzing --max-examples 50 --seed 20261020 --generation-deterministic --include-path-regex ^/(batch/)?notes(/|$) --workers 1 --rate-limit auto --request-timeout 20 --continue-on-failure --no-color --report json,ndjson,junit,html --report-dir C:\\kiem thu\\twenty-k05-main\\reports\\SC1\\20261128-153719-seed20261020-notes",
+  "seed": 20261020,
+  "started_at": "2026-11-28T08:37:57.533342+00:00",
+  "running_time": 251.20820810005534,
+  "stop_reason": "completed",
+  "complete": true,
+  "exit_code": 1,
+  "operations": {
+    "total": 522,
+    "selected": 13,
+    "tested": 13,
+    "errored": 0,
+    "skipped": 0,
+    "skip_reasons": []
+  },
+  "phases": {
+    "examples": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "coverage": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "fuzzing": {
+      "status": "failure",
+      "skip_reason": null
+    },
+    "stateful": {
+      "status": "skip",
+      "skip_reason": "disabled"
+    }
+  },
+  "test_cases": {
+    "generated": 1637,
+    "with_failures": 50,
+    "unique_failures": 82,
+    "without_checks": 22,
+    "errored": 0
+  },
+  "failures": [
+    {
+      "type": "JsonSchemaError",
+      "title": "Response violates schema",
+      "severity": "high",
+      "count": 30,
+      "operations": [
+        "GET /notes",
+        "GET /notes/groupBy",
+        "GET /notes/{id}",
+        "PATCH /notes",
+        "PATCH /notes/restore",
+        "PATCH /notes/{id}",
+        "PATCH /notes/{id}/restore",
+        "POST /batch/notes",
+        "POST /notes"
+      ]
+    },
+    {
+      "type": "AcceptedNegativeData",
+      "title": "API accepted schema-violating request",
+      "severity": "medium",
+      "count": 4,
+      "operations": [
+        "DELETE /notes",
+        "GET /notes",
+        "POST /batch/notes",
+        "POST /notes"
+      ]
+    },
+    {
+      "type": "RejectedPositiveData",
+      "title": "API rejected schema-compliant request",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /notes",
+        "DELETE /notes/{id}",
+        "GET /notes",
+        "GET /notes/groupBy",
+        "GET /notes/{id}",
+        "PATCH /notes",
+        "PATCH /notes/merge",
+        "PATCH /notes/restore",
+        "PATCH /notes/{id}",
+        "PATCH /notes/{id}/restore",
+        "POST /batch/notes",
+        "POST /notes",
+        "POST /notes/duplicates"
+      ]
+    },
+    {
+      "type": "MissingHeaderNotRejected",
+      "title": "Missing header not rejected",
+      "severity": "medium",
+      "count": 13,
+      "operations": [
+        "DELETE /notes",
+        "DELETE /notes/{id}",
+        "GET /notes",
+        "GET /notes/groupBy",
+        "GET /notes/{id}",
+        "PATCH /notes",
+        "PATCH /notes/merge",
+        "PATCH /notes/restore",
+        "PATCH /notes/{id}",
+        "PATCH /notes/{id}/restore",
+        "POST /batch/notes",
+        "POST /notes",
+        "POST /notes/duplicates"
+      ]
+    },
+    {
+      "type": "UndefinedStatusCode",
+      "title": "Undocumented HTTP status code",
+      "severity": "medium",
+      "count": 14,
+      "operations": [
+        "DELETE /notes",
+        "DELETE /notes/{id}",
+        "GET /notes",
+        "GET /notes/groupBy",
+        "GET /notes/{id}",
+        "PATCH /notes",
+        "PATCH /notes/merge",
+        "PATCH /notes/restore",
+        "PATCH /notes/{id}/restore",
+        "POST /batch/notes",
+        "POST /notes",
+        "POST /notes/duplicates"
+      ]
+    },
+    {
+      "type": "UnsupportedMethodResponse",
+      "title": "Unsupported methods",
+      "severity": "medium",
+      "count": 8,
+      "operations": [
+        "PUT /notes/{id}",
+        "PUT /notes/{id}/restore",
+        "TRACE /batch/notes",
+        "TRACE /notes",
+        "TRACE /notes/duplicates",
+        "TRACE /notes/groupBy",
+        "TRACE /notes/merge",
+        "TRACE /notes/restore"
+      ]
+    }
+  ],
+  "errors": [],
+  "baseline": null,
+  "filtered": 0,
+  "warnings": {
+    "missing_auth": [],
+    "base_url_mismatch": [],
+    "missing_test_data": [],
+    "validation_mismatch": [],
+    "missing_deserializer": [],
+    "unused_openapi_auth": [],
+    "unsupported_regex": [],
+    "method_not_allowed": [],
+    "constants_extraction": [],
+    "unmatched_filter": [],
+    "unresolvable_reference": [],
+    "low_valid_rate": [],
+    "rate_limited": [],
+    "dictionary_mismatch": []
+  },
+  "valid_rates": {
+    "POST /notes": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 32
+      },
+      "fuzzing": {
+        "accepted": 25,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      }
+    },
+    "POST /notes/duplicates": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 34
+      },
+      "fuzzing": {
+        "accepted": 16,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 17
+      }
+    },
+    "GET /notes": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 7,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 16
+      },
+      "fuzzing": {
+        "accepted": 12,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      }
+    },
+    "GET /notes/groupBy": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 11,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 18
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 40
+      }
+    },
+    "PATCH /notes": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 34
+      },
+      "fuzzing": {
+        "accepted": 24,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 10
+      }
+    },
+    "PATCH /notes/merge": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 8
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 40
+      }
+    },
+    "PATCH /notes/restore": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 9
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 41
+      }
+    },
+    "DELETE /notes": {
+      "examples": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 5,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 27,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 5
+      }
+    },
+    "POST /batch/notes": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "coverage": {
+        "accepted": 2,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 33
+      },
+      "fuzzing": {
+        "accepted": 3,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 16
+      }
+    },
+    "GET /notes/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 2,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 8
+      },
+      "fuzzing": {
+        "accepted": 31,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      }
+    },
+    "PATCH /notes/{id}": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 1,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 33
+      },
+      "fuzzing": {
+        "accepted": 23,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 11
+      }
+    },
+    "PATCH /notes/{id}/restore": {
+      "examples": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 4
+      },
+      "coverage": {
+        "accepted": 2,
+        "unreachable": 2,
+        "conflicts": 0,
+        "rejected": 9
+      },
+      "fuzzing": {
+        "accepted": 41,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 6
+      }
+    },
+    "DELETE /notes/{id}": {
+      "coverage": {
+        "accepted": 0,
+        "unreachable": 0,
+        "conflicts": 0,
+        "rejected": 2
+      },
+      "fuzzing": {
+        "accepted": 0,
+        "unreachable": 1,
+        "conflicts": 0,
+        "rejected": 47
+      }
+    }
+  },
+  "auth": {
+    "reauth_count": 0,
+    "reauth_broke": false
+  }
+}

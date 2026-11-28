@@ -1,0 +1,535 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /opportunities": 77,
+      "DELETE /opportunities/{id}": 40,
+      "GET /opportunities": 114,
+      "GET /opportunities/groupBy": 136,
+      "GET /opportunities/{id}": 87,
+      "PATCH /opportunities": 211,
+      "PATCH /opportunities/merge": 113,
+      "PATCH /opportunities/restore": 90,
+      "PATCH /opportunities/{id}": 210,
+      "PATCH /opportunities/{id}/restore": 89,
+      "POST /batch/opportunities": 230,
+      "POST /opportunities": 221,
+      "POST /opportunities/duplicates": 235
+    },
+    "unique_failures": [
+      "DELETE /opportunities/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /opportunities/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /opportunities|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /opportunities|negative_data_rejection|AcceptedNegativeData|3",
+      "DELETE /opportunities|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/groupBy|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /opportunities/groupBy|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /opportunities/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /opportunities/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/groupBy|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /opportunities/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /opportunities/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /opportunities/{id}|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /opportunities/{id}|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /opportunities|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /opportunities|negative_data_rejection|AcceptedNegativeData|2",
+      "GET /opportunities|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /opportunities|response_schema_conformance|JsonSchemaError|2",
+      "GET /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/merge|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /opportunities/merge|positive_data_acceptance|RejectedPositiveData|10",
+      "PATCH /opportunities/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/merge|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /opportunities/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /opportunities/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /opportunities/restore|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /opportunities/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /opportunities/{id}/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /opportunities/{id}/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /opportunities/{id}/restore|response_schema_conformance|JsonSchemaError|2",
+      "PATCH /opportunities/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities/{id}/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /opportunities/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /opportunities/{id}|negative_data_rejection|AcceptedNegativeData|1",
+      "PATCH /opportunities/{id}|positive_data_acceptance|RejectedPositiveData|9",
+      "PATCH /opportunities/{id}|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /opportunities/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /opportunities|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /opportunities|negative_data_rejection|AcceptedNegativeData|13",
+      "PATCH /opportunities|positive_data_acceptance|RejectedPositiveData|3",
+      "PATCH /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/opportunities|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /batch/opportunities|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /batch/opportunities|positive_data_acceptance|RejectedPositiveData|1",
+      "POST /batch/opportunities|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/opportunities|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /opportunities/duplicates|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /opportunities/duplicates|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /opportunities/duplicates|positive_data_acceptance|RejectedPositiveData|5",
+      "POST /opportunities/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities/duplicates|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /opportunities|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /opportunities|positive_data_acceptance|RejectedPositiveData|6",
+      "POST /opportunities|status_code_conformance|UndefinedStatusCode|1",
+      "POST /opportunities|unsupported_method|UnsupportedMethodResponse|1"
+    ],
+    "codes": {
+      "200": 398,
+      "201": 45,
+      "204": 8,
+      "400": 1331,
+      "401": 11,
+      "403": 21,
+      "404": 39
+    }
+  },
+  "tested": [
+    "DELETE /opportunities",
+    "DELETE /opportunities/{id}",
+    "GET /opportunities",
+    "GET /opportunities/groupBy",
+    "GET /opportunities/{id}",
+    "PATCH /opportunities",
+    "PATCH /opportunities/merge",
+    "PATCH /opportunities/restore",
+    "PATCH /opportunities/{id}",
+    "PATCH /opportunities/{id}/restore",
+    "POST /batch/opportunities",
+    "POST /opportunities",
+    "POST /opportunities/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 1853,
+  "ops_ge_50": 12,
+  "five_xx": 0,
+  "running_time": 727.4900842000498,
+  "checks": {
+    "allow_header_conformance": {
+      "success": 1831,
+      "failure": 0
+    },
+    "content_type_conformance": {
+      "success": 1761,
+      "failure": 0
+    },
+    "ensure_resource_availability": {
+      "success": 1761,
+      "failure": 0
+    },
+    "ignored_auth": {
+      "success": 1761,
+      "failure": 0
+    },
+    "max_response_time": {
+      "success": 1831,
+      "failure": 0
+    },
+    "missing_required_header": {
+      "success": 1818,
+      "failure": 13
+    },
+    "negative_data_rejection": {
+      "success": 1726,
+      "failure": 35
+    },
+    "not_a_server_error": {
+      "success": 1831,
+      "failure": 0
+    },
+    "object_level_authorization": {
+      "success": 1831,
+      "failure": 0
+    },
+    "positive_data_acceptance": {
+      "success": 1275,
+      "failure": 486
+    },
+    "response_headers_conformance": {
+      "success": 1761,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 1602,
+      "failure": 921
+    },
+    "status_code_conformance": {
+      "success": 1613,
+      "failure": 148
+    },
+    "unsupported_method": {
+      "success": 1792,
+      "failure": 39
+    },
+    "use_after_free": {
+      "success": 1761,
+      "failure": 0
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /opportunities",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 13
+    },
+    {
+      "operation": "DELETE /opportunities",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 10
+    },
+    {
+      "operation": "DELETE /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /opportunities/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /opportunities/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 12
+    },
+    {
+      "operation": "DELETE /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 12
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 3
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 13
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 429
+    },
+    {
+      "operation": "GET /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 63
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 116
+    },
+    {
+      "operation": "GET /opportunities/groupBy",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 10
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 145
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 8
+    },
+    {
+      "operation": "GET /opportunities/{id}",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /opportunities",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 14
+    },
+    {
+      "operation": "PATCH /opportunities",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 19
+    },
+    {
+      "operation": "PATCH /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/merge",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/merge",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 54
+    },
+    {
+      "operation": "PATCH /opportunities/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/merge",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 35
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 18
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 52
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 164
+    },
+    {
+      "operation": "PATCH /opportunities/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 14
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 146
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /opportunities/{id}/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 4
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 67
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 9
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/opportunities",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "POST /opportunities",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 65
+    },
+    {
+      "operation": "POST /opportunities",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 3
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 72
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /opportunities/duplicates",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    }
+  ]
+}
