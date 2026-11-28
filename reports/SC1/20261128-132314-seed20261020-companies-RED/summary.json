@@ -1,0 +1,556 @@
+{
+  "seed": 20261020,
+  "signature": {
+    "per_op_cases": {
+      "DELETE /companies": 77,
+      "DELETE /companies/{id}": 64,
+      "GET /companies": 114,
+      "GET /companies/groupBy": 136,
+      "GET /companies/{id}": 87,
+      "PATCH /companies": 330,
+      "PATCH /companies/merge": 113,
+      "PATCH /companies/restore": 90,
+      "PATCH /companies/{id}": 329,
+      "PATCH /companies/{id}/restore": 89,
+      "POST /batch/companies": 349,
+      "POST /companies": 340,
+      "POST /companies/duplicates": 354
+    },
+    "unique_failures": [
+      "DELETE /companies/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /companies/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "DELETE /companies|missing_required_header|MissingHeaderNotRejected|1",
+      "DELETE /companies|negative_data_rejection|AcceptedNegativeData|1",
+      "DELETE /companies|positive_data_acceptance|RejectedPositiveData|1",
+      "DELETE /companies|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/groupBy|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /companies/groupBy|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /companies/groupBy|response_schema_conformance|JsonSchemaError|1",
+      "GET /companies/groupBy|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/groupBy|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /companies/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /companies/{id}|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /companies/{id}|response_schema_conformance|JsonSchemaError|8",
+      "GET /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "GET /companies/{id}|unsupported_method|UnsupportedMethodResponse|1",
+      "GET /companies|missing_required_header|MissingHeaderNotRejected|1",
+      "GET /companies|negative_data_rejection|AcceptedNegativeData|1",
+      "GET /companies|positive_data_acceptance|RejectedPositiveData|1",
+      "GET /companies|response_schema_conformance|JsonSchemaError|3",
+      "GET /companies|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/merge|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /companies/merge|positive_data_acceptance|RejectedPositiveData|7",
+      "PATCH /companies/merge|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/merge|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /companies/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /companies/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /companies/restore|response_schema_conformance|JsonSchemaError|4",
+      "PATCH /companies/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /companies/{id}/restore|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /companies/{id}/restore|positive_data_acceptance|RejectedPositiveData|1",
+      "PATCH /companies/{id}/restore|response_schema_conformance|JsonSchemaError|9",
+      "PATCH /companies/{id}/restore|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies/{id}/restore|unsupported_method|UnsupportedMethodResponse|1",
+      "PATCH /companies/{id}|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /companies/{id}|negative_data_rejection|AcceptedNegativeData|2",
+      "PATCH /companies/{id}|positive_data_acceptance|RejectedPositiveData|4",
+      "PATCH /companies/{id}|response_schema_conformance|JsonSchemaError|7",
+      "PATCH /companies/{id}|status_code_conformance|UndefinedStatusCode|1",
+      "PATCH /companies|missing_required_header|MissingHeaderNotRejected|1",
+      "PATCH /companies|negative_data_rejection|AcceptedNegativeData|33",
+      "PATCH /companies|positive_data_acceptance|RejectedPositiveData|8",
+      "PATCH /companies|response_schema_conformance|JsonSchemaError|1",
+      "PATCH /companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/companies|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /batch/companies|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /batch/companies|positive_data_acceptance|RejectedPositiveData|1",
+      "POST /batch/companies|response_schema_conformance|JsonSchemaError|1",
+      "POST /batch/companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /batch/companies|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /companies/duplicates|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /companies/duplicates|negative_data_rejection|AcceptedNegativeData|2",
+      "POST /companies/duplicates|positive_data_acceptance|RejectedPositiveData|4",
+      "POST /companies/duplicates|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies/duplicates|unsupported_method|UnsupportedMethodResponse|1",
+      "POST /companies|missing_required_header|MissingHeaderNotRejected|1",
+      "POST /companies|negative_data_rejection|AcceptedNegativeData|1",
+      "POST /companies|positive_data_acceptance|RejectedPositiveData|2",
+      "POST /companies|response_schema_conformance|JsonSchemaError|1",
+      "POST /companies|status_code_conformance|UndefinedStatusCode|1",
+      "POST /companies|unsupported_method|UnsupportedMethodResponse|1"
+    ],
+    "codes": {
+      "200": 455,
+      "201": 47,
+      "204": 8,
+      "400": 1871,
+      "401": 11,
+      "403": 21,
+      "404": 59
+    }
+  },
+  "tested": [
+    "DELETE /companies",
+    "DELETE /companies/{id}",
+    "GET /companies",
+    "GET /companies/groupBy",
+    "GET /companies/{id}",
+    "PATCH /companies",
+    "PATCH /companies/merge",
+    "PATCH /companies/restore",
+    "PATCH /companies/{id}",
+    "PATCH /companies/{id}/restore",
+    "POST /batch/companies",
+    "POST /companies",
+    "POST /companies/duplicates"
+  ],
+  "schema_operations": 13,
+  "test_cases": 2472,
+  "ops_ge_50": 13,
+  "five_xx": 0,
+  "running_time": 1111.9435898000374,
+  "checks": {
+    "allow_header_conformance": {
+      "success": 2450,
+      "failure": 0
+    },
+    "content_type_conformance": {
+      "success": 2380,
+      "failure": 0
+    },
+    "ensure_resource_availability": {
+      "success": 2380,
+      "failure": 0
+    },
+    "ignored_auth": {
+      "success": 2380,
+      "failure": 0
+    },
+    "max_response_time": {
+      "success": 2450,
+      "failure": 0
+    },
+    "missing_required_header": {
+      "success": 2437,
+      "failure": 13
+    },
+    "negative_data_rejection": {
+      "success": 2311,
+      "failure": 69
+    },
+    "not_a_server_error": {
+      "success": 2450,
+      "failure": 0
+    },
+    "object_level_authorization": {
+      "success": 2450,
+      "failure": 0
+    },
+    "positive_data_acceptance": {
+      "success": 1770,
+      "failure": 610
+    },
+    "response_headers_conformance": {
+      "success": 2380,
+      "failure": 0
+    },
+    "response_schema_conformance": {
+      "success": 2152,
+      "failure": 1066
+    },
+    "status_code_conformance": {
+      "success": 2213,
+      "failure": 167
+    },
+    "unsupported_method": {
+      "success": 2411,
+      "failure": 39
+    },
+    "use_after_free": {
+      "success": 2380,
+      "failure": 0
+    }
+  },
+  "failures": [
+    {
+      "operation": "DELETE /companies",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /companies",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 13
+    },
+    {
+      "operation": "DELETE /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /companies/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "DELETE /companies/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 20
+    },
+    {
+      "operation": "DELETE /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 35
+    },
+    {
+      "operation": "GET /companies",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 16
+    },
+    {
+      "operation": "GET /companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 297
+    },
+    {
+      "operation": "GET /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 65
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 10
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 116
+    },
+    {
+      "operation": "GET /companies/groupBy",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 11
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 267
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 3
+    },
+    {
+      "operation": "GET /companies/{id}",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 59
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 26
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/merge",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/merge",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 56
+    },
+    {
+      "operation": "PATCH /companies/merge",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies/merge",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 44
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 17
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 89
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 209
+    },
+    {
+      "operation": "PATCH /companies/{id}",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 12
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 241
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 2
+    },
+    {
+      "operation": "PATCH /companies/{id}/restore",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 4
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 3
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 78
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 12
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /batch/companies",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    },
+    {
+      "operation": "POST /companies",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 92
+    },
+    {
+      "operation": "POST /companies",
+      "check": "response_schema_conformance",
+      "type": "JsonSchemaError",
+      "count": 11
+    },
+    {
+      "operation": "POST /companies",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 3
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "missing_required_header",
+      "type": "MissingHeaderNotRejected",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "negative_data_rejection",
+      "type": "AcceptedNegativeData",
+      "count": 2
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "positive_data_acceptance",
+      "type": "RejectedPositiveData",
+      "count": 88
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "status_code_conformance",
+      "type": "UndefinedStatusCode",
+      "count": 1
+    },
+    {
+      "operation": "POST /companies/duplicates",
+      "check": "unsupported_method",
+      "type": "UnsupportedMethodResponse",
+      "count": 6
+    }
+  ]
+}
