@@ -58,5 +58,40 @@ r.c.http = refused
 mark, src = r.data_mark("k")
 check("không kết nối được máy chủ: không dừng chương trình, dùng giờ máy", src == "giờ máy chạy test")
 
+# --- seed_check: đếm bản ghi seed còn sau lần chạy (phát hiện lần chạy bị lệch như D-11 ngày 27/11) ---
+import json as _json  # noqa: E402
+import tempfile as _tf  # noqa: E402
+from urllib.parse import parse_qs, urlparse  # noqa: E402
+
+SEED = {"companies": [f"00000000-0000-4000-8000-0000000000{i:02d}" for i in range(3)],
+        "people": [f"00000000-0000-4000-8000-0000000001{i:02d}" for i in range(2)], "notes": []}
+r.MANIFEST = Path(_tf.mkdtemp()) / "seed-manifest.json"
+r.MANIFEST.write_text(_json.dumps(SEED), encoding="utf-8")
+seen = []
+
+
+def fake_db(alive, status=200):
+    def http(method, path, body=None, key=None, **kw):
+        u = urlparse(path)
+        obj = u.path.strip("/")
+        flt = parse_qs(u.query).get("filter", [""])[0]
+        seen.append((method, obj, flt))
+        asked = _json.loads(flt[len("id[in]:"):]) if flt.startswith("id[in]:") else []
+        return status, {"data": {obj: [{"id": i} for i in asked if i in alive]}}, 0.01
+    return http
+
+
+r.c.http = fake_db(set(SEED["companies"]) | set(SEED["people"]))
+check("seed còn đủ: [còn, tổng] theo từng object có seed", r.seed_check("k") == {"companies": [3, 3], "people": [2, 2]})
+check("seed_check chỉ GET, lọc id[in] đúng danh sách seed",
+      all(m == "GET" for m, _, _ in seen) and seen[0][2] == "id[in]:" + _json.dumps(SEED["companies"], separators=(",", ":")))
+r.c.http = fake_db({SEED["people"][0]})
+check("mất seed (D-11): companies 0/3, people 1/2", r.seed_check("k") == {"companies": [0, 3], "people": [1, 2]})
+r.c.http = fake_db(set(), status=500)
+check("máy chủ lỗi: bỏ qua object đó, không báo mất seed nhầm", r.seed_check("k") == {})
+check("không có key: không kiểm", r.seed_check(None) == {})
+r.c.http = refused
+check("không kết nối được: không dừng chương trình", r.seed_check("k") == {})
+
 print(f"\n{'ĐẠT' if not failures else 'LỖI'}: {len(failures)} ca lỗi")
 sys.exit(1 if failures else 0)

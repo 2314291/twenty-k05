@@ -52,7 +52,8 @@ def run_meta(run_dir: Path) -> dict:
         obj = "companies" if scenario == "SC1" else ALL
     variant = cfg.get("variant") or next((v for v in ("none", "wrong", "limited") if f"-{v}" in name), "valid")
     label = "RED" if "-RED" in name or ".red." in str(cfg.get("schema", "")) else ""
-    return {"scenario": scenario, "object": obj, "variant": variant, "label": label, "dir": run_dir}
+    return {"scenario": scenario, "object": obj, "variant": variant, "label": label, "dir": run_dir,
+            "seed_lost": bool(cfg.get("seed_lost")), "seed_after": cfg.get("seed_after") or {}}
 
 
 def groups(summary: dict) -> set[tuple]:
@@ -81,12 +82,15 @@ def scenario_name(m: dict) -> str:
     return s + (f" ({m['variant']})" if m["variant"] != "valid" else "")
 
 
+REJECTED = "__bi_loai__"  # khoá giữ các lần chạy bị loại vì mất seed giữa chừng (run_k05.py ghi seed_lost)
+
+
 def collect(reports: Path) -> dict:
     runs = collections.defaultdict(list)
     for sj in sorted(reports.glob("SC*/*/summary.json")):
         m = run_meta(sj.parent)
         m["summary"] = json.loads(sj.read_text(encoding="utf-8"))
-        runs[(m["scenario"], m["label"], m["variant"], m["object"])].append(m)
+        runs[REJECTED if m["seed_lost"] else (m["scenario"], m["label"], m["variant"], m["object"])].append(m)
     for v in runs.values():
         v.sort(key=lambda m: m["dir"].name)
     return runs
@@ -100,6 +104,14 @@ def render(runs: dict) -> str:
     lines = ["# Thống kê kết quả K05 (Phần G)", "",
              "Tạo bởi `python scripts/thong_ke.py` từ `reports/*/*/summary.json`. Mỗi dòng là lần chạy mới nhất; "
              "cột tái lập so tập nhóm lỗi (operation, check, loại) với lần chạy trước đó của cùng kịch bản và object.", ""]
+    runs = dict(runs)
+    rejected = runs.pop(REJECTED, [])
+    if rejected:
+        lines += ["**Lần chạy bị loại khỏi thống kê** (mất bản ghi seed giữa chừng, `seed_lost` trong run-config.json; "
+                  "các ca theo id seed sau đó nhận 404 nên số lỗi bị lệch, xem D-11):", ""]
+        lines += [f"- `{m['scenario']}/{m['dir'].name}`: seed còn " +
+                  ", ".join(f"{o} {a}/{t}" for o, (a, t) in m["seed_after"].items()) for m in rejected]
+        lines.append("")
     if not runs:
         return "\n".join(lines + ["Chưa có lần chạy nào có `summary.json`."])
 

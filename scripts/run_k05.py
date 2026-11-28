@@ -22,6 +22,8 @@ import os
 import shutil
 import subprocess
 import sys
+import time
+import urllib.parse
 from pathlib import Path
 
 import k05_common as c
@@ -109,6 +111,41 @@ def data_mark(key: str | None) -> tuple[str, str]:
     if newest and newest + dt.timedelta(milliseconds=1) > local:
         return iso_ms(newest + dt.timedelta(milliseconds=1)), "createdAt mới nhất trong DB (đồng hồ máy chủ đi trước)"
     return iso_ms(local), src
+
+
+def seed_check(key: str | None) -> dict:
+    """Đếm bản ghi seed (theo reports/seed-manifest.json) còn đọc được sau lần chạy: {đối tượng: [còn, tổng]}.
+
+    Lý do: ngày 27/11 `DELETE /{đối tượng}/groupBy` (D-11) lọt qua hook, xoá sạch seed giữa lần chạy, các ca theo
+    id seed về sau nhận 404 và số lỗi I2/I5 bị đếm lệch mà không ai biết cho tới khi Thuận soi ndjson.
+    Mất seed thì lần chạy KHÔNG dùng được cho thống kê (thong_ke.py đánh dấu). Không kiểm được thì trả {}."""
+    if not key:
+        return {}
+    try:
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    result = {}
+    for obj in OBJECTS:
+        ids = [i for i in manifest.get(obj, []) if isinstance(i, str)]
+        if not ids:
+            continue
+        query = urllib.parse.urlencode({"filter": "id[in]:[" + ",".join(f'"{i}"' for i in ids) + "]",
+                                        "limit": str(len(ids)), "depth": "0"})
+        for _ in range(6):
+            try:
+                status, parsed, _ = c.http("GET", f"/{obj}?{query}", key=key)
+            except SystemExit:
+                return result
+            if status != 429:
+                break
+            wait = parsed.get("retryAfterSeconds", 10) if isinstance(parsed, dict) else 10
+            time.sleep(max(1, min(int(wait or 10), 60)))
+        rows = (((parsed or {}).get("data") or {}).get(obj)) if status == 200 and isinstance(parsed, dict) else None
+        if isinstance(rows, list):
+            alive = {r.get("id") for r in rows if isinstance(r, dict)}
+            result[obj] = [len(alive & set(ids)), len(ids)]
+    return result
 
 
 def find_st() -> list[str]:
@@ -257,6 +294,22 @@ def main() -> int:
     print(text[-3500:])
     n = c.redact_tree(out, secrets)
     print(f"\nExit code của st: {proc.returncode} (0 = không lỗi, 1 = có lỗi test). Đã redact key trong {n} file.")
+
+    # Sau khi chạy: seed còn đủ không? (mất seed = ca theo id seed nhận 404, số lỗi bị đếm lệch)
+    seeds = seed_check(os.environ.get("TWENTY_API_KEY", "").strip() or None)
+    lost = {o: v for o, v in seeds.items() if v[0] < v[1]}
+    cfg = json.loads((out / "run-config.json").read_text(encoding="utf-8"))
+    cfg["seed_after"] = seeds
+    cfg["seed_lost"] = bool(lost)
+    (out / "run-config.json").write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
+    if lost:
+        print("\n" + "!" * 78)
+        print("CẢNH BÁO: lần chạy này LÀM MẤT BẢN GHI SEED: " + ", ".join(f"{o} còn {a}/{t}" for o, (a, t) in lost.items()))
+        print("Các ca theo id seed sau thời điểm đó nhận 404, số lỗi I2/I5 bị đếm lệch. KHÔNG dùng lần chạy này để")
+        print("thống kê; tìm request ghi hàng loạt lọt hook trong ndjson (xem D-11), sửa hook rồi chạy lại với --reset.")
+        print("!" * 78)
+    elif seeds:
+        print("Seed sau khi chạy: " + ", ".join(f"{o} {a}/{t}" for o, (a, t) in seeds.items()) + " (còn đủ)")
 
     try:
         import summarize

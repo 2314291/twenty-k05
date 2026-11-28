@@ -40,6 +40,7 @@ Rủi ro và biện pháp:
 | Rủi ro | Biện pháp |
 |---|---|
 | Phase `examples` dùng ví dụ `filter` của schema, khớp mọi bản ghi; `DELETE /{obj}` kèm `soft_delete=false` xoá vĩnh viễn cả bảng (đã xảy ra 16/10: 209 công ty) | Hook bọc filter của ghi hàng loạt bằng `createdAt[gte]:"<mốc>"`; `--reset` trước từng object |
+| Check `unsupported_method` gửi `DELETE`/`PATCH`/`PUT` tới `/{obj}/groupBy`, `/duplicates`, `/merge`, `/batch/{obj}`; Twenty hiểu thành ghi hàng loạt theo filter (D-11: SC1 27/11 xoá sạch cả 5 object, các ca theo id seed sau đó nhận 404 nên I2, I5 bị đếm lệch) | Hook bọc filter cho mọi request Twenty hiểu thành ghi hàng loạt (đường dẫn và phương thức lấy từ `parse-core-path.utils.ts`); sau mỗi lần chạy đếm lại seed, mất seed thì `thong_ke.py` loại lần chạy đó |
 | Đồng hồ container Docker đi trước Windows làm bản ghi seed lọt qua mốc (SC2 26/11 mất 6/30 task) | Mốc = max(giờ máy + 1 giây, `createdAt` mới nhất trong DB + 1 ms); ghi nguồn mốc ở `run-config.json` |
 | Giới hạn 100 request mỗi 60 giây mỗi key (429) | `--workers 1 --rate-limit auto`; không chạy cùng lúc với người khác trên cùng key |
 | Bộ lọc lỗi của máy chủ đổi lỗi nội bộ thành 400, trông như "từ chối đúng" | Đọc `messages` trong body của các ca 400 khả nghi (ví dụ lộ `TypeError`, lỗi PostgreSQL) |
@@ -83,7 +84,8 @@ Mọi operation đều chịu thêm I6 (Schemathesis gửi lại request khi b�
 | Object | Lần chạy | Operation | Test case | 5xx | Nhóm lỗi | Tái lập |
 |---|---|---|---|---|---|---|
 | Companies | 16/10/2026, harness giữa kỳ (chưa có hook) | 13/13 | 1248 | 0 | 52 | 50/52 nhóm trùng lần 2; cả hai lần chạy trên bảng gần rỗng sau request thứ 34 |
-| Companies | Chạy chính thức (chờ) | | | | | |
+| Companies | 27/11/2026 (Quang, Thuận) | | | | | **Loại**: D-11 xoá sạch seed giữa lần chạy (hook cũ), số lỗi I2, I5 bị lệch; lưu ở `reports/SC1/_lech-D11/` làm bằng chứng D-11 |
+| Companies | Chạy chính thức (chờ, sau khi sửa hook 28/11) | | | | | |
 | People | Chạy chính thức (chờ) | | | | | |
 | Opportunities | Chạy chính thức (chờ) | | | | | |
 | Notes | Chạy chính thức (chờ) | | | | | |
@@ -141,6 +143,7 @@ Khi có key chỉ đọc (`TWENTY_API_KEY_LIMITED`) bổ sung P5-07 (đọc → 
 
 ## 6. Còn phải làm (Quang)
 
+0. ~~Sửa hook để `unsupported_method` không xoá dữ liệu (D-11, Thuận báo 28/11)~~: xong 28/11, thêm đếm seed sau mỗi lần chạy.
 1. Chạy chính thức SC1 trên 5 object hai lần: `python scripts/run_k05.py SC1 --object all --reset` (hai lần), rồi `python scripts/thong_ke.py`; điền mục 2.3.
 2. Chạy lại RED với harness hiện tại.
 3. Tái hiện từng nhóm lỗi mới của SC1 bằng `curl`, phân loại, ghi vào bảng lỗi chung (mã D-11 trở đi, báo Thuận).

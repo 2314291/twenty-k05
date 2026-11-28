@@ -63,8 +63,26 @@ c = case("PATCH", "/companies", query={"filter": ["a[eq]:1", 5]})
 h.before_call(None, c, {})
 check("filter dạng mảng (ca âm): bọc phần tử chuỗi, giữ phần tử lạ", c.query["filter"] == [f"and(a[eq]:1,{GUARD})", 5])
 
+# D-11: ca "phương thức không khai báo" của check unsupported_method. Twenty đọc /groupBy, /duplicates, /merge,
+# /batch/{obj} thành "không id" với mọi phương thức -> DELETE xoá hàng loạt, PATCH/PUT cập nhật hàng loạt theo filter.
+c = case("DELETE", "/tasks/groupBy", query={"group_by": '[{"updatedAt": true}]', "filter": 'createdAt[gte]:"2023-01-01"'},
+         mode="negative")
+h.before_call(None, c, {})
+check("D-11: DELETE /tasks/groupBy (ca gốc 27/11) bị bọc filter",
+      c.query["filter"] == f'and(createdAt[gte]:"2023-01-01",{GUARD})' and c.query["group_by"] == '[{"updatedAt": true}]')
+for method, path in [("DELETE", "/companies/duplicates"), ("DELETE", "/companies/merge"), ("DELETE", "/batch/companies"),
+                     ("PATCH", "/companies/groupBy"), ("PATCH", "/companies/duplicates"), ("PATCH", "/batch/people"),
+                     ("PUT", "/companies"), ("PUT", "/companies/groupBy"), ("PUT", "/companies/merge"),
+                     ("PUT", "/batch/companies")]:
+    c = case(method, path, query={"depth": "0"}, mode="negative")
+    h.before_call(None, c, {})
+    check(f"D-11: {method} {path} (không filter) thêm filter chặn", c.query == {"depth": "0", "filter": GUARD})
+
 for method, path in [("GET", "/companies"), ("POST", "/companies"), ("PATCH", "/companies/restore"),
-                     ("PATCH", "/companies/{id}"), ("DELETE", "/companies/{id}"), ("POST", "/batch/companies")]:
+                     ("PATCH", "/companies/{id}"), ("DELETE", "/companies/{id}"), ("POST", "/batch/companies"),
+                     ("GET", "/companies/groupBy"), ("POST", "/companies/groupBy"), ("POST", "/companies/duplicates"),
+                     ("PATCH", "/companies/merge"), ("PUT", "/companies/{id}"), ("DELETE", "/companies/restore"),
+                     ("DELETE", "/companies/{id}/restore"), ("DELETE", "/companies/groupBy/x")]:
     c = case(method, path, query={"filter": "x[eq]:1"})
     h.before_call(None, c, {})
     check(f"không đụng {method} {path}", c.query == {"filter": "x[eq]:1"})

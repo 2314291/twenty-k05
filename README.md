@@ -57,11 +57,11 @@ Tuỳ chọn hay dùng của `run_k05.py`:
 | `--no-protect`, `--no-real-ids`, `--no-hooks` | Tắt từng phần của hook (không nên dùng khi chạy chính thức) |
 
 Hook `hooks/k05_hooks.py` được nạp tự động:
-- `DELETE`/`PATCH /{obj}` hàng loạt chỉ chạm bản ghi tạo sau mốc bắt đầu (mốc lấy theo đồng hồ máy chủ, chống lệch giờ Docker và Windows).
+- Ghi hàng loạt theo filter (`DELETE`/`PATCH`/`PUT` tới `/{obj}`, `/batch/{obj}`, `/{obj}/groupBy`, `/{obj}/duplicates`, `/{obj}/merge`, kể cả ca sai phương thức của `unsupported_method`, xem D-11) chỉ chạm bản ghi tạo sau mốc bắt đầu (mốc lấy theo đồng hồ máy chủ, chống lệch giờ Docker và Windows).
 - `DELETE /{obj}/{id}` và `PATCH /{obj}/merge` không được chạm bản ghi seed.
 - Ca dương theo `{id}` dùng id seed thật thay vì UUID ngẫu nhiên.
 
-Chi tiết ở `hooks/README.md`.
+Sau khi chạy, harness đếm lại bản ghi seed; mất seed thì in cảnh báo, ghi `seed_lost` vào `run-config.json` và `thong_ke.py` không tính lần chạy đó. Chi tiết ở `hooks/README.md`.
 
 Giới hạn tốc độ của Twenty là 100 request mỗi 60 giây mỗi key: harness chạy `--workers 1 --rate-limit auto`. Không chạy cùng lúc hai kịch bản trên cùng một key.
 
@@ -73,7 +73,7 @@ Mỗi lần chạy tạo `reports/<SCx>/<thời điểm>-seed<seed>-<object>[-<v
 |---|---|
 | `summary.md`, `summary.json` | Test case theo operation, mã trạng thái, số đạt/lỗi theo check, nhóm lỗi duy nhất, độ phủ operation |
 | `REPRODUCERS.md`, `reproducers/*.sh` | Lệnh `curl` tái hiện từng nhóm lỗi |
-| `run-config.json` | Kịch bản, object, seed, mốc dữ liệu, số bản ghi seed, hook bật/tắt, lệnh đã chạy |
+| `run-config.json` | Kịch bản, object, seed, mốc dữ liệu, số bản ghi seed trước và sau khi chạy (`seed_after`, `seed_lost`), hook bật/tắt, lệnh đã chạy |
 | `st-output.txt`, `json-*`, `ndjson-*`, `junit-*`, `html-*` | Log và báo cáo gốc của Schemathesis (key đã thay bằng `<REDACTED>`) |
 
 ```bash
