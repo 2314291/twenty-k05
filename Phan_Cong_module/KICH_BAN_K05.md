@@ -70,11 +70,15 @@ Do nhóm tự đặt trong `SPEC.md` (thầy không quy định con số): mỗi
 |---|---|
 | Người chạy | Thuận (Quang hỗ trợ harness) |
 | Mục tiêu | Mọi input vi phạm schema phải bị từ chối rõ ràng bằng 4xx, không nhận nhầm, không 5xx |
-| Phạm vi | 5 object × 13 operation |
-| Điều kiện đầu | Như SC1 |
-| Input | `--mode negative`, `--phases coverage,fuzzing`, `--max-examples 50` |
-| Lệnh | `python scripts/run_k05.py SC2` |
-| Kỳ vọng / bất biến | I1, I2, I3, I4 |
+| Phạm vi | 5 object × 13 operation = 65 operation |
+| Điều kiện đầu | Twenty chạy ở `localhost:3001`; `TWENTY_API_KEY` đủ quyền trong `.env`; đã tải `schema/core.openapi.json`; seed lại trước **mỗi** object (`--reset`: `seed.py --cleanup` rồi `seed.py --count 30`) |
+| Dữ liệu test | 30 bản ghi `K05-` mỗi object (Companies, People, Opportunities, Notes, Tasks), seed `20261020`; id lấy từ `reports/seed-manifest.json`. Ca tay P2 tạo bản ghi riêng tiền tố `K05-A-`, `K05-B-` và xóa sau khi kiểm |
+| Input | Schemathesis sinh: `--mode negative`, `--phases coverage,fuzzing`, `--max-examples 50`, `--generation-deterministic`, `--workers 1`, `--rate-limit auto`; hook chặn `DELETE`/`PATCH` hàng loạt vào dữ liệu có sẵn |
+| Lệnh | `python scripts/run_k05.py SC2 --object <obj> --reset` (lặp cho 5 object); kiểm tái lập: `python scripts/summarize.py --compare <lần 1> <lần 2>` |
+| Kỳ vọng / bất biến | I1 (không 5xx), I2 (mã trạng thái có khai báo), I3 (body đúng schema), I4 (dữ liệu sai bị 4xx) |
+| Đầu ra | Mỗi object một thư mục `reports/SC2/<thời điểm>-seed20261020-<obj>/`: `summary.md`, `REPRODUCERS.md`, báo cáo JSON/JUnit/HTML |
+
+Các loại dữ liệu sai Schemathesis sinh:
 
 | Loại dữ liệu sai | Ví dụ | Kỳ vọng |
 |---|---|---|
@@ -87,6 +91,57 @@ Do nhóm tự đặt trong `SPEC.md` (thầy không quy định con số): mỗi
 | Body sai cấu trúc | Object thay vì mảng ở `/batch/...`, JSON hỏng | 400 |
 
 Lưu ý: máy chủ đổi mọi lỗi nội bộ thành 400, nên với 400 khả nghi phải đọc `messages` trong body (ví dụ batch sai kiểu lộ `TypeError`).
+
+Ca tay P2 (kiểm chứng các nhóm lỗi Schemathesis báo, làm trên Companies; dùng bản ghi tạo riêng). **MATCH** = đúng kỳ vọng, **DIFF** = lệch kỳ vọng (ứng viên lỗi).
+
+| Ca | Request | Kỳ vọng (theo schema) | Thực tế 26/11 | Kết luận |
+|---|---|---|---|---|
+| P2-01 | `DELETE /companies/{id}?soft_delete=true`, rồi `PATCH /companies/{id}/restore` | 200; khôi phục được | 200; restore 200 | MATCH |
+| P2-02 | `DELETE /companies/{id}?soft_delete=abc` | 400 (`soft_delete` là `boolean`) | 200, xóa vĩnh viễn (restore 404) | DIFF |
+| P2-03 | `DELETE /companies/{id}?soft_delete=1` (hoặc `TRUE`) | 400 | 200, xóa vĩnh viễn | DIFF |
+| P2-04 | `POST /batch/companies?upsert=-1` với id mới | 400 (`upsert` là `boolean`) | 201, tạo bình thường | DIFF |
+| P2-05 | `POST /batch/companies?upsert=abc` với id đã có | 400 (sai tham số) | 400 "duplicate entry" (bị coi như `false`) | DIFF |
+| P2-06 | `GET /companies?limit=201` (DB có 236 bản ghi) | 400 (`maximum: 200`) | 200, trả 200 bản ghi | DIFF |
+| P2-07 | `GET /companies?limit=1.5` | 400, thông điệp về `limit` | 400 `invalid input syntax for type bigint: "2.5"` | DIFF (lộ lỗi DB) |
+| P2-08 | `POST /batch/companies` body `[{"name": 123}]` | 400 | 400 `Invalid string value 123 for text field "name"` | MATCH |
+| P2-09 | `GET /companies?limit=1&depth=0`, so body với `CompanyForResponse` | Không có `null` ở trường không khai `null` | `deletedAt`, `accountOwnerId`, `addressLat`… = `null` | DIFF |
+| P2-10 | `GET /companies/groupBy?group_by=[{"updatedAt":true}]` | 200, body `{"data":{"companiesGroupBy":[…]}}` | 200, body là mảng trần `[…]` | DIFF |
+| P2-11 | `GET /companies/groupBy` (thiếu `group_by`) | Mã có khai báo (schema chỉ có 200) | 400 (thông điệp rõ ràng) | DIFF |
+| P2-12 | `GET /companies/<UUID không tồn tại>` | Mã có khai báo (200, 400, 401) | 404 `Record not found` | DIFF |
+| P2-13 | `GET /companies/abc` | 400 | 400 `'abc' is not a valid UUID` | MATCH |
+
+**Kết quả chạy thử 26/11/2026** (harness `run_k05.py` lấy từ nhánh `backup/quang-harness-hooks`, chưa review):
+
+| Object | Operation | Test case | 5xx | Nhóm lỗi | Tái lập (lần 2) |
+|---|---|---|---|---|---|
+| Companies | 13/13 | 1801 | 0 | 22 | 100% |
+| People | 13/13 | 1862 | 0 | 23 | 100% |
+| Opportunities | 13/13 | 1338 | 0 | 19 | 100% |
+| Notes | 13/13 | 1195 | 0 | 26 | 100% |
+| Tasks | 13/13 | 1282 | 0 | 26 | 100% |
+
+Ngoại lệ ngưỡng 50 ca: `DELETE /{obj}/{id}` chỉ có 14–21 ca ở cả 5 object. Operation này chỉ có 2 đầu vào (`id` trên đường dẫn, `soft_delete` trên query), nên số cách làm sai **khác nhau** bị cạn sớm; Schemathesis bỏ ca trùng nên dừng ở khoảng 17 ca dù cho phép nhiều hơn. Đã kiểm chứng ngày 26/11/2026 trên `DELETE /companies/{id}` (chạy riêng bằng `--include-name 'DELETE /companies/{id}'`, cùng cấu hình SC2):
+
+| Cấu hình | Test case |
+|---|---|
+| `--max-examples 50` | 17 |
+| `--max-examples 150` | 17 |
+| `--max-examples 500` | 17 |
+| `--max-examples 50`, bỏ `--generation-deterministic` (2 lần) | 17, 18 |
+
+Kết luận: đây là giới hạn của không gian input, không phải của cấu hình. Nhóm ghi nhận operation này là ngoại lệ của tiêu chí "≥ 50 ca mỗi operation"; 12/13 operation còn lại của mỗi object đều đạt.
+
+Các nhóm lỗi gom lại thành 6 vấn đề, giống nhau ở cả 5 object:
+
+| Vấn đề | Ca P2 | Loại | Mức | Trùng lỗi đã có |
+|---|---|---|---|---|
+| Tham số `boolean` (`soft_delete`, `upsert`) nhận mọi giá trị, chỉ `true` mới bật | P2-02 → P2-05 | Lỗi chức năng | Cao | Mới |
+| `limit` > 200 bị cắt về 200 | P2-06 | Lệch schema | Thấp | D-01 (G-04) |
+| `limit` thập phân lộ lỗi PostgreSQL | P2-07 | Lỗi chức năng | Trung bình | Mới |
+| Schema không khai `nullable` ở bất kỳ trường nào | P2-09 | Lệch schema | Trung bình | Mới |
+| `groupBy`: body sai cấu trúc, số tổng hợp là chuỗi, thiếu mã 400 | P2-10, P2-11 | Lệch schema | Trung bình | Mới |
+| Thiếu mã 404 ở operation theo id | P2-12 | Lệch schema | Thấp | G-07 |
+| Thiếu key trả 403, schema chỉ khai 401 | (thuộc SC5) | Lệch schema | | D-02 |
 
 ## SC3. Phân trang, lọc, sắp xếp
 

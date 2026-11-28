@@ -51,7 +51,7 @@ Twenty chạy local ở tag đã ghim, workspace test riêng, reset được; m�
 
 **Cuối kỳ** (ngưỡng nhóm tự đặt trong `docs/SPEC.md`, thầy không quy định), một kịch bản coi là đạt khi:
 
-- Mỗi object phủ ≥ 11/13 operation (≥ 80%); mỗi operation ≥ 50 test case.
+- Mỗi object phủ ≥ 11/13 operation (≥ 80%); mỗi operation ≥ 50 test case. Ngoại lệ: operation có quá ít đầu vào để sinh đủ 50 ca *khác nhau* (đã thấy ở `DELETE /{obj}/{id}`: khoảng 17 ca dù `--max-examples` lên 500) được chấp nhận nếu có bằng chứng đã thử tăng `--max-examples` (xem `Phan_Cong_module/KICH_BAN_K05.md`, mục SC2).
 - Có seed cố định; chạy hai lần cùng cấu hình cho cùng tập lỗi.
 - Mỗi lỗi có reproducer (`curl` hoặc ca Schemathesis), được phân loại "lệch schema" hoặc "lỗi chức năng", có RCA và ghi vào bảng lỗi chung (mã `D-xx`, mã `G-xx` cũ ở cột "mã cũ").
 - Nếu không tìm thấy lỗi thì nộp bằng chứng coverage.
